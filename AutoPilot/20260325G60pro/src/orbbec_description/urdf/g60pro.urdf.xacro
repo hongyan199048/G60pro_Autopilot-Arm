@@ -1,0 +1,613 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="g60pro">
+  <!-- G60 Pro: 4轮8驱（每轮独立驱动+转向）+ 多线激光雷达 + 2单线 + 4路单目3D结构光RGBD(朝外略下倾) -->
+  <!-- REP-105: x 前, y 左, z 上；地面 z=0 -->
+  <!-- ros2_control 控制器配置路径，由 launch 传入 -->
+  <xacro:property name="controllers_file" value=""/>
+
+  <!-- ==================== 激光雷达类型选择 ==================== -->
+  <!-- 支持: robosense_16 (速腾16线) / livox_mid360 (Livox Mid360) -->
+  <!-- 通过 launch 文件传入: xacro:g60pro lidar_type:="livox_mid360" -->
+  <xacro:arg name="lidar_type" default="robosense_16"/>
+  <xacro:property name="_lidar_type" value="$(arg lidar_type)"/>
+
+  <xacro:property name="chassis_x" value="1.5"/>
+  <xacro:property name="chassis_y" value="1.0"/>
+  <xacro:property name="chassis_z" value="1.0"/>
+  <xacro:property name="ground_clearance" value="0.30"/>
+  <!-- 车体中心离地高度 = 离地间隙 + 半高 -->
+  <xacro:property name="base_link_z" value="${ground_clearance + chassis_z / 2}"/>
+  <!-- 轮子：轮心离地 = wheel_radius（轮底贴地），在车身与地面之间；与 chassis_z 无关，仅用 ground_clearance -->
+  <xacro:property name="wheel_radius" value="0.15"/>
+  <xacro:property name="wheel_z" value="${wheel_radius - base_link_z}"/>
+  <xacro:property name="steer_offset_up" value="0.15"/>
+  <xacro:property name="steer_z" value="${wheel_z + steer_offset_up}"/>
+  <xacro:property name="camera_height_from_ground" value="1.2"/>
+  <!-- 相机相对 base_link 的 z -->
+  <xacro:property name="camera_z" value="${camera_height_from_ground - base_link_z}"/>
+  <!-- 单线雷达离地高度（相对 base_footprint），相对 base_link 的 z -->
+  <xacro:property name="single_lidar_height_from_ground" value="0.40"/>
+  <xacro:property name="single_lidar_z" value="${single_lidar_height_from_ground - base_link_z}"/>
+  <!-- 单线雷达在车身外：前后超出 single_lidar_outset_x，左右超出 single_lidar_outset_y -->
+  <xacro:property name="single_lidar_outset_x" value="0.03"/>
+  <xacro:property name="single_lidar_outset_y" value="0.02"/>
+  <xacro:property name="single_lidar_front_x" value="${chassis_x/2 + single_lidar_outset_x}"/>
+  <!-- 后侧 x = -(chassis_x/2 + outset_x)，保证在车尾之外 -->
+  <xacro:property name="single_lidar_rear_x" value="${single_lidar_outset_x - chassis_x/2 - 2*single_lidar_outset_x}"/>
+  <xacro:property name="single_lidar_left_y" value="${chassis_y/2 + single_lidar_outset_y}"/>
+  <!-- 右侧 y = -(chassis_y/2 + outset_y)，当前 0.5+0.02=0.52 → -0.52 -->
+  <xacro:property name="single_lidar_right_y" value="-0.52"/>
+  <!-- ==================== 激光雷达宏定义 ==================== -->
+  <!-- 速腾16线激光雷达宏 -->
+  <xacro:macro name="robosense_16_lidar" params="name parent xyz rpy">
+    <link name="${name}_link">
+      <visual>
+        <geometry><cylinder radius="0.04" length="0.06"/></geometry>
+        <material name="dark"><color rgba="0.2 0.2 0.2 1"/></material>
+      </visual>
+      <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+    </link>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+    <gazebo reference="${name}_link">
+      <sensor type="gpu_ray" name="${name}_sensor">
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>720</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.14159</min_angle>
+              <max_angle>3.14159</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>16</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.261799</min_angle>
+              <max_angle>0.261799</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>150.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_${name}" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <namespace>/lidar</namespace>
+            <remapping>~/out:=rs16/points</remapping>
+          </ros>
+          <output_type>sensor_msgs/PointCloud2</output_type>
+          <frame_name>${name}_link</frame_name>
+        </plugin>
+      </sensor>
+    </gazebo>
+    <gazebo reference="${name}_link"><material>Gazebo/DarkGrey</material></gazebo>
+  </xacro:macro>
+
+  <!-- Livox Mid360激光雷达宏 -->
+  <xacro:macro name="livox_mid360_lidar" params="name parent xyz rpy">
+    <link name="${name}_link">
+      <visual>
+        <geometry><cylinder radius="0.035" length="0.055"/></geometry>
+        <material name="dark"><color rgba="0.15 0.15 0.15 1"/></material>
+      </visual>
+      <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+    </link>
+    <joint name="${name}_joint" type="fixed">
+      <parent link="${parent}"/>
+      <child link="${name}_link"/>
+      <origin xyz="${xyz}" rpy="${rpy}"/>
+    </joint>
+    <gazebo reference="${name}_link">
+      <sensor type="gpu_ray" name="${name}_sensor">
+        <update_rate>10</update_rate>
+        <visualize>false</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>720</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.14159</min_angle>
+              <max_angle>3.14159</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>32</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.785398</min_angle>
+              <max_angle>0.785398</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.10</min>
+            <max>100.0</max>
+            <resolution>0.01</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0.0</mean>
+            <stddev>0.005</stddev>
+          </noise>
+        </ray>
+        <plugin name="gazebo_ros_${name}" filename="libgazebo_ros_ray_sensor.so">
+          <ros>
+            <namespace>/lidar</namespace>
+            <remapping>~/out:=rs16/points</remapping>
+          </ros>
+          <output_type>sensor_msgs/PointCloud2</output_type>
+          <frame_name>${name}_link</frame_name>
+        </plugin>
+      </sensor>
+    </gazebo>
+    <gazebo reference="${name}_link"><material>Gazebo/DarkGrey</material></gazebo>
+  </xacro:macro>
+
+  <!-- ==================== 通用参数 ==================== -->
+  <!-- 多线雷达安装参数（两种雷达通用） -->
+  <xacro:property name="multi_lidar_height_from_ground" value="1.4"/>
+  <xacro:property name="multi_lidar_z" value="${multi_lidar_height_from_ground - base_link_z}"/>
+  <xacro:property name="multi_lidar_offset_x" value="0.70"/>
+
+  <!-- base_footprint: 地面投影点，z=0 -->
+  <link name="base_footprint"/>
+
+  <!-- base_link: 车体中心，整体上移使底盘底面离地 ground_clearance -->
+  <link name="base_link">
+    <visual>
+      <geometry><box size="${chassis_x} ${chassis_y} ${chassis_z}"/></geometry>
+      <material name="grey"><color rgba="0.4 0.4 0.4 1"/></material>
+    </visual>
+    <collision>
+      <geometry><box size="${chassis_x} ${chassis_y} ${chassis_z}"/></geometry>
+    </collision>
+    <inertial>
+      <mass value="80"/>
+      <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1"/>
+    </inertial>
+  </link>
+  <joint name="base_footprint_joint" type="fixed">
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 ${base_link_z}" rpy="0 0 0"/>
+  </joint>
+
+  <!-- ==================== 多线激光雷达（条件编译） ==================== -->
+  <!-- 根据 lidar_type 参数选择对应的激光雷达模型 -->
+  <xacro:if value="${_lidar_type == 'robosense_16'}">
+    <xacro:robosense_16_lidar name="rs16" parent="base_link" xyz="${multi_lidar_offset_x} 0 ${multi_lidar_z}" rpy="0 0 0"/>
+  </xacro:if>
+  <xacro:if value="${_lidar_type == 'livox_mid360'}">
+    <xacro:livox_mid360_lidar name="livox" parent="base_link" xyz="${multi_lidar_offset_x} 0 ${multi_lidar_z}" rpy="0 0 0"/>
+  </xacro:if>
+  <xacro:unless value="${_lidar_type == 'robosense_16' or _lidar_type == 'livox_mid360'}">
+    <!-- 默认使用速腾16线 -->
+    <xacro:robosense_16_lidar name="rs16" parent="base_link" xyz="${multi_lidar_offset_x} 0 ${multi_lidar_z}" rpy="0 0 0"/>
+  </xacro:unless>
+
+  <!-- 单线 1: 右前，车身外；倒装(roll 180°) + 270° 扇区朝右前(yaw -45°) -->
+  <link name="single_lidar_1_link">
+    <visual>
+      <geometry><box size="0.03 0.03 0.02"/></geometry>
+      <material name="red"><color rgba="0.8 0.2 0.2 1"/></material>
+    </visual>
+    <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+  </link>
+  <joint name="single_lidar_1_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="single_lidar_1_link"/>
+    <origin xyz="${single_lidar_front_x} ${single_lidar_right_y} ${single_lidar_z}" rpy="3.14159 0 -0.785398"/>
+  </joint>
+  <!-- 单线 1 仿真：ray 传感器发布 LaserScan，话题 /lidar/single_1/scan，与 hardware_spec 一致 -->
+  <gazebo reference="single_lidar_1_link">
+    <sensor type="ray" name="single_lidar_1_sensor">
+      <visualize>true</visualize>
+      <pose>0 0 0 0 0 0</pose>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-2.35619</min_angle>
+            <max_angle>2.35619</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <update_rate>10</update_rate>
+      <plugin name="gazebo_ros_single_lidar_1" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/lidar/single_1</namespace>
+          <remapping>~/out:=scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>single_lidar_1_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- 单线 2: 左后，车身外；倒装(roll 180°) + 270° 扇区朝左后(yaw 135°) -->
+  <link name="single_lidar_2_link">
+    <visual>
+      <geometry><box size="0.03 0.03 0.02"/></geometry>
+      <material name="red"><color rgba="0.8 0.2 0.2 1"/></material>
+    </visual>
+    <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+  </link>
+  <joint name="single_lidar_2_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="single_lidar_2_link"/>
+    <origin xyz="${single_lidar_rear_x} ${single_lidar_left_y} ${single_lidar_z}" rpy="3.14159 0 2.35619"/>
+  </joint>
+  <!-- 单线 2 仿真：ray 传感器发布 LaserScan，话题 /lidar/single_2/scan，与 hardware_spec 一致 -->
+  <gazebo reference="single_lidar_2_link">
+    <sensor type="ray" name="single_lidar_2_sensor">
+      <visualize>true</visualize>
+      <pose>0 0 0 0 0 0</pose>
+      <ray>
+        <scan>
+          <horizontal>
+            <samples>360</samples>
+            <resolution>1</resolution>
+            <min_angle>-2.35619</min_angle>
+            <max_angle>2.35619</max_angle>
+          </horizontal>
+        </scan>
+        <range>
+          <min>0.10</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+        </range>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.01</stddev>
+        </noise>
+      </ray>
+      <update_rate>10</update_rate>
+      <plugin name="gazebo_ros_single_lidar_2" filename="libgazebo_ros_ray_sensor.so">
+        <ros>
+          <namespace>/lidar/single_2</namespace>
+          <remapping>~/out:=scan</remapping>
+        </ros>
+        <output_type>sensor_msgs/LaserScan</output_type>
+        <frame_name>single_lidar_2_link</frame_name>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- 4 路单目 3D 结构光 RGBD（DaBai DCW2-DW2）：前/后/左/右各一，朝车身外、略朝下（pitch ≈ -15°）；RGB 与深度共用 optical_frame -->
+  <!-- 前：+x 方向朝外、略下倾 -->
+  <link name="camera_front_link">
+    <visual>
+      <geometry><box size="0.02 0.08 0.03"/></geometry>
+      <material name="blue"><color rgba="0.2 0.2 0.8 1"/></material>
+    </visual>
+    <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+  </link>
+  <joint name="camera_front_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_front_link"/>
+    <origin xyz="${chassis_x/2 + 0.02} 0 ${camera_z}" rpy="0 0.26 0"/>
+  </joint>
+  <link name="camera_front_optical_frame"/>
+  <joint name="camera_front_optical_joint" type="fixed">
+    <parent link="camera_front_link"/>
+    <child link="camera_front_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+  </joint>
+  <!-- 前向 RGBD 仿真：depth 传感器 + libgazebo_ros_camera.so，话题与 config/hal/cameras.yaml 一致；视锥红色以区分单线雷达 -->
+  <gazebo reference="camera_front_link">
+    <sensor type="depth" name="camera_front_sensor">
+      <update_rate>10</update_rate>
+      <visualize>true</visualize>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>320</width>
+          <height>240</height>
+          <format>R8G8B8</format>
+        </image>
+        <depth_camera>
+        </depth_camera>
+        <clip>
+          <near>0.2</near>
+          <far>5.0</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_front_plugin" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>/camera</namespace>
+        </ros>
+        <camera_name>front</camera_name>
+        <frame_name>camera_front_optical_frame</frame_name>
+        <min_depth>0.2</min_depth>
+        <max_depth>5.0</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- 后：-x 方向朝外、略下倾 -->
+  <link name="camera_rear_link">
+    <visual>
+      <geometry><box size="0.02 0.08 0.03"/></geometry>
+      <material name="blue"><color rgba="0.2 0.2 0.8 1"/></material>
+    </visual>
+    <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+  </link>
+  <joint name="camera_rear_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_rear_link"/>
+    <origin xyz="-0.77 0 ${camera_z}" rpy="0 0.26 3.14159"/>
+  </joint>
+  <link name="camera_rear_optical_frame"/>
+  <joint name="camera_rear_optical_joint" type="fixed">
+    <parent link="camera_rear_link"/>
+    <child link="camera_rear_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+  </joint>
+  <!-- 后向 RGBD：视锥红色，与单线雷达区分 -->
+  <gazebo reference="camera_rear_link">
+    <sensor type="depth" name="camera_rear_sensor">
+      <update_rate>10</update_rate>
+      <visualize>true</visualize>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image><width>320</width><height>240</height><format>R8G8B8</format></image>
+        <depth_camera></depth_camera>
+        <clip><near>0.2</near><far>5.0</far></clip>
+        <noise><type>gaussian</type><mean>0.0</mean><stddev>0.007</stddev></noise>
+      </camera>
+      <plugin name="camera_rear_plugin" filename="libgazebo_ros_camera.so">
+        <ros><namespace>/camera</namespace></ros>
+        <camera_name>rear</camera_name>
+        <frame_name>camera_rear_optical_frame</frame_name>
+        <min_depth>0.2</min_depth>
+        <max_depth>5.0</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- 左：+y 方向朝外、略下倾；box 薄边(0.02)沿 y 贴车身，8×3 在侧面平面 -->
+  <link name="camera_left_link">
+    <visual>
+      <geometry><box size="0.02 0.08 0.03"/></geometry>
+      <material name="blue"><color rgba="0.2 0.2 0.8 1"/></material>
+    </visual>
+    <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+  </link>
+  <joint name="camera_left_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_left_link"/>
+    <origin xyz="0 ${chassis_y/2 + 0.02} ${camera_z}" rpy="0 0.26 1.5708"/>
+  </joint>
+  <link name="camera_left_optical_frame"/>
+  <joint name="camera_left_optical_joint" type="fixed">
+    <parent link="camera_left_link"/>
+    <child link="camera_left_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+  </joint>
+  <!-- 左侧 RGBD：视锥红色，与单线雷达区分 -->
+  <gazebo reference="camera_left_link">
+    <sensor type="depth" name="camera_left_sensor">
+      <update_rate>10</update_rate>
+      <visualize>true</visualize>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image><width>320</width><height>240</height><format>R8G8B8</format></image>
+        <depth_camera></depth_camera>
+        <clip><near>0.2</near><far>5.0</far></clip>
+        <noise><type>gaussian</type><mean>0.0</mean><stddev>0.007</stddev></noise>
+      </camera>
+      <plugin name="camera_left_plugin" filename="libgazebo_ros_camera.so">
+        <ros><namespace>/camera</namespace></ros>
+        <camera_name>left</camera_name>
+        <frame_name>camera_left_optical_frame</frame_name>
+        <min_depth>0.2</min_depth>
+        <max_depth>5.0</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- 右：-y 方向朝外、略下倾；box 薄边(0.02)沿 y 贴车身，8×3 在侧面平面 -->
+  <link name="camera_right_link">
+    <visual>
+      <geometry><box size="0.02 0.08 0.03"/></geometry>
+      <material name="blue"><color rgba="0.2 0.2 0.8 1"/></material>
+    </visual>
+    <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+  </link>
+  <joint name="camera_right_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_right_link"/>
+    <origin xyz="0 -0.52 ${camera_z}" rpy="0 0.26 -1.5708"/>
+  </joint>
+  <link name="camera_right_optical_frame"/>
+  <joint name="camera_right_optical_joint" type="fixed">
+    <parent link="camera_right_link"/>
+    <child link="camera_right_optical_frame"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 -1.5708"/>
+  </joint>
+  <!-- 右侧 RGBD：视锥红色，与单线雷达区分 -->
+  <gazebo reference="camera_right_link">
+    <sensor type="depth" name="camera_right_sensor">
+      <update_rate>10</update_rate>
+      <visualize>true</visualize>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image><width>320</width><height>240</height><format>R8G8B8</format></image>
+        <depth_camera></depth_camera>
+        <clip><near>0.2</near><far>5.0</far></clip>
+        <noise><type>gaussian</type><mean>0.0</mean><stddev>0.007</stddev></noise>
+      </camera>
+      <plugin name="camera_right_plugin" filename="libgazebo_ros_camera.so">
+        <ros><namespace>/camera</namespace></ros>
+        <camera_name>right</camera_name>
+        <frame_name>camera_right_optical_frame</frame_name>
+        <min_depth>0.2</min_depth>
+        <max_depth>5.0</max_depth>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- IMU（车体中心偏上） -->
+  <link name="imu_link">
+    <visual>
+      <geometry><box size="0.01 0.01 0.01"/></geometry>
+      <material name="green"><color rgba="0.2 0.8 0.2 1"/></material>
+    </visual>
+    <inertial><mass value="0.001"/><inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/></inertial>
+  </link>
+  <joint name="imu_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0.2" rpy="0 0 0"/>
+  </joint>
+  <!-- 仿真 IMU：发布 /livox/imu，供 Fast-LIO2 建图/定位 -->
+  <gazebo reference="imu_link">
+    <sensor type="imu" name="imu_sensor">
+      <always_on>true</always_on>
+      <update_rate>200</update_rate>
+      <imu>
+        <angular_velocity>
+          <x><noise type="gaussian"><mean>0.0</mean><stddev>1e-4</stddev></noise></x>
+          <y><noise type="gaussian"><mean>0.0</mean><stddev>1e-4</stddev></noise></y>
+          <z><noise type="gaussian"><mean>0.0</mean><stddev>1e-4</stddev></noise></z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x><noise type="gaussian"><mean>0.0</mean><stddev>1e-3</stddev></noise></x>
+          <y><noise type="gaussian"><mean>0.0</mean><stddev>1e-3</stddev></noise></y>
+          <z><noise type="gaussian"><mean>0.0</mean><stddev>1e-3</stddev></noise></z>
+        </linear_acceleration>
+      </imu>
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <namespace>/</namespace>
+          <remapping>~/out:=/livox/imu</remapping>
+        </ros>
+        <frame_name>imu_link</frame_name>
+      </plugin>
+    </sensor>
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+  <!-- 4 轮 8 驱：每轮 转向(steer) + 驱动(drive 绕轮心轴滚动)；轮径 30cm，位于地面与车身之间 -->
+  <xacro:property name="wheel_width" value="0.05"/>
+  <!-- 转向关节限位：±90°（1.5708 rad）；左右轮转角约定相反，右侧用 axis 0 0 -1 -->
+  <xacro:property name="steer_limit_rad" value="1.5708"/>
+  <!-- steer 关节相对车身四角往内收：前后 10cm，左右 5cm（z 不变） -->
+  <xacro:property name="wheel_inset_x" value="0.10"/>
+  <xacro:property name="wheel_inset_y" value="0.05"/>
+  <xacro:property name="wheel_x_front" value="${chassis_x/2 - wheel_inset_x}"/>
+  <xacro:property name="wheel_x_rear" value="${wheel_inset_x - chassis_x/2}"/>
+  <xacro:property name="wheel_y_left" value="${chassis_y/2 - wheel_inset_y}"/>
+  <xacro:property name="wheel_y_right" value="${wheel_inset_y - chassis_y/2}"/>
+
+  <!-- 右侧轮：电机轴朝车身内侧(+y)，需在 drive origin 上多绕 x 转 180° -->
+  <xacro:property name="drive_rpy_left" value="1.5708 0 0"/>
+  <xacro:property name="drive_rpy_right" value="4.71239 0 0"/>
+
+  <!-- steer_axis: 左侧 0 0 1，右侧 0 0 -1，使左右转角约定相反（同向转弯时左右轮物理方向相反） -->
+  <xacro:macro name="steerable_wheel" params="name wx wy drive_origin_rpy steer_axis">
+    <!-- 转向连杆（竖轴），关节在轮心上方 15cm；Gazebo 需 collision + inertial -->
+    <link name="${name}_steer_link">
+      <visual>
+        <geometry><cylinder radius="0.025" length="0.08"/></geometry>
+        <material name="darkgrey"><color rgba="0.3 0.3 0.3 1"/></material>
+      </visual>
+      <collision>
+        <geometry><cylinder radius="0.025" length="0.08"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="0.5"/>
+        <inertia ixx="0.00035" ixy="0" ixz="0" iyy="0.00035" iyz="0" izz="0.00016"/>
+      </inertial>
+    </link>
+    <joint name="${name}_steer_joint" type="revolute">
+      <parent link="base_link"/>
+      <child link="${name}_steer_link"/>
+      <origin xyz="${wx} ${wy} ${steer_z}" rpy="0 0 0"/>
+      <axis xyz="${steer_axis}"/>
+      <limit lower="${-steer_limit_rad}" upper="${steer_limit_rad}" effort="254" velocity="1.0"/>
+    </joint>
+    <!-- 驱动轮：在 steer_link 下放 15cm；Gazebo 需 collision + inertial 以着地 -->
+    <link name="${name}">
+      <visual>
+        <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
+        <material name="black"><color rgba="0.1 0.1 0.1 1"/></material>
+      </visual>
+      <collision>
+        <geometry><cylinder radius="${wheel_radius}" length="${wheel_width}"/></geometry>
+      </collision>
+      <inertial>
+        <mass value="1.0"/>
+        <inertia ixx="0.00584" ixy="0" ixz="0" iyy="0.00584" iyz="0" izz="0.01125"/>
+      </inertial>
+    </link>
+    <joint name="${name}_drive_joint" type="continuous">
+      <parent link="${name}_steer_link"/>
+      <child link="${name}"/>
+      <origin xyz="0 0 ${-steer_offset_up}" rpy="${drive_origin_rpy}"/>
+      <axis xyz="0 0 1"/>
+    </joint>
+    <gazebo reference="${name}_steer_link"><material>Gazebo/DarkGrey</material></gazebo>
+    <gazebo reference="${name}"><material>Gazebo/Black</material></gazebo>
+    <!-- 降低轮地摩擦，使 planar_move 速度模式下实际转弯半径接近 vx/wz，与轮子转角一致 -->
+    <gazebo reference="${name}">
+      <surface><friction><ode><mu>0.35</mu><mu2>0.35</mu2></ode></friction></surface>
+    </gazebo>
+  </xacro:macro>
+  <xacro:steerable_wheel name="wheel_fl" wx="${wheel_x_front}" wy="${wheel_y_left}" drive_origin_rpy="${drive_rpy_left}" steer_axis="0 0 1"/>
+  <xacro:steerable_wheel name="wheel_fr" wx="${wheel_x_front}" wy="${wheel_y_right}" drive_origin_rpy="${drive_rpy_right}" steer_axis="0 0 -1"/>
+  <xacro:steerable_wheel name="wheel_rl" wx="${wheel_x_rear}" wy="${wheel_y_left}" drive_origin_rpy="${drive_rpy_left}" steer_axis="0 0 1"/>
+  <xacro:steerable_wheel name="wheel_rr" wx="${wheel_x_rear}" wy="${wheel_y_right}" drive_origin_rpy="${drive_rpy_right}" steer_axis="0 0 -1"/>
+
+  <!-- Gazebo：planar_move 插件，订阅 /cmd_vel 直接驱动 base_link 平面运动（无 ros2_control） -->
+  <gazebo>
+    <plugin name="gazebo_ros_planar_move" filename="libgazebo_ros_planar_move.so">
+      <ros>
+        <remapping>cmd_vel:=cmd_vel</remapping>
+        <remapping>odom:=odom</remapping>
+      </ros>
+      <update_rate>100</update_rate>
+      <publish_rate>50</publish_rate>
+      <publish_odom>true</publish_odom>
+      <publish_tf>true</publish_tf>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_footprint</robot_base_frame>
+    </plugin>
+  </gazebo>
+
+  <!-- Gazebo：材质与颜色，便于仿真中区分 -->
+  <gazebo reference="base_link"><material>Gazebo/Grey</material></gazebo>
+  <!-- 多线雷达材质在宏内部设置 -->
+  <gazebo reference="single_lidar_1_link"><material>Gazebo/Red</material></gazebo>
+  <gazebo reference="single_lidar_2_link"><material>Gazebo/Red</material></gazebo>
+  <gazebo reference="camera_front_link"><material>Gazebo/Blue</material></gazebo>
+  <gazebo reference="camera_rear_link"><material>Gazebo/Blue</material></gazebo>
+  <gazebo reference="camera_left_link"><material>Gazebo/Blue</material></gazebo>
+  <gazebo reference="camera_right_link"><material>Gazebo/Blue</material></gazebo>
+</robot>

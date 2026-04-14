@@ -1,0 +1,27 @@
+running egg_info
+writing ../ros2_ws/build/arm_vision/arm_vision.egg-info/PKG-INFO
+writing dependency_links to ../ros2_ws/build/arm_vision/arm_vision.egg-info/dependency_links.txt
+writing entry points to ../ros2_ws/build/arm_vision/arm_vision.egg-info/entry_points.txt
+writing requirements to ../ros2_ws/build/arm_vision/arm_vision.egg-info/requires.txt
+writing top-level names to ../ros2_ws/build/arm_vision/arm_vision.egg-info/top_level.txt
+reading manifest file '../ros2_ws/build/arm_vision/arm_vision.egg-info/SOURCES.txt'
+writing manifest file '../ros2_ws/build/arm_vision/arm_vision.egg-info/SOURCES.txt'
+running build
+running build_py
+copying arm_vision/vision_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build/lib/arm_vision
+copying arm_vision/icp_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build/lib/arm_vision
+running install
+running install_lib
+copying /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build/lib/arm_vision/vision_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision
+copying /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build/lib/arm_vision/icp_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision
+byte-compiling /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision/vision_node.py to vision_node.cpython-310.pyc
+byte-compiling /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision/icp_node.py to icp_node.cpython-310.pyc
+running install_data
+copying launch/arm_vision.launch.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/share/arm_vision/launch
+running install_egg_info
+removing '/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision-1.0.0-py3.10.egg-info' (and everything under it)
+Copying ../ros2_ws/build/arm_vision/arm_vision.egg-info to /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision-1.0.0-py3.10.egg-info
+running install_scripts
+Installing icp_node script to /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/bin
+Installing vision_node script to /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/bin
+writing list of installed files to '/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/install.log'

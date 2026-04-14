@@ -1,0 +1,6 @@
+train: /home/admin123/Development/Flexiv/视觉_机械臂/datasets/DC charging port.v1i.yolov11/train/images
+val: /home/admin123/Development/Flexiv/视觉_机械臂/datasets/DC charging port.v1i.yolov11/valid/images
+test: /home/admin123/Development/Flexiv/视觉_机械臂/datasets/DC charging port.v1i.yolov11/test/images
+
+nc: 3
+names: ['DC_hole', 'PE', 'charging_port']

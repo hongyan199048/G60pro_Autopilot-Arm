@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YOLO11 自定义模型训练全流程教程</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: #f5f6fa;
+      color: #2d2d2d;
+      line-height: 1.7;
+    }
+    .hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .hero h1 { font-size: 2.2em; margin-bottom: 12px; letter-spacing: 1px; }
+    .hero p { font-size: 1.1em; opacity: 0.8; max-width: 700px; margin: 0 auto; }
+    .hero .subtitle { margin-top: 16px; font-size: 0.95em; opacity: 0.6; }
+
+    .toc {
+      background: white;
+      border-left: 4px solid #0f3460;
+      padding: 24px 32px;
+      margin: 32px auto;
+      max-width: 900px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .toc h2 { font-size: 1.1em; color: #0f3460; margin-bottom: 12px; }
+    .toc ol { padding-left: 20px; }
+    .toc li { margin: 6px 0; }
+    .toc a { color: #0f3460; text-decoration: none; }
+    .toc a:hover { text-decoration: underline; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 20px 60px; }
+
+    .step {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+      margin: 28px 0;
+      overflow: hidden;
+    }
+    .step-header {
+      display: flex;
+      align-items: center;
+      padding: 20px 28px;
+      background: #0f3460;
+      color: white;
+    }
+    .step-num {
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: bold; font-size: 1.1em;
+      margin-right: 16px; flex-shrink: 0;
+    }
+    .step-header h2 { font-size: 1.2em; }
+    .step-body { padding: 24px 28px; }
+
+    h3 { color: #0f3460; margin: 20px 0 10px; font-size: 1.05em; }
+    p { margin: 10px 0; }
+    ul, ol { padding-left: 22px; margin: 10px 0; }
+    li { margin: 6px 0; }
+
+    .code-block {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-family: "JetBrains Mono", "Fira Code", "Courier New", monospace;
+      font-size: 0.88em;
+      overflow-x: auto;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+    .code-block .comment { color: #6c7086; }
+    .code-block .keyword { color: #cba6f7; }
+    .code-block .string { color: #a6e3a1; }
+    .code-block .number { color: #fab387; }
+
+    .tip {
+      background: #e8f4fd;
+      border-left: 4px solid #3498db;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 14px 0;
+      font-size: 0.95em;
+    }
+    .tip strong { color: #2980b9; }
+
+    .warning {
+      background: #fff8e6;
+      border-left: 4px solid #f39c12;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 14px 0;
+      font-size: 0.95em;
+    }
+    .warning strong { color: #e67e22; }
+
+    .danger {
+      background: #fdecea;
+      border-left: 4px solid #e74c3c;
+      padding: 14px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 14px 0;
+      font-size: 0.95em;
+    }
+    .danger strong { color: #c0392b; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 14px 0;
+      font-size: 0.93em;
+    }
+    th {
+      background: #0f3460;
+      color: white;
+      padding: 10px 14px;
+      text-align: left;
+    }
+    td { padding: 9px 14px; border-bottom: 1px solid #eee; }
+    tr:hover td { background: #f8f9ff; }
+
+    .badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.82em;
+      font-weight: bold;
+    }
+    .badge-green { background: #d4edda; color: #155724; }
+    .badge-blue { background: #d1ecf1; color: #0c5460; }
+    .badge-orange { background: #fff3cd; color: #856404; }
+
+    .result-box {
+      background: #0f1117;
+      color: #39d353;
+      font-family: monospace;
+      padding: 16px 20px;
+      border-radius: 8px;
+      font-size: 0.87em;
+      margin: 12px 0;
+    }
+
+    .checklist li { list-style: none; padding-left: 4px; }
+    .checklist li::before { content: "☐  "; color: #0f3460; }
+
+    .flow {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .flow-item {
+      background: #0f3460;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.88em;
+      white-space: nowrap;
+    }
+    .flow-arrow { color: #0f3460; font-size: 1.3em; font-weight: bold; }
+
+    footer {
+      text-align: center;
+      padding: 32px;
+      color: #888;
+      font-size: 0.9em;
+      border-top: 1px solid #e0e0e0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>YOLO11 自定义目标检测模型训练全流程</h1>
+  <p>从数据标注到模型部署的完整教程——以国标直流充电口检测为例</p>
+  <div class="subtitle">适用环境：Ubuntu 22.04 · Python 3.10 · Conda · Ultralytics YOLO11 · Roboflow</div>
+</div>
+
+<div class="toc">
+  <h2>📋 目录</h2>
+  <ol>
+    <li><a href="#step1">环境准备</a></li>
+    <li><a href="#step2">Roboflow 项目创建与图片上传</a></li>
+    <li><a href="#step3">数据标注规范</a></li>
+    <li><a href="#step4">生成数据集 Version</a></li>
+    <li><a href="#step5">导出数据集到本地</a></li>
+    <li><a href="#step6">修正 data.yaml 路径</a></li>
+    <li><a href="#step7">本地训练模型</a></li>
+    <li><a href="#step8">解读训练结果</a></li>
+    <li><a href="#step9">替换模型并运行检测</a></li>
+    <li><a href="#step10">后续迭代：增加数据重新训练</a></li>
+  </ol>
+</div>
+
+<div class="container">
+
+  <!-- 整体流程 -->
+  <div class="step">
+    <div class="step-header">
+      <div class="step-num">→</div>
+      <h2>整体流程概览</h2>
+    </div>
+    <div class="step-body">
+      <div class="flow">
+        <div class="flow-item">📷 采集照片</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">🏷️ Roboflow 标注</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">📦 生成 Version</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">⬇️ 导出数据集</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">🏋️ 本地训练</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-item">🚀 部署推理</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="step" id="step1">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <h2>环境准备</h2>
+    </div>
+    <div class="step-body">
+      <h3>1.1 创建 Conda 虚拟环境</h3>
+      <div class="code-block">
+<span class="comment"># 创建 Python 3.10 环境</span>
+conda create -n yolo_env python=3.10 -y
+conda activate yolo_env
+      </div>
+
+      <h3>1.2 安装 Ultralytics</h3>
+      <div class="code-block">
+pip install ultralytics
+      </div>
+
+      <h3>1.3 验证安装</h3>
+      <div class="code-block">
+python -c <span class="string">"from ultralytics import YOLO; print('OK')"</span>
+      </div>
+
+      <h3>1.4 下载初始预训练权重</h3>
+      <p>首次运行时 ultralytics 会自动下载，也可手动下载放到项目目录：</p>
+      <div class="code-block">
+<span class="comment"># 在项目目录下运行，自动下载 yolo11n.pt</span>
+python -c <span class="string">"from ultralytics import YOLO; YOLO('yolo11n.pt')"</span>
+      </div>
+
+      <div class="tip">
+        <strong>💡 说明：</strong>yolo11n.pt 是 YOLO11 nano 版本，参数量最小、速度最快，适合实时检测场景。后续训练以此为基础进行迁移学习（fine-tune）。
+      </div>
+
+      <table>
+        <tr><th>模型</th><th>参数量</th><th>适用场景</th></tr>
+        <tr><td>yolo11n.pt</td><td>2.6M</td><td>实时检测，CPU 可用</td></tr>
+        <tr><td>yolo11s.pt</td><td>9.4M</td><td>精度与速度平衡</td></tr>
+        <tr><td>yolo11m.pt</td><td>20.1M</td><td>较高精度</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="step" id="step2">
+    <div class="step-header">
+      <div class="step-num">2</div>
+      <h2>Roboflow 项目创建与图片上传</h2>
+    </div>
+    <div class="step-body">
+      <h3>2.1 注册并创建项目</h3>
+      <ol>
+        <li>访问 <strong>app.roboflow.com</strong>，注册账号并登录</li>
+        <li>点击 <strong>New Project</strong></li>
+        <li>Project Type 选择 <strong>Object Detection</strong></li>
+        <li>填写项目名称，点击 <strong>Create Project</strong></li>
+      </ol>
+
+      <h3>2.2 上传图片</h3>
+      <ol>
+        <li>进入项目后，点击左侧 <strong>Upload Data</strong></li>
+        <li>拖拽图片文件夹或点击选择文件（支持 JPG/PNG）</li>
+        <li>等待上传完成，点击 <strong>Finish Uploading</strong></li>
+      </ol>
+
+      <h3>2.3 采集建议</h3>
+      <table>
+        <tr><th>变量</th><th>建议覆盖范围</th></tr>
+        <tr><td>拍摄距离</td><td>30cm / 50cm / 80cm / 100cm</td></tr>
+        <tr><td>拍摄角度</td><td>正对、左偏 15°/30°、右偏、上偏</td></tr>
+        <tr><td>光照条件</td><td>室内顶灯、室外自然光、侧光、暗光</td></tr>
+        <tr><td>最少数量</td><td>50 张以上（100 张以上效果更好）</td></tr>
+      </table>
+
+      <div class="tip">
+        <strong>💡 建议：</strong>手机照片和相机照片都可以用于训练。初期用手机快速积累数据，后期再补充实际部署相机（如 DaBai DCW2）拍摄的照片进行 fine-tune。
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="step" id="step3">
+    <div class="step-header">
+      <div class="step-num">3</div>
+      <h2>数据标注规范</h2>
+    </div>
+    <div class="step-body">
+      <h3>3.1 类别定义</h3>
+      <p>在 Roboflow 标注界面，使用以下类别（以充电口检测为例）：</p>
+      <table>
+        <tr><th>类别名</th><th>框住的目标</th><th>用途</th></tr>
+        <tr><td><code>charging_port</code></td><td>整个充电口（含外框）</td><td>YOLO 检测定位</td></tr>
+        <tr><td><code>DC_hole</code></td><td>DC+ 和 DC- 大孔（各一个框）</td><td>PnP 位姿估计关键点</td></tr>
+        <tr><td><code>PE</code></td><td>PE 接地孔</td><td>PnP 位姿估计关键点</td></tr>
+      </table>
+
+      <div class="warning">
+        <strong>⚠️ 注意：</strong>DC+ 和 DC- 外观完全相同，使用同一类别 <code>DC_hole</code> 标注两个框。代码中通过 x 坐标排序区分左右（x 较小的为 DC+）。
+      </div>
+
+      <h3>3.2 标注操作步骤</h3>
+      <ol>
+        <li>进入 <strong>Annotate</strong> 页面，选择一张图片</li>
+        <li>按 <strong>B</strong> 键进入画框模式</li>
+        <li>拖拽鼠标画矩形框，松开后在弹出框中选择类别</li>
+        <li>每张图标注 4 个框：1 个 <code>charging_port</code> + 2 个 <code>DC_hole</code> + 1 个 <code>PE</code></li>
+        <li>按 <strong>→</strong> 进入下一张</li>
+      </ol>
+
+      <h3>3.3 快捷键</h3>
+      <table>
+        <tr><th>快捷键</th><th>功能</th></tr>
+        <tr><td>B</td><td>Bounding Box 画框模式</td></tr>
+        <tr><td>→ / ←</td><td>下一张 / 上一张</td></tr>
+        <tr><td>Ctrl + Z</td><td>撤销</td></tr>
+        <tr><td>Esc</td><td>取消当前操作</td></tr>
+        <tr><td>Delete</td><td>删除选中的框</td></tr>
+      </table>
+
+      <h3>3.4 标注质量要求</h3>
+      <ul>
+        <li>框应贴合目标边缘，不要留太多空白</li>
+        <li><code>charging_port</code> 框住整个圆形充电口及其外环</li>
+        <li><code>DC_hole</code> 框住孔的外圆边缘</li>
+        <li>确保每张图的 4 个框都标完再翻页</li>
+      </ul>
+
+      <div class="tip">
+        <strong>💡 AI 辅助标注：</strong>积累约 20 张手动标注的图片后，可以先训练一版模型，再回到 Roboflow 使用 <strong>"Find Objects with AI"</strong> 按钮进行自动预标注，然后人工审核修正，效率可提升 3~5 倍。
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="step" id="step4">
+    <div class="step-header">
+      <div class="step-num">4</div>
+      <h2>生成数据集 Version</h2>
+    </div>
+    <div class="step-body">
+      <p>Version 是数据集的快照，包含分割比例、预处理和数据增强配置。每次训练前必须生成一个 Version。</p>
+
+      <h3>4.1 进入 Versions 页面</h3>
+      <p>点击左侧菜单 <strong>Versions</strong> → 右侧表单填写配置</p>
+
+      <h3>4.2 设置 Train/Test Split（步骤 2）</h3>
+      <p>点击 <strong>Train/Test Split</strong> 右侧的 <strong>Edit</strong>，设置比例：</p>
+      <table>
+        <tr><th>数据集大小</th><th>推荐比例</th></tr>
+        <tr><td>40~100 张</td><td>Train 80% / Valid 20% / Test 0%</td></tr>
+        <tr><td>100 张以上</td><td>Train 70% / Valid 20% / Test 10%</td></tr>
+      </table>
+
+      <h3>4.3 预处理配置（步骤 3）</h3>
+      <p>保留以下两项默认设置，无需修改：</p>
+      <ul>
+        <li><strong>Auto-Orient</strong>：自动校正手机照片的旋转方向</li>
+        <li><strong>Resize to 512×512</strong>：统一图片尺寸</li>
+      </ul>
+
+      <h3>4.4 数据增强配置（步骤 4）</h3>
+      <p>点击 <strong>Augmentation → Edit</strong>，开启以下增强项：</p>
+      <table>
+        <tr><th>增强项</th><th>推荐参数</th><th>作用</th></tr>
+        <tr><td>Flip</td><td>Horizontal（水平翻转）</td><td>模拟充电口镜像场景</td></tr>
+        <tr><td>Rotation</td><td>-15° ~ +15°</td><td>模拟相机轻微倾斜</td></tr>
+        <tr><td>Brightness</td><td>-25% ~ +25%</td><td>模拟不同光照条件</td></tr>
+      </table>
+
+      <div class="warning">
+        <strong>⚠️ 不要开启过多增强项</strong>，对于小数据集，过多增强反而会引入噪声导致训练不稳定。
+      </div>
+
+      <h3>4.5 创建 Version（步骤 5）</h3>
+      <ul>
+        <li><strong>Maximum Version Size</strong>：选 <code>3x</code>（训练集图片数 × 3 倍增强）</li>
+        <li>点击 <strong>Create</strong>，等待几秒生成完成</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="step" id="step5">
+    <div class="step-header">
+      <div class="step-num">5</div>
+      <h2>导出数据集到本地</h2>
+    </div>
+    <div class="step-body">
+      <h3>5.1 进入 Version 页面</h3>
+      <p>左侧菜单点击 <strong>Versions</strong>，选择刚生成的版本，点击右上角 <strong>Download Dataset</strong></p>
+
+      <h3>5.2 选择格式</h3>
+      <ul>
+        <li>Format 选择 <strong>YOLOv11</strong></li>
+        <li>Download Options 选择 <strong>Download zip to computer</strong></li>
+        <li>点击 <strong>Continue</strong>，浏览器自动下载 zip 文件</li>
+      </ul>
+
+      <h3>5.3 解压到指定目录</h3>
+      <div class="code-block">
+<span class="comment"># 将 zip 文件移动到项目的 datasets 目录</span>
+mkdir -p ~/项目目录/datasets
+mv ~/Downloads/你的项目名.zip ~/项目目录/datasets/
+
+<span class="comment"># 解压</span>
+cd ~/项目目录/datasets
+unzip *.zip
+      </div>
+
+      <p>解压后目录结构如下：</p>
+      <div class="code-block">
+datasets/
+└── DC charging port.v1i.yolov11/
+    ├── data.yaml          <span class="comment"># 数据集配置文件</span>
+    ├── train/
+    │   ├── images/        <span class="comment"># 训练图片</span>
+    │   └── labels/        <span class="comment"># 标注文件（.txt）</span>
+    ├── valid/
+    │   ├── images/
+    │   └── labels/
+    └── test/
+        ├── images/
+        └── labels/
+      </div>
+
+      <div class="danger">
+        <strong>⚠️ 注意：</strong>如果网络无法连接 Roboflow 服务器（curl 下载失败），必须使用浏览器手动下载 zip 文件，不要使用 Code snippet 中的 curl 命令。
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="step" id="step6">
+    <div class="step-header">
+      <div class="step-num">6</div>
+      <h2>修正 data.yaml 路径</h2>
+    </div>
+    <div class="step-body">
+      <p>Roboflow 导出的 <code>data.yaml</code> 使用相对路径，在本地训练时容易找不到文件，<strong>必须改为绝对路径</strong>。</p>
+
+      <h3>6.1 打开 data.yaml</h3>
+      <div class="code-block">
+<span class="comment"># 查看默认内容</span>
+cat "datasets/你的数据集目录/data.yaml"
+      </div>
+
+      <p>默认内容（相对路径，需要修改）：</p>
+      <div class="code-block">
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+nc: 3
+names: ['DC_hole', 'PE', 'charging_port']
+      </div>
+
+      <h3>6.2 修改为绝对路径</h3>
+      <p>用文本编辑器打开 <code>data.yaml</code>，将路径改为绝对路径：</p>
+      <div class="code-block">
+train: /home/用户名/项目路径/datasets/数据集目录/train/images
+val: /home/用户名/项目路径/datasets/数据集目录/valid/images
+test: /home/用户名/项目路径/datasets/数据集目录/test/images
+nc: 3
+names: ['DC_hole', 'PE', 'charging_port']
+      </div>
+
+      <div class="tip">
+        <strong>💡 获取绝对路径：</strong>在终端中 <code>cd</code> 到数据集目录，然后运行 <code>pwd</code> 即可得到完整路径。
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 7 -->
+  <div class="step" id="step7">
+    <div class="step-header">
+      <div class="step-num">7</div>
+      <h2>本地训练模型</h2>
+    </div>
+    <div class="step-body">
+      <h3>7.1 创建训练脚本</h3>
+      <p>在项目目录下创建 <code>train.py</code>：</p>
+      <div class="code-block">
+<span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLO
+
+<span class="comment"># 加载预训练权重（首次训练用 yolo11n.pt）</span>
+<span class="comment"># 二次训练用上一次的 best.pt 进行 fine-tune</span>
+model = YOLO(<span class="string">"yolo11n.pt"</span>)
+
+model.train(
+    data=<span class="string">"/绝对路径/datasets/数据集目录/data.yaml"</span>,
+    epochs=<span class="number">100</span>,       <span class="comment"># 训练轮数</span>
+    imgsz=<span class="number">512</span>,        <span class="comment"># 图片尺寸，与 Roboflow 预处理一致</span>
+    batch=<span class="number">16</span>,         <span class="comment"># 批大小，显存不足时改为 8</span>
+    name=<span class="string">"dc_charging_v1"</span>,   <span class="comment"># 本次训练的名称</span>
+    project=<span class="string">"runs/detect"</span>,      <span class="comment"># 结果保存目录</span>
+)
+      </div>
+
+      <h3>7.2 运行训练</h3>
+      <div class="code-block">
+conda activate yolo_env
+cd /你的项目目录
+python train.py
+      </div>
+
+      <div class="warning">
+        <strong>⚠️ 命令行路径含空格时的注意事项：</strong>如果数据集路径包含空格（如 <code>DC charging port</code>），必须用引号包裹路径，或者将路径写在 Python 脚本中，不要在命令行直接拼接。
+      </div>
+
+      <h3>7.3 训练参数说明</h3>
+      <table>
+        <tr><th>参数</th><th>说明</th><th>建议值</th></tr>
+        <tr><td>epochs</td><td>训练总轮数</td><td>100（小数据集）</td></tr>
+        <tr><td>imgsz</td><td>输入图片尺寸</td><td>512（与 Roboflow 预处理一致）</td></tr>
+        <tr><td>batch</td><td>每批图片数量</td><td>16（CPU）/ 32（GPU）</td></tr>
+        <tr><td>patience</td><td>早停耐心值</td><td>50（可选，防止过拟合）</td></tr>
+      </table>
+
+      <h3>7.4 训练输出目录</h3>
+      <div class="code-block">
+runs/detect/dc_charging_v1/
+├── weights/
+│   ├── best.pt     <span class="comment"># 最佳权重（mAP50 最高时保存）← 用这个</span>
+│   └── last.pt     <span class="comment"># 最后一个 epoch 的权重</span>
+├── results.csv     <span class="comment"># 每个 epoch 的指标记录</span>
+├── results.png     <span class="comment"># 训练曲线图</span>
+└── confusion_matrix.png   <span class="comment"># 混淆矩阵</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 8 -->
+  <div class="step" id="step8">
+    <div class="step-header">
+      <div class="step-num">8</div>
+      <h2>解读训练结果</h2>
+    </div>
+    <div class="step-body">
+      <h3>8.1 训练完成时的输出示例</h3>
+      <div class="result-box">
+           Class     Images  Instances      Box(P       R    mAP50  mAP50-95
+             all          8         32      0.989       1    0.995     0.819
+         DC_hole          8         16      0.996       1    0.995     0.834
+              PE          8          8      0.990       1    0.995     0.696
+   charging_port          8          8      0.982       1    0.995     0.927
+      </div>
+
+      <h3>8.2 关键指标含义</h3>
+      <table>
+        <tr><th>指标</th><th>全称</th><th>含义</th><th>目标</th></tr>
+        <tr>
+          <td>P（Precision）</td>
+          <td>精确率</td>
+          <td>检测到的框中，正确的比例</td>
+          <td>&gt; 0.9</td>
+        </tr>
+        <tr>
+          <td>R（Recall）</td>
+          <td>召回率</td>
+          <td>所有真实目标中，被检测到的比例</td>
+          <td>&gt; 0.9</td>
+        </tr>
+        <tr>
+          <td>mAP50</td>
+          <td>Mean Average Precision @IoU=0.5</td>
+          <td>IoU≥0.5 视为正确时的平均精度，主要指标</td>
+          <td>&gt; 0.85</td>
+        </tr>
+        <tr>
+          <td>mAP50-95</td>
+          <td>Mean Average Precision @IoU=0.5:0.95</td>
+          <td>多 IoU 阈值平均，衡量定位精度</td>
+          <td>&gt; 0.5</td>
+        </tr>
+      </table>
+
+      <h3>8.3 结果评估</h3>
+      <table>
+        <tr><th>mAP50</th><th>评价</th><th>建议</th></tr>
+        <tr><td>&gt; 0.95</td><td><span class="badge badge-green">优秀</span></td><td>可直接部署使用</td></tr>
+        <tr><td>0.85 ~ 0.95</td><td><span class="badge badge-blue">良好</span></td><td>可用，建议补充更多数据</td></tr>
+        <tr><td>&lt; 0.85</td><td><span class="badge badge-orange">待改进</span></td><td>增加数据量，检查标注质量</td></tr>
+      </table>
+
+      <h3>8.4 使用 best.pt 进行验证预测</h3>
+      <div class="code-block">
+<span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLO
+
+model = YOLO(<span class="string">"runs/detect/dc_charging_v1/weights/best.pt"</span>)
+
+<span class="comment"># 对单张图片预测</span>
+results = model(<span class="string">"测试图片.jpg"</span>, conf=<span class="number">0.5</span>)
+results[<span class="number">0</span>].show()
+
+<span class="comment"># 查看检测到的类别和置信度</span>
+<span class="keyword">for</span> box <span class="keyword">in</span> results[<span class="number">0</span>].boxes:
+    print(results[<span class="number">0</span>].names[int(box.cls)], float(box.conf))
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 9 -->
+  <div class="step" id="step9">
+    <div class="step-header">
+      <div class="step-num">9</div>
+      <h2>替换模型并运行实时检测</h2>
+    </div>
+    <div class="step-body">
+      <h3>9.1 修改 live_detect.py 中的模型路径</h3>
+      <p>将脚本中的模型路径从通用预训练模型改为你训练好的权重：</p>
+      <div class="code-block">
+<span class="comment"># 修改前（通用 YOLO11 模型）</span>
+model = YOLO(<span class="string">"yolo11n.pt"</span>)
+
+<span class="comment"># 修改后（你自己训练的充电口模型）</span>
+model = YOLO(<span class="string">"runs/detect/dc_charging_v1/weights/best.pt"</span>)
+      </div>
+
+      <h3>9.2 运行实时检测</h3>
+      <div class="code-block">
+conda activate yolo_env
+cd /你的项目目录
+
+<span class="comment"># 设置库路径</span>
+export PYTHONPATH=$PYTHONPATH:$(pwd)/pyorbbecsdk/install/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pwd)/pyorbbecsdk/install/lib
+
+<span class="comment"># 启动检测</span>
+python live_detect.py
+      </div>
+
+      <div class="tip">
+        <strong>💡 简化启动：</strong>将上述 export 命令写入 <code>run.sh</code> 脚本，以后只需运行 <code>bash run.sh</code> 即可：
+        <div class="code-block" style="margin-top:8px">
+#!/bin/bash
+cd "$(dirname "$0")"
+export LD_LIBRARY_PATH="$(pwd)/pyorbbecsdk/install/lib:$LD_LIBRARY_PATH"
+export PYTHONPATH="$(pwd)/pyorbbecsdk/install/lib:$PYTHONPATH"
+/home/用户名/miniconda3/envs/yolo_env/bin/python live_detect.py
+        </div>
+      </div>
+
+      <h3>9.3 检测窗口说明</h3>
+      <ul>
+        <li>绿色框：检测到的目标（charging_port / DC_hole / PE）</li>
+        <li>框上方文字：类别名 + 置信度 + 距离（米）</li>
+        <li>红色圆点：bbox 中心点（用于采样深度值）</li>
+        <li>按 <strong>Q</strong> 或 <strong>ESC</strong> 退出</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- STEP 10 -->
+  <div class="step" id="step10">
+    <div class="step-header">
+      <div class="step-num">10</div>
+      <h2>后续迭代：增加数据重新训练</h2>
+    </div>
+    <div class="step-body">
+      <h3>10.1 迭代策略</h3>
+      <table>
+        <tr><th>新增数据量</th><th>推荐策略</th><th>起始权重</th><th>epochs</th></tr>
+        <tr><td>10~30 张</td><td>Fine-tune（继续训练）</td><td>上一次的 best.pt</td><td>50</td></tr>
+        <tr><td>50 张以上</td><td>重头训练</td><td>yolo11n.pt</td><td>100</td></tr>
+      </table>
+
+      <h3>10.2 Fine-tune 脚本</h3>
+      <div class="code-block">
+<span class="keyword">from</span> ultralytics <span class="keyword">import</span> YOLO
+
+<span class="comment"># 从上一次训练的 best.pt 继续</span>
+model = YOLO(<span class="string">"runs/detect/dc_charging_v1/weights/best.pt"</span>)
+
+model.train(
+    data=<span class="string">"/绝对路径/datasets/新版数据集/data.yaml"</span>,
+    epochs=<span class="number">50</span>,          <span class="comment"># 轮数可以少一些</span>
+    imgsz=<span class="number">512</span>,
+    batch=<span class="number">16</span>,
+    name=<span class="string">"dc_charging_v2"</span>,   <span class="comment"># 版本号递增</span>
+    project=<span class="string">"runs/detect"</span>,
+)
+      </div>
+
+      <h3>10.3 完整迭代流程</h3>
+      <ol>
+        <li>在 Roboflow 上传新照片并完成标注</li>
+        <li>重新生成一个新的 Version（版本号自动递增）</li>
+        <li>导出新 Version 的数据集 zip 文件</li>
+        <li>解压，修改 <code>data.yaml</code> 为绝对路径</li>
+        <li>运行 fine-tune 脚本，等待训练完成</li>
+        <li>将 <code>live_detect.py</code> 中的模型路径改为新的 <code>best.pt</code></li>
+        <li>测试效果</li>
+      </ol>
+
+      <h3>10.4 操作检查清单</h3>
+      <ul class="checklist">
+        <li>新照片已上传到 Roboflow</li>
+        <li>所有新图片已完成标注（每张 4 个框）</li>
+        <li>已生成新版本 Version（包含增强配置）</li>
+        <li>已下载并解压新数据集 zip</li>
+        <li>data.yaml 路径已修改为绝对路径</li>
+        <li>已运行训练脚本</li>
+        <li>训练完成后 mAP50 &gt; 0.95</li>
+        <li>live_detect.py 已替换为新的 best.pt</li>
+        <li>实测摄像头检测效果正常</li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>YOLO11 自定义模型训练全流程教程 · 基于 Ultralytics YOLO11 + Roboflow · Ubuntu 22.04</p>
+  <p style="margin-top:6px">适用场景：国标直流充电口检测 · 工业零件识别 · 自定义目标检测</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+[0.637s] Invoking command in '/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/src/arm_vision': PYTHONPATH=/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../ros2_ws/build/arm_vision build --build-base /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build install --record /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/install.log --single-version-externally-managed install_data
+[0.877s] running egg_info
+[0.877s] writing ../ros2_ws/build/arm_vision/arm_vision.egg-info/PKG-INFO
+[0.878s] writing dependency_links to ../ros2_ws/build/arm_vision/arm_vision.egg-info/dependency_links.txt
+[0.878s] writing entry points to ../ros2_ws/build/arm_vision/arm_vision.egg-info/entry_points.txt
+[0.878s] writing requirements to ../ros2_ws/build/arm_vision/arm_vision.egg-info/requires.txt
+[0.878s] writing top-level names to ../ros2_ws/build/arm_vision/arm_vision.egg-info/top_level.txt
+[0.880s] reading manifest file '../ros2_ws/build/arm_vision/arm_vision.egg-info/SOURCES.txt'
+[0.881s] writing manifest file '../ros2_ws/build/arm_vision/arm_vision.egg-info/SOURCES.txt'
+[0.881s] running build
+[0.881s] running build_py
+[0.881s] copying arm_vision/vision_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build/lib/arm_vision
+[0.881s] copying arm_vision/icp_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build/lib/arm_vision
+[0.882s] running install
+[0.882s] running install_lib
+[0.883s] copying /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build/lib/arm_vision/vision_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision
+[0.883s] copying /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build/lib/arm_vision/icp_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision
+[0.883s] byte-compiling /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision/vision_node.py to vision_node.cpython-310.pyc
+[0.885s] byte-compiling /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision/icp_node.py to icp_node.cpython-310.pyc
+[0.887s] running install_data
+[0.888s] copying launch/arm_vision.launch.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/share/arm_vision/launch
+[0.888s] running install_egg_info
+[0.890s] removing '/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision-1.0.0-py3.10.egg-info' (and everything under it)
+[0.890s] Copying ../ros2_ws/build/arm_vision/arm_vision.egg-info to /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages/arm_vision-1.0.0-py3.10.egg-info
+[0.891s] running install_scripts
+[0.913s] Installing icp_node script to /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/bin
+[0.913s] Installing vision_node script to /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/bin
+[0.913s] writing list of installed files to '/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/install.log'
+[0.938s] Invoked command in '/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/src/arm_vision' returned '0': PYTHONPATH=/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/install/arm_vision/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../ros2_ws/build/arm_vision build --build-base /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/build install --record /home/admin123/Development/G60Pro/Arm_Vision/Vision/ros2_ws/build/arm_vision/install.log --single-version-externally-managed install_data

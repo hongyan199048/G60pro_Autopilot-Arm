@@ -1,0 +1,46 @@
+[0.661s] Invoking command in '/home/admin123/Development/G60Pro/Arm_Vision/Vision/arm_vision': PYTHONPATH=/home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/arm_vision build --build-base /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build install --record /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/install.log --single-version-externally-managed install_data
+[0.911s] running egg_info
+[0.912s] creating ../build/arm_vision/arm_vision.egg-info
+[0.912s] writing ../build/arm_vision/arm_vision.egg-info/PKG-INFO
+[0.912s] writing dependency_links to ../build/arm_vision/arm_vision.egg-info/dependency_links.txt
+[0.912s] writing entry points to ../build/arm_vision/arm_vision.egg-info/entry_points.txt
+[0.913s] writing requirements to ../build/arm_vision/arm_vision.egg-info/requires.txt
+[0.913s] writing top-level names to ../build/arm_vision/arm_vision.egg-info/top_level.txt
+[0.913s] writing manifest file '../build/arm_vision/arm_vision.egg-info/SOURCES.txt'
+[0.914s] reading manifest file '../build/arm_vision/arm_vision.egg-info/SOURCES.txt'
+[0.915s] writing manifest file '../build/arm_vision/arm_vision.egg-info/SOURCES.txt'
+[0.915s] running build
+[0.915s] running build_py
+[0.916s] creating /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build
+[0.916s] creating /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib
+[0.916s] creating /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision
+[0.916s] copying arm_vision/vision_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision
+[0.916s] copying arm_vision/utils.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision
+[0.916s] copying arm_vision/icp_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision
+[0.916s] copying arm_vision/__init__.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision
+[0.916s] running install
+[0.916s] running install_lib
+[0.917s] creating /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision
+[0.917s] copying /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision/vision_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision
+[0.917s] copying /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision/utils.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision
+[0.917s] copying /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision/icp_node.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision
+[0.918s] copying /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build/lib/arm_vision/__init__.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision
+[0.918s] byte-compiling /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision/vision_node.py to vision_node.cpython-310.pyc
+[0.920s] byte-compiling /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision/utils.py to utils.cpython-310.pyc
+[0.921s] byte-compiling /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision/icp_node.py to icp_node.cpython-310.pyc
+[0.924s] byte-compiling /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision/__init__.py to __init__.cpython-310.pyc
+[0.924s] running install_data
+[0.924s] creating /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/share/ament_index
+[0.924s] creating /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/share/ament_index/resource_index
+[0.924s] creating /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/share/ament_index/resource_index/packages
+[0.924s] copying resource/arm_vision -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/share/ament_index/resource_index/packages
+[0.924s] copying package.xml -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/share/arm_vision
+[0.924s] creating /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/share/arm_vision/launch
+[0.924s] copying launch/arm_vision.launch.py -> /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/share/arm_vision/launch
+[0.925s] running install_egg_info
+[0.926s] Copying ../build/arm_vision/arm_vision.egg-info to /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages/arm_vision-1.0.0-py3.10.egg-info
+[0.927s] running install_scripts
+[0.948s] Installing icp_node script to /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/bin
+[0.948s] Installing vision_node script to /home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/bin
+[0.949s] writing list of installed files to '/home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/install.log'
+[0.972s] Invoked command in '/home/admin123/Development/G60Pro/Arm_Vision/Vision/arm_vision' returned '0': PYTHONPATH=/home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/admin123/Development/G60Pro/Arm_Vision/Vision/install/arm_vision/lib/python3.10/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../build/arm_vision build --build-base /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/build install --record /home/admin123/Development/G60Pro/Arm_Vision/Vision/build/arm_vision/install.log --single-version-externally-managed install_data

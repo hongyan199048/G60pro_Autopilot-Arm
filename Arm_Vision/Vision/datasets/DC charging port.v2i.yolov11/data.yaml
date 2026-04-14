@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 4
+names: ['AC_charging_hole', 'DC_charging_port', 'DC_hole', 'PE']
+
+roboflow:
+  workspace: yolo-gnsog
+  project: dc-charging-port
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/yolo-gnsog/dc-charging-port/dataset/2

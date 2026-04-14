@@ -1,0 +1,4 @@
+[console_scripts]
+icp_node = arm_vision.icp_node:main
+vision_node = arm_vision.vision_node:main
+

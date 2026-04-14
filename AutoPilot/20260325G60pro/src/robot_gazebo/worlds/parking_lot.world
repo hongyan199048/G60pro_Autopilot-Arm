@@ -1,0 +1,367 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="parking_lot">
+    <physics type="ode">
+      <max_step_size>0.001</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>1000</real_time_update_rate>
+    </physics>
+
+    <scene>
+      <ambient>0.8 0.8 0.8 1</ambient>
+      <shadows>true</shadows>
+      <grid>false</grid>
+    </scene>
+
+    <light type="directional" name="sun">
+      <cast_shadows>true</cast_shadows>
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <attenuation><range>1000</range><constant>0.9</constant><linear>0.01</linear><quadratic>0.001</quadratic></attenuation>
+      <direction>-0.5 0.1 -0.9</direction>
+    </light>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>100 100</size></plane>
+          </geometry>
+          <surface>
+            <friction>
+              <ode><mu>100</mu><mu2>100</mu2></ode>
+            </friction>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <plane><normal>0 0 1</normal><size>100 100</size></plane>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+            <specular>0.1 0.1 0.1 1</specular>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="parking_lines">
+      <static>true</static>
+      <link name="line_row_a">
+        <pose>0 5 0.01 0 0 0</pose>
+        <visual name="line_a1">
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_a2">
+          <pose>5 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_a3">
+          <pose>10 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_a4">
+          <pose>15 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_a5">
+          <pose>20 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_a6">
+          <pose>-5 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_a7">
+          <pose>-10 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_a8">
+          <pose>-15 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_a9">
+          <pose>-20 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+      </link>
+
+      <link name="line_row_b">
+        <pose>0 15 0.01 0 0 0</pose>
+        <visual name="line_b1">
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_b2">
+          <pose>5 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_b3">
+          <pose>10 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_b4">
+          <pose>15 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_b5">
+          <pose>20 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_b6">
+          <pose>-5 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_b7">
+          <pose>-10 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_b8">
+          <pose>-15 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+        <visual name="line_b9">
+          <pose>-20 0 0 0 0 0</pose>
+          <geometry><box><size>2.5 0.05 0.01</size></box></geometry>
+          <material><ambient>1 1 1 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="pillars">
+      <static>true</static>
+      <link name="pillar_1">
+        <pose>-25 -15 1.5 0 0 0</pose>
+        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient></material>
+        </visual>
+      </link>
+      <link name="pillar_2">
+        <pose>-10 -15 1.5 0 0 0</pose>
+        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient></material>
+        </visual>
+      </link>
+      <link name="pillar_3">
+        <pose>5 -15 1.5 0 0 0</pose>
+        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient></material>
+        </visual>
+      </link>
+      <link name="pillar_4">
+        <pose>20 -15 1.5 0 0 0</pose>
+        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient></material>
+        </visual>
+      </link>
+      <link name="pillar_5">
+        <pose>-25 15 1.5 0 0 0</pose>
+        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient></material>
+        </visual>
+      </link>
+      <link name="pillar_6">
+        <pose>-10 15 1.5 0 0 0</pose>
+        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient></material>
+        </visual>
+      </link>
+      <link name="pillar_7">
+        <pose>5 15 1.5 0 0 0</pose>
+        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient></material>
+        </visual>
+      </link>
+      <link name="pillar_8">
+        <pose>20 15 1.5 0 0 0</pose>
+        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+          <material><ambient>0.7 0.7 0.7 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="trash_cans">
+      <static>true</static>
+      <link name="trash_1">
+        <pose>-30 -5 0.5 0 0 0</pose>
+        <collision><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+          <material><ambient>0.2 0.6 0.2 1</ambient></material>
+        </visual>
+      </link>
+      <link name="trash_2">
+        <pose>30 -5 0.5 0 0 0</pose>
+        <collision><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+          <material><ambient>0.2 0.6 0.2 1</ambient></material>
+        </visual>
+      </link>
+      <link name="trash_3">
+        <pose>30 5 0.5 0 0 0</pose>
+        <collision><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+          <material><ambient>0.2 0.6 0.2 1</ambient></material>
+        </visual>
+      </link>
+      <link name="trash_4">
+        <pose>-30 5 0.5 0 0 0</pose>
+        <collision><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+          <material><ambient>0.2 0.6 0.2 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <model name="barriers">
+      <static>true</static>
+      <link name="barrier_1">
+        <pose>-35 0 0.3 0 0 0</pose>
+        <visual><geometry><box><size>2 0.2 0.6</size></box></geometry>
+          <material><ambient>1 0.8 0 1</ambient></material>
+        </visual>
+      </link>
+      <link name="barrier_2">
+        <pose>35 0 0.3 0 0 0</pose>
+        <visual><geometry><box><size>2 0.2 0.6</size></box></geometry>
+          <material><ambient>1 0.8 0 1</ambient></material>
+        </visual>
+      </link>
+    </model>
+
+    <include>
+      <name>model3_r1c1</name>
+      <pose>-22.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c2</name>
+      <pose>-17.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c3</name>
+      <pose>-12.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c4</name>
+      <pose>-7.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c5</name>
+      <pose>-2.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c6</name>
+      <pose>2.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c7</name>
+      <pose>7.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c8</name>
+      <pose>12.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c9</name>
+      <pose>17.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r1c10</name>
+      <pose>22.5 -8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+
+    <include>
+      <name>model3_r2c1</name>
+      <pose>-22.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c2</name>
+      <pose>-17.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c3</name>
+      <pose>-12.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c4</name>
+      <pose>-7.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c5</name>
+      <pose>-2.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c6</name>
+      <pose>2.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c7</name>
+      <pose>7.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c8</name>
+      <pose>12.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c9</name>
+      <pose>17.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+    <include>
+      <name>model3_r2c10</name>
+      <pose>22.5 8 0 0 0 0</pose>
+      <uri>model://model3</uri>
+    </include>
+
+    <gui fullscreen='0'>
+      <camera name='user_camera'>
+        <pose>30 -30 25 0 0.5 2.5</pose>
+        <view_controller>orbit</view_controller>
+      </camera>
+    </gui>
+  </world>
+</sdf>

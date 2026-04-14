@@ -1,0 +1,717 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: RDM
+
+
+BO_ 1546 RDM_Fr40A_0x60A: 8 RDM
+ SG_ RDM_Fr40A_Byte0 : 0|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40A_Byte1 : 8|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40A_Byte2 : 16|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40A_Byte3 : 24|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40A_Byte4 : 32|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40A_Byte5 : 40|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40A_Byte6 : 48|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40A_Byte7 : 56|8@1+ (1,0) [0|255] " " FDD
+
+BO_ 1547 RDM_Fr40B_0x60B: 8 RDM
+ SG_ RDM_Fr40B_Byte0 : 0|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40B_Byte1 : 8|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40B_Byte2 : 16|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40B_Byte3 : 24|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40B_Byte4 : 32|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40B_Byte5 : 40|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40B_Byte6 : 48|8@1+ (1,0) [0|255] " " FDD
+ SG_ RDM_Fr40B_Byte7 : 56|8@1+ (1,0) [0|255] " " FDD
+
+BO_ 1548 RDM_Fr40C_0x60C: 8 RDM
+ SG_ RDM_Fr40C_Byte0 : 0|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40C_Byte1 : 8|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40C_Byte2 : 16|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40C_Byte3 : 24|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40C_Byte4 : 32|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40C_Byte5 : 40|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40C_Byte6 : 48|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40C_Byte7 : 56|8@1+ (1,0) [0|255] " " RDD
+
+BO_ 1549 RDM_Fr40D_0x60D: 8 RDM
+ SG_ RDM_Fr40D_Byte0 : 0|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40D_Byte1 : 8|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40D_Byte2 : 16|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40D_Byte3 : 24|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40D_Byte4 : 32|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40D_Byte5 : 40|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40D_Byte6 : 48|8@1+ (1,0) [0|255] " " RDD
+ SG_ RDM_Fr40D_Byte7 : 56|8@1+ (1,0) [0|255] " " RDD
+
+BO_ 1418 FDD_Fr10A_0x58A: 8 FDD
+ SG_ FDD_Fr10A_Byte0 : 0|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10A_Byte1 : 8|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10A_Byte2 : 16|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10A_Byte3 : 24|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10A_Byte4 : 32|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10A_Byte5 : 40|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10A_Byte6 : 48|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10A_Byte7 : 56|8@1+ (1,0) [0|255] " " RDM
+
+BO_ 1419 FDD_Fr10B_0x58B: 8 FDD
+ SG_ FDD_Fr10B_Byte0 : 0|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10B_Byte1 : 8|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10B_Byte2 : 16|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10B_Byte3 : 24|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10B_Byte4 : 32|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10B_Byte5 : 40|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10B_Byte6 : 48|8@1+ (1,0) [0|255] " " RDM
+ SG_ FDD_Fr10B_Byte7 : 56|8@1+ (1,0) [0|255] " " RDM
+
+BO_ 1420 RDD_Fr10C_0x58C: 8 RDD
+ SG_ RDD_Fr10C_Byte0 : 0|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10C_Byte1 : 8|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10C_Byte2 : 16|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10C_Byte3 : 24|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10C_Byte4 : 32|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10C_Byte5 : 40|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10C_Byte6 : 48|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10C_Byte7 : 56|8@1+ (1,0) [0|255] " " RDM
+
+BO_ 1421 RDD_Fr10D_0x58D: 8 RDD
+ SG_ RDD_Fr10D_Byte0 : 0|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10D_Byte1 : 8|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10D_Byte2 : 16|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10D_Byte3 : 24|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10D_Byte4 : 32|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10D_Byte5 : 40|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10D_Byte6 : 48|8@1+ (1,0) [0|255] " " RDM
+ SG_ RDD_Fr10D_Byte7 : 56|8@1+ (1,0) [0|255] " " RDM
+
+BO_ 394 FDD_Fr01_0x18A: 8 FDD
+ SG_ FDD_Fr01_FLDrvMotorSpd : 0|32@1- (0.001,0) [-2147483.648|2147483.647] "rpm" RDM
+ SG_ FDD_Fr01_FLDrvMotorPstn : 32|32@1- (1,0) [-2147483648|2147483647] " " RDM
+
+BO_ 395 FDD_Fr02_0x18B: 8 FDD
+ SG_ FDD_Fr02_FRDrvMotorSpd : 0|32@1- (0.001,0) [-2147483.648|2147483.647] "rpm" RDM
+ SG_ FDD_Fr02_FRDrvMotorPstn : 32|32@1- (1,0) [-2147483648|2147483647] " " RDM
+
+BO_ 396 RDD_Fr01_0x18C: 8 RDD
+ SG_ RDD_Fr01_RLDrvMotorSpd : 0|32@1- (0.001,0) [-2147483.648|2147483.647] "rpm" RDM
+ SG_ RDD_Fr01_RLDrvMotorPstn : 32|32@1- (1,0) [-2147483648|2147483647] " " RDM
+
+BO_ 397 RDD_Fr02_0x18D: 8 RDD
+ SG_ RDD_Fr02_RRDrvMotorSpd : 0|32@1- (0.001,0) [-2147483.648|2147483.647] "rpm" RDM
+ SG_ RDD_Fr02_RRDrvMotorPstn : 32|32@1- (1,0) [-2147483648|2147483647] " " RDM
+
+BO_ 650 FDD_Fr03_0x28A: 8 FDD
+ SG_ FDD_Fr03_FLDrvMotorVolt : 0|16@1- (1,0) [-32768|32767] "V" RDM
+ SG_ FDD_Fr03_FLDrvMotorCurrt : 16|16@1- (0.026,0) [-9000|9000] "Arms" RDM
+ SG_ FDD_Fr03_FLDrvMotorTemp : 32|16@1- (1,0) [-32768|32767] "℃" RDM
+ SG_ FDD_Fr03_FLDrvMotorErrorStat : 48|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 651 FDD_Fr04_0x28B: 8 FDD
+ SG_ FDD_Fr04_FRDrvMotorVolt : 0|16@1- (1,0) [-32768|32767] "V" RDM
+ SG_ FDD_Fr04_FRDrvMotorCurrt : 16|16@1- (0.026,0) [-9000|9000] "Arms" RDM
+ SG_ FDD_Fr04_FRDrvMotorTemp : 32|16@1- (1,0) [-32768|32767] "℃" RDM
+ SG_ FDD_Fr04_FRDrvMotorErrorStat : 48|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 652 RDD_Fr03_0x28C: 8 RDD
+ SG_ RDD_Fr03_RLDrvMotorVolt : 0|16@1- (1,0) [-32768|32767] "V" RDM
+ SG_ RDD_Fr03_RLDrvMotorCurrt : 16|16@1- (0.026,0) [-9000|9000] "Arms" RDM
+ SG_ RDD_Fr03_RLDrvMotorTemp : 32|16@1- (1,0) [-32768|32767] "℃" RDM
+ SG_ RDD_Fr03_RLDrvMotorErrorStat : 48|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 653 RDD_Fr04_0x28D: 8 RDD
+ SG_ RDD_Fr04_RRDrvMotorVolt : 0|16@1- (1,0) [-32768|32767] "V" RDM
+ SG_ RDD_Fr04_RRDrvMotorCurrt : 16|16@1- (0.026,0) [-9000|9000] "Arms" RDM
+ SG_ RDD_Fr04_RRDrvMotorTemp : 32|16@1- (1,0) [-32768|32767] "℃" RDM
+ SG_ RDD_Fr04_RRDrvMotorErrorStat : 48|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 385 FLSD_Fr01_0x181: 7 FLSD
+ SG_ FLSD_Fr01_FLSteerMotorCtrlSt : 0|16@1+ (1,0) [0|65535] " " RDM
+ SG_ FLSD_Fr01_FLSteerMotorWrkMode : 16|8@1- (1,0) [-127|127] " " RDM
+ SG_ FLSD_Fr01_FLSteerMotorActCurrt : 24|16@1- (0.0124,0) [-812.634|812.634] "Arms" RDM
+ SG_ FLSD_Fr01_FLSteerMotorFltVal : 40|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 641 FLSD_Fr02_0x281: 8 FLSD
+ SG_ FLSD_Fr02_FLSteerMotorActPstn : 0|32@1- (1,0) [-2147483648|2147483647] " " RDM
+ SG_ FLSD_Fr02_FLSteerMotorActSpd : 32|32@1- (5.6e-05,0) [-240518.16852|240518.16852] "rpm" RDM
+
+BO_ 897 FLSD_Fr03_0x381: 4 FLSD
+ SG_ FLSD_Fr03_FLSteerMotorStVal : 0|16@1+ (1,0) [0|65535] " " RDM
+ SG_ FLSD_Fr03_FLSteerDetailFlt : 16|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 386 FRSD_Fr01_0x182: 7 FRSD
+ SG_ FRSD_Fr01_FRSteerMotorCtrlSt : 0|16@1+ (1,0) [0|65535] " " RDM
+ SG_ FRSD_Fr01_FRSteerMotorWrkMode : 16|8@1- (1,0) [-127|127] " " RDM
+ SG_ FRSD_Fr01_FRSteerMotorActCurrt : 24|16@1- (0.0124,0) [-812.634|812.634] "Arms" RDM
+ SG_ FRSD_Fr01_FRSteerMotorFltVal : 40|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 642 FRSD_Fr02_0x282: 8 FRSD
+ SG_ FRSD_Fr02_FRSteerMotorActPstn : 0|32@1- (1,0) [-2147483648|2147483647] " " RDM
+ SG_ FRSD_Fr02_FRSteerMotorActSpd : 32|32@1- (5.6e-05,0) [-240518.16852|240518.16852] "rpm" RDM
+
+BO_ 898 FRSD_Fr03_0x382: 4 FRSD
+ SG_ FRSD_Fr03_FRSteerMotorStVal : 0|16@1+ (1,0) [0|65535] " " RDM
+ SG_ FRSD_Fr03_FRSteerDetailFlt : 16|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 387 RLSD_Fr01_0x183: 7 RLSD
+ SG_ RLSD_Fr01_RLSteerMotorCtrlSt : 0|16@1+ (1,0) [0|65535] " " RDM
+ SG_ RLSD_Fr01_RLSteerMotorWrkMode : 16|8@1- (1,0) [-127|127] " " RDM
+ SG_ RLSD_Fr01_RLSteerMotorActCurrt : 24|16@1- (0.0124,0) [-812.634|812.634] "Arms" RDM
+ SG_ RLSD_Fr01_RLSteerMotorFltVal : 40|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 643 RLSD_Fr02_0x283: 8 RLSD
+ SG_ RLSD_Fr02_RLSteerMotorActPstn : 0|32@1- (1,0) [-2147483648|2147483647] " " RDM
+ SG_ RLSD_Fr02_RLSteerMotorActSpd : 32|32@1- (5.6e-05,0) [-240518.16852|240518.16852] "rpm" RDM
+
+BO_ 899 RLSD_Fr03_0x383: 4 RLSD
+ SG_ RLSD_Fr03_RLSteerMotorStVal : 0|16@1+ (1,0) [0|65535] " " RDM
+ SG_ RLSD_Fr03_RLSteerDetailFlt : 16|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 388 RRSD_Fr01_0x184: 7 RRSD
+ SG_ RRSD_Fr01_RRSteerMotorCtrlSt : 0|16@1+ (1,0) [0|65535] " " RDM
+ SG_ RRSD_Fr01_RRSteerMotorWrkMode : 16|8@1- (1,0) [-127|127] " " RDM
+ SG_ RRSD_Fr01_RRSteerMotorActCurrt : 24|16@1- (0.0124,0) [-812.634|812.634] "Arms" RDM
+ SG_ RRSD_Fr01_RRSteerMotorFltVal : 40|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 644 RRSD_Fr02_0x284: 8 RRSD
+ SG_ RRSD_Fr02_RRSteerMotorActPstn : 0|32@1- (1,0) [-2147483648|2147483647] " " RDM
+ SG_ RRSD_Fr02_RRSteerMotorActSpd : 32|32@1- (5.6e-05,0) [-240518.16852|240518.16852] "rpm" RDM
+
+BO_ 900 RRSD_Fr03_0x384: 4 RRSD
+ SG_ RRSD_Fr03_RRSteerMotorStVal : 0|16@1+ (1,0) [0|65535] " " RDM
+ SG_ RRSD_Fr03_RRSteerDetailFlt : 16|16@1+ (1,0) [0|65535] " " RDM
+
+BO_ 513 RDM_Fr101_0x201: 7 RDM
+ SG_ RDM_Fr101_FLSteerMotorStCtrl : 0|16@1+ (1,0) [0|65535] " " FLSD
+ SG_ RDM_Fr101_FLSteerMotorWrkModCtrl : 16|8@1- (1,0) [-127|127] " " FLSD
+ SG_ RDM_Fr101_FLSteerMotorTrgtPstn : 24|32@1- (1,0) [-2147483648|2147483647] " " FLSD
+
+BO_ 769 RDM_Fr102_0x301: 8 RDM
+ SG_ RDM_Fr102_FLSteerMotorSpdInc : 0|32@1+ (0.00093,0) [0|3994319.58435] "rpsps" FLSD
+ SG_ RDM_Fr102_FLSteerMotorSpdDec : 32|32@1+ (0.00093,0) [0|3994319.58435] "rpsps" FLSD
+
+BO_ 1025 RDM_Fr103_0x401: 8 RDM
+ SG_ RDM_Fr103_FLSteerMotorSpdLmt : 0|32@1+ (5.6e-05,0) [0|240518.16852] "rpm" FLSD
+ SG_ RDM_Fr103_FLSteerMotorSpdCmd : 32|32@1- (5.6e-05,0) [-240518.16852|240518.16852] "rpm" FLSD
+
+BO_ 514 RDM_Fr201_0x202: 7 RDM
+ SG_ RDM_Fr201_FRSteerMotorStCtrl : 0|16@1+ (1,0) [0|65535] " " FRSD
+ SG_ RDM_Fr201_FRSteerMotorWrkModCtrl : 16|8@1- (1,0) [-127|127] " " FRSD
+ SG_ RDM_Fr201_FRSteerMotorTrgtPstn : 24|32@1- (1,0) [-2147483648|2147483647] " " FRSD
+
+BO_ 770 RDM_Fr202_0x302: 8 RDM
+ SG_ RDM_Fr202_FRSteerMotorSpdInc : 0|32@1+ (0.00093,0) [0|3994319.58435] "rpsps" FRSD
+ SG_ RDM_Fr202_FRSteerMotorSpdDec : 32|32@1+ (0.00093,0) [0|3994319.58435] "rpsps" FRSD
+
+BO_ 1026 RDM_Fr203_0x402: 8 RDM
+ SG_ RDM_Fr203_FRSteerMotorSpdLmt : 0|32@1+ (5.6e-05,0) [0|240518.16852] "rpm" FRSD
+ SG_ RDM_Fr203_FRSteerMotorSpdCmd : 32|32@1- (5.6e-05,0) [-240518.16852|240518.16852] "rpm" FRSD
+
+BO_ 515 RDM_Fr301_0x203: 7 RDM
+ SG_ RDM_Fr301_RLSteerMotorStCtrl : 0|16@1+ (1,0) [0|65535] " " RLSD
+ SG_ RDM_Fr301_RLSteerMotorWrkModCtrl : 16|8@1- (1,0) [-127|127] " " RLSD
+ SG_ RDM_Fr301_RLSteerMotorTrgtPstn : 24|32@1- (1,0) [-2147483648|2147483647] " " RLSD
+
+BO_ 771 RDM_Fr302_0x303: 8 RDM
+ SG_ RDM_Fr302_RLSteerMotorSpdInc : 0|32@1+ (0.00093,0) [0|3994319.58435] "rpsps" RLSD
+ SG_ RDM_Fr302_RLSteerMotorSpdDec : 32|32@1+ (0.00093,0) [0|3994319.58435] "rpsps" RLSD
+
+BO_ 1027 RDM_Fr303_0x403: 8 RDM
+ SG_ RDM_Fr303_RLSteerMotorSpdLmt : 0|32@1+ (5.6e-05,0) [0|240518.16852] "rpm" RLSD
+ SG_ RDM_Fr303_RLSteerMotorSpdCmd : 32|32@1- (5.6e-05,0) [-240518.16852|240518.16852] "rpm" RLSD
+
+BO_ 516 RDM_Fr401_0x204: 7 RDM
+ SG_ RDM_Fr401_RRSteerMotorStCtrl : 0|16@1+ (1,0) [0|65535] " " RRSD
+ SG_ RDM_Fr401_RRSteerMotorWrkModCtrl : 16|8@1- (1,0) [-127|127] " " RRSD
+ SG_ RDM_Fr401_RRSteerMotorTrgtPstn : 24|32@1- (1,0) [-2147483648|2147483647] " " RRSD
+
+BO_ 772 RDM_Fr402_0x304: 8 RDM
+ SG_ RDM_Fr402_RRSteerMotorSpdInc : 0|32@1+ (0.00093,0) [0|3994319.58435] "rpsps" RRSD
+ SG_ RDM_Fr402_RRSteerMotorSpdDec : 32|32@1+ (0.00093,0) [0|3994319.58435] "rpsps" RRSD
+
+BO_ 1028 RDM_Fr403_0x404: 8 RDM
+ SG_ RDM_Fr403_RRSteerMotorSpdLmt : 0|32@1+ (5.6e-05,0) [0|240518.16852] "rpm" RRSD
+ SG_ RDM_Fr403_RRSteerMotorSpdCmd : 32|32@1- (5.6e-05,0) [-240518.16852|240518.16852] "rpm" RRSD
+
+
+CM_ BO_ 1546 "RDM控制左前驱动电机的报文";
+CM_ SG_ 1546 RDM_Fr40A_Byte0 "命令字";
+CM_ SG_ 1546 RDM_Fr40A_Byte1 "对象索引低字节";
+CM_ SG_ 1546 RDM_Fr40A_Byte2 "对象索引高字节";
+CM_ SG_ 1546 RDM_Fr40A_Byte3 "对象子索引";
+CM_ SG_ 1546 RDM_Fr40A_Byte4 "传输数据最低字节";
+CM_ SG_ 1546 RDM_Fr40A_Byte5 "传输数据次低字节";
+CM_ SG_ 1546 RDM_Fr40A_Byte6 "传输数据次高字节";
+CM_ SG_ 1546 RDM_Fr40A_Byte7 "传输数据最高字节";
+CM_ BO_ 1547 "RDM控制右前驱动电机的报文";
+CM_ SG_ 1547 RDM_Fr40B_Byte0 "命令字";
+CM_ SG_ 1547 RDM_Fr40B_Byte1 "对象索引低字节";
+CM_ SG_ 1547 RDM_Fr40B_Byte2 "对象索引高字节";
+CM_ SG_ 1547 RDM_Fr40B_Byte3 "对象子索引";
+CM_ SG_ 1547 RDM_Fr40B_Byte4 "传输数据最低字节";
+CM_ SG_ 1547 RDM_Fr40B_Byte5 "传输数据次低字节";
+CM_ SG_ 1547 RDM_Fr40B_Byte6 "传输数据次高字节";
+CM_ SG_ 1547 RDM_Fr40B_Byte7 "传输数据最高字节";
+CM_ BO_ 1548 "RDM控制左后驱动电机的报文";
+CM_ SG_ 1548 RDM_Fr40C_Byte0 "命令字";
+CM_ SG_ 1548 RDM_Fr40C_Byte1 "对象索引低字节";
+CM_ SG_ 1548 RDM_Fr40C_Byte2 "对象索引高字节";
+CM_ SG_ 1548 RDM_Fr40C_Byte3 "对象子索引";
+CM_ SG_ 1548 RDM_Fr40C_Byte4 "传输数据最低字节";
+CM_ SG_ 1548 RDM_Fr40C_Byte5 "传输数据次低字节";
+CM_ SG_ 1548 RDM_Fr40C_Byte6 "传输数据次高字节";
+CM_ SG_ 1548 RDM_Fr40C_Byte7 "传输数据最高字节";
+CM_ BO_ 1549 "RDM控制右后驱动电机的报文";
+CM_ SG_ 1549 RDM_Fr40D_Byte0 "命令字";
+CM_ SG_ 1549 RDM_Fr40D_Byte1 "对象索引低字节";
+CM_ SG_ 1549 RDM_Fr40D_Byte2 "对象索引高字节";
+CM_ SG_ 1549 RDM_Fr40D_Byte3 "对象子索引";
+CM_ SG_ 1549 RDM_Fr40D_Byte4 "传输数据最低字节";
+CM_ SG_ 1549 RDM_Fr40D_Byte5 "传输数据次低字节";
+CM_ SG_ 1549 RDM_Fr40D_Byte6 "传输数据次高字节";
+CM_ SG_ 1549 RDM_Fr40D_Byte7 "传输数据最高字节";
+CM_ BO_ 1418 "左前驱动电机的反馈报文";
+CM_ SG_ 1418 FDD_Fr10A_Byte0 "命令字";
+CM_ SG_ 1418 FDD_Fr10A_Byte1 "对象索引低字节";
+CM_ SG_ 1418 FDD_Fr10A_Byte2 "对象索引高字节";
+CM_ SG_ 1418 FDD_Fr10A_Byte3 "对象子索引";
+CM_ SG_ 1418 FDD_Fr10A_Byte4 "传输数据最低字节";
+CM_ SG_ 1418 FDD_Fr10A_Byte5 "传输数据次低字节";
+CM_ SG_ 1418 FDD_Fr10A_Byte6 "传输数据次高字节";
+CM_ SG_ 1418 FDD_Fr10A_Byte7 "传输数据最高字节";
+CM_ BO_ 1419 "右前驱动电机的反馈报文";
+CM_ SG_ 1419 FDD_Fr10B_Byte0 "命令字";
+CM_ SG_ 1419 FDD_Fr10B_Byte1 "对象索引低字节";
+CM_ SG_ 1419 FDD_Fr10B_Byte2 "对象索引高字节";
+CM_ SG_ 1419 FDD_Fr10B_Byte3 "对象子索引";
+CM_ SG_ 1419 FDD_Fr10B_Byte4 "传输数据最低字节";
+CM_ SG_ 1419 FDD_Fr10B_Byte5 "传输数据次低字节";
+CM_ SG_ 1419 FDD_Fr10B_Byte6 "传输数据次高字节";
+CM_ SG_ 1419 FDD_Fr10B_Byte7 "传输数据最高字节";
+CM_ BO_ 1420 "左后驱动电机的反馈报文";
+CM_ SG_ 1420 RDD_Fr10C_Byte0 "命令字";
+CM_ SG_ 1420 RDD_Fr10C_Byte1 "对象索引低字节";
+CM_ SG_ 1420 RDD_Fr10C_Byte2 "对象索引高字节";
+CM_ SG_ 1420 RDD_Fr10C_Byte3 "对象子索引";
+CM_ SG_ 1420 RDD_Fr10C_Byte4 "传输数据最低字节";
+CM_ SG_ 1420 RDD_Fr10C_Byte5 "传输数据次低字节";
+CM_ SG_ 1420 RDD_Fr10C_Byte6 "传输数据次高字节";
+CM_ SG_ 1420 RDD_Fr10C_Byte7 "传输数据最高字节";
+CM_ BO_ 1421 "右后驱动电机的反馈报文";
+CM_ SG_ 1421 RDD_Fr10D_Byte0 "命令字";
+CM_ SG_ 1421 RDD_Fr10D_Byte1 "对象索引低字节";
+CM_ SG_ 1421 RDD_Fr10D_Byte2 "对象索引高字节";
+CM_ SG_ 1421 RDD_Fr10D_Byte3 "对象子索引";
+CM_ SG_ 1421 RDD_Fr10D_Byte4 "传输数据最低字节";
+CM_ SG_ 1421 RDD_Fr10D_Byte5 "传输数据次低字节";
+CM_ SG_ 1421 RDD_Fr10D_Byte6 "传输数据次高字节";
+CM_ SG_ 1421 RDD_Fr10D_Byte7 "传输数据最高字节";
+CM_ BO_ 394 "左前驱动电机PDO反馈参数，实际转速和实际位置";
+CM_ SG_ 394 FDD_Fr01_FLDrvMotorSpd "左前驱动电机实际转速";
+CM_ SG_ 394 FDD_Fr01_FLDrvMotorPstn "左前驱动电机实际位置";
+CM_ BO_ 395 "右前驱动电机PDO反馈参数，实际转速和实际位置";
+CM_ SG_ 395 FDD_Fr02_FRDrvMotorSpd "右前驱动电机实际转速";
+CM_ SG_ 395 FDD_Fr02_FRDrvMotorPstn "右前驱动电机实际位置";
+CM_ BO_ 396 "左后驱动电机PDO反馈参数，实际转速和实际位置";
+CM_ SG_ 396 RDD_Fr01_RLDrvMotorSpd "左后驱动电机实际转速";
+CM_ SG_ 396 RDD_Fr01_RLDrvMotorPstn "左后驱动电机实际位置";
+CM_ BO_ 397 "右后驱动电机PDO反馈参数，实际转速和实际位置";
+CM_ SG_ 397 RDD_Fr02_RRDrvMotorSpd "右后驱动电机实际转速";
+CM_ SG_ 397 RDD_Fr02_RRDrvMotorPstn "右后驱动电机实际位置";
+CM_ BO_ 650 "左前驱动电机PDO反馈参数";
+CM_ SG_ 650 FDD_Fr03_FLDrvMotorVolt "左前驱动电机母线电压";
+CM_ SG_ 650 FDD_Fr03_FLDrvMotorCurrt "左前驱动电机实际电流";
+CM_ SG_ 650 FDD_Fr03_FLDrvMotorTemp "左前驱动电机温度";
+CM_ SG_ 650 FDD_Fr03_FLDrvMotorErrorStat "左前驱动电机故障状态";
+CM_ BO_ 651 "右前驱动电机PDO反馈参数";
+CM_ SG_ 651 FDD_Fr04_FRDrvMotorVolt "右前驱动电机母线电压";
+CM_ SG_ 651 FDD_Fr04_FRDrvMotorCurrt "右前驱动电机实际电流";
+CM_ SG_ 651 FDD_Fr04_FRDrvMotorTemp "右前驱动电机温度";
+CM_ SG_ 651 FDD_Fr04_FRDrvMotorErrorStat "右前驱动电机故障状态";
+CM_ BO_ 652 "左后驱动电机PDO反馈参数";
+CM_ SG_ 652 RDD_Fr03_RLDrvMotorVolt "左后驱动电机母线电压";
+CM_ SG_ 652 RDD_Fr03_RLDrvMotorCurrt "左后驱动电机实际电流";
+CM_ SG_ 652 RDD_Fr03_RLDrvMotorTemp "左后驱动电机温度";
+CM_ SG_ 652 RDD_Fr03_RLDrvMotorErrorStat "左后驱动电机故障状态";
+CM_ BO_ 653 "右后驱动电机PDO反馈参数";
+CM_ SG_ 653 RDD_Fr04_RRDrvMotorVolt "右后驱动电机母线电压";
+CM_ SG_ 653 RDD_Fr04_RRDrvMotorCurrt "右后驱动电机实际电流";
+CM_ SG_ 653 RDD_Fr04_RRDrvMotorTemp "右后驱动电机温度";
+CM_ SG_ 653 RDD_Fr04_RRDrvMotorErrorStat "右后驱动电机故障状态";
+CM_ BO_ 385 "左前转向电机PDO反馈参数1";
+CM_ SG_ 385 FLSD_Fr01_FLSteerMotorCtrlSt "左前轮转向电机控制字";
+CM_ SG_ 385 FLSD_Fr01_FLSteerMotorWrkMode "左前轮转向电机控制模式";
+CM_ SG_ 385 FLSD_Fr01_FLSteerMotorActCurrt "左前轮转向电机实际电流";
+CM_ SG_ 385 FLSD_Fr01_FLSteerMotorFltVal "左前轮转向电机错误字";
+CM_ BO_ 641 "左前转向电机PDO反馈参数2";
+CM_ SG_ 641 FLSD_Fr02_FLSteerMotorActPstn "左前轮转向电机实际位置";
+CM_ SG_ 641 FLSD_Fr02_FLSteerMotorActSpd "左前轮转向电机实际速度";
+CM_ BO_ 897 "左前转向电机PDO反馈参数3";
+CM_ SG_ 897 FLSD_Fr03_FLSteerMotorStVal "左前轮转向电机状态字";
+CM_ SG_ 897 FLSD_Fr03_FLSteerDetailFlt "左前轮转向电机具体故障内容";
+CM_ BO_ 386 "右前转向电机PDO反馈参数1";
+CM_ SG_ 386 FRSD_Fr01_FRSteerMotorCtrlSt "右前轮转向电机控制字";
+CM_ SG_ 386 FRSD_Fr01_FRSteerMotorWrkMode "右前轮转向电机控制模式";
+CM_ SG_ 386 FRSD_Fr01_FRSteerMotorActCurrt "右前轮转向电机实际电流";
+CM_ SG_ 386 FRSD_Fr01_FRSteerMotorFltVal "右前轮转向电机错误字";
+CM_ BO_ 642 "右前转向电机PDO反馈参数2";
+CM_ SG_ 642 FRSD_Fr02_FRSteerMotorActPstn "右前轮转向电机实际位置";
+CM_ SG_ 642 FRSD_Fr02_FRSteerMotorActSpd "右前轮转向电机实际速度";
+CM_ BO_ 898 "右前转向电机PDO反馈参数3";
+CM_ SG_ 898 FRSD_Fr03_FRSteerMotorStVal "右前轮转向电机状态字";
+CM_ SG_ 898 FRSD_Fr03_FRSteerDetailFlt "右前轮转向电机具体故障内容";
+CM_ BO_ 387 "左后转向电机PDO反馈参数1";
+CM_ SG_ 387 RLSD_Fr01_RLSteerMotorCtrlSt "左后轮转向电机控制字";
+CM_ SG_ 387 RLSD_Fr01_RLSteerMotorWrkMode "左后轮转向电机控制模式";
+CM_ SG_ 387 RLSD_Fr01_RLSteerMotorActCurrt "左后轮转向电机实际电流";
+CM_ SG_ 387 RLSD_Fr01_RLSteerMotorFltVal "左后轮转向电机错误字";
+CM_ BO_ 643 "左后转向电机PDO反馈参数2";
+CM_ SG_ 643 RLSD_Fr02_RLSteerMotorActPstn "左后轮转向电机实际位置";
+CM_ SG_ 643 RLSD_Fr02_RLSteerMotorActSpd "左后轮转向电机实际速度";
+CM_ BO_ 899 "左后转向电机PDO反馈参数3";
+CM_ SG_ 899 RLSD_Fr03_RLSteerMotorStVal "左前轮转向电机状态字";
+CM_ SG_ 899 RLSD_Fr03_RLSteerDetailFlt "左后轮转向电机具体故障内容";
+CM_ BO_ 388 "右后转向电机PDO反馈参数1";
+CM_ SG_ 388 RRSD_Fr01_RRSteerMotorCtrlSt "右后轮转向电机控制字";
+CM_ SG_ 388 RRSD_Fr01_RRSteerMotorWrkMode "右后轮转向电机控制模式";
+CM_ SG_ 388 RRSD_Fr01_RRSteerMotorActCurrt "右后轮转向电机实际电流";
+CM_ SG_ 388 RRSD_Fr01_RRSteerMotorFltVal "右后轮转向电机错误字";
+CM_ BO_ 644 "右后转向电机PDO反馈参数2";
+CM_ SG_ 644 RRSD_Fr02_RRSteerMotorActPstn "右后轮转向电机实际位置";
+CM_ SG_ 644 RRSD_Fr02_RRSteerMotorActSpd "右后轮转向电机实际速度";
+CM_ BO_ 900 "右后转向电机PDO反馈参数3";
+CM_ SG_ 900 RRSD_Fr03_RRSteerMotorStVal "右后轮转向电机状态字";
+CM_ SG_ 900 RRSD_Fr03_RRSteerDetailFlt "右后轮转向电机具体故障内容";
+CM_ BO_ 513 "RDM控制左前转向电机报文1";
+CM_ SG_ 513 RDM_Fr101_FLSteerMotorStCtrl "RDM对左前轮转向电机状态控制信号";
+CM_ SG_ 513 RDM_Fr101_FLSteerMotorWrkModCtrl "RDM对左前轮转向电机模式控制信号";
+CM_ SG_ 513 RDM_Fr101_FLSteerMotorTrgtPstn "RDM对左前轮转向电机目标位置控制信号";
+CM_ BO_ 769 "RDM控制左前转向电机报文2";
+CM_ SG_ 769 RDM_Fr102_FLSteerMotorSpdInc "RDM对左前轮转向电机梯形加速度控制信号";
+CM_ SG_ 769 RDM_Fr102_FLSteerMotorSpdDec "RDM对左前轮转向电机梯形减速度控制信号";
+CM_ BO_ 1025 "RDM控制左前转向电机报文3";
+CM_ SG_ 1025 RDM_Fr103_FLSteerMotorSpdLmt "RDM对左前轮转向电机转速限制控制信号";
+CM_ SG_ 1025 RDM_Fr103_FLSteerMotorSpdCmd "RDM对左前轮转向电机转速控制信号";
+CM_ BO_ 514 "RDM控制右前转向电机报文1";
+CM_ SG_ 514 RDM_Fr201_FRSteerMotorStCtrl "RDM对右前轮转向电机状态控制信号";
+CM_ SG_ 514 RDM_Fr201_FRSteerMotorWrkModCtrl "RDM对右前轮转向电机模式控制信号";
+CM_ SG_ 514 RDM_Fr201_FRSteerMotorTrgtPstn "RDM对右前轮转向电机目标位置控制信号";
+CM_ BO_ 770 "RDM控制右前转向电机报文2";
+CM_ SG_ 770 RDM_Fr202_FRSteerMotorSpdInc "RDM对右前轮转向电机梯形加速度控制信号";
+CM_ SG_ 770 RDM_Fr202_FRSteerMotorSpdDec "RDM对右前轮转向电机梯形减速度控制信号";
+CM_ BO_ 1026 "RDM控制右前转向电机报文3";
+CM_ SG_ 1026 RDM_Fr203_FRSteerMotorSpdLmt "RDM对右前轮转向电机转速限制控制信号";
+CM_ SG_ 1026 RDM_Fr203_FRSteerMotorSpdCmd "RDM对右前轮转向电机转速控制信号";
+CM_ BO_ 515 "RDM控制左后转向电机报文1";
+CM_ SG_ 515 RDM_Fr301_RLSteerMotorStCtrl "RDM对左后轮转向电机状态控制信号";
+CM_ SG_ 515 RDM_Fr301_RLSteerMotorWrkModCtrl "RDM对左后轮转向电机模式控制信号";
+CM_ SG_ 515 RDM_Fr301_RLSteerMotorTrgtPstn "RDM对左后轮转向电机目标位置控制信号";
+CM_ BO_ 771 "RDM控制左后转向电机报文2";
+CM_ SG_ 771 RDM_Fr302_RLSteerMotorSpdInc "RDM对左后轮转向电机梯形加速度控制信号";
+CM_ SG_ 771 RDM_Fr302_RLSteerMotorSpdDec "RDM对左后轮转向电机梯形减速度控制信号";
+CM_ BO_ 1027 "RDM控制左后转向电机报文3";
+CM_ SG_ 1027 RDM_Fr303_RLSteerMotorSpdLmt "RDM对左后轮转向电机转速限制控制信号";
+CM_ SG_ 1027 RDM_Fr303_RLSteerMotorSpdCmd "RDM对左后轮转向电机转速控制信号";
+CM_ BO_ 516 "RDM控制右后转向电机报文1";
+CM_ SG_ 516 RDM_Fr401_RRSteerMotorStCtrl "RDM对右后轮转向电机状态控制信号";
+CM_ SG_ 516 RDM_Fr401_RRSteerMotorWrkModCtrl "RDM对右后轮转向电机模式控制信号";
+CM_ SG_ 516 RDM_Fr401_RRSteerMotorTrgtPstn "RDM对右后轮转向电机目标位置控制信号";
+CM_ BO_ 772 "RDM控制右后转向电机报文2";
+CM_ SG_ 772 RDM_Fr402_RRSteerMotorSpdInc "RDM对右后轮转向电机梯形加速度控制信号";
+CM_ SG_ 772 RDM_Fr402_RRSteerMotorSpdDec "RDM对右后轮转向电机梯形减速度控制信号";
+CM_ BO_ 1028 "RDM控制右后转向电机报文3";
+CM_ SG_ 1028 RDM_Fr403_RRSteerMotorSpdLmt "RDM对右后轮转向电机转速限制控制信号";
+CM_ SG_ 1028 RDM_Fr403_RRSteerMotorSpdCmd "RDM对右后轮转向电机转速控制信号";
+
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 1;
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 100000000000;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 65535;
+BA_DEF_ BO_  "DiagResponse" ENUM  "no","yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "no","yes";
+BA_DEF_ BO_  "TpTxIndex" INT 0 255;
+BA_DEF_ BO_  "NmAsrMessage" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 65535;
+BA_DEF_ BO_  "NmMessage" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","spontaneous","cyclicIfActive","spontaneousWithDelay","immediate";
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 65535;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 65535;
+BA_DEF_ BO_  "DiagState" ENUM  "no","yes";
+BA_DEF_ BO_  "DiagUudtResponse" ENUM  "false","true";
+BA_DEF_ BU_  "NmNode" ENUM  "no","yes";
+BA_DEF_ BU_  "NmAsrCanMsgCycleOffset" INT 0 65535;
+BA_DEF_ BU_  "NmStationAddress" HEX 0 255;
+BA_DEF_ BU_  "NmAsrNodeIdentifier" HEX 0 255;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ILUsed" ENUM  "no","yes";
+BA_DEF_ BU_  "NmAsrCanMsgReducedTime" INT 1 65535;
+BA_DEF_ BU_  "NmAsrNode" ENUM  "no","yes";
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ SG_  "SystemSignalLongSymbol" STRING ;
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "GenSigSendType" "NoSigSendType";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "DiagResponse" "no";
+BA_DEF_DEF_  "DiagRequest" "no";
+BA_DEF_DEF_  "TpTxIndex" 0;
+BA_DEF_DEF_  "NmAsrMessage" "no";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "no";
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "NmMessage" "no";
+BA_DEF_DEF_  "GenMsgSendType" "cyclic";
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "DiagState" "no";
+BA_DEF_DEF_  "DiagUudtResponse" "false";
+BA_DEF_DEF_  "NmNode" "no";
+BA_DEF_DEF_  "NmAsrCanMsgCycleOffset" 0;
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmAsrNodeIdentifier" 50;
+BA_DEF_DEF_  "NodeLayerModules" " ";
+BA_DEF_DEF_  "ILUsed" "no";
+BA_DEF_DEF_  "NmAsrCanMsgReducedTime" 320;
+BA_DEF_DEF_  "NmAsrNode" "no";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "SystemSignalLongSymbol" "";
+BA_ "BusType" "CAN";
+BA_ "DBName" "MpsCanProtocol";
+BA_ "NmAsrCanMsgReducedTime" BU_ RDM 1;
+BA_ "ECU" BU_ RDM "RDM";
+
+BA_ "GenMsgCycleTime" BO_ 1546 50;
+BA_ "GenMsgCycleTime" BO_ 1547 50;
+BA_ "GenMsgCycleTime" BO_ 1548 50;
+BA_ "GenMsgCycleTime" BO_ 1549 50;
+BA_ "GenMsgCycleTime" BO_ 1418 50;
+BA_ "GenMsgCycleTime" BO_ 1419 50;
+BA_ "GenMsgCycleTime" BO_ 1420 50;
+BA_ "GenMsgCycleTime" BO_ 1421 50;
+BA_ "GenMsgCycleTime" BO_ 394 10;
+BA_ "GenMsgCycleTime" BO_ 395 10;
+BA_ "GenMsgCycleTime" BO_ 396 10;
+BA_ "GenMsgCycleTime" BO_ 397 10;
+BA_ "GenMsgCycleTime" BO_ 650 100;
+BA_ "GenMsgCycleTime" BO_ 651 100;
+BA_ "GenMsgCycleTime" BO_ 652 100;
+BA_ "GenMsgCycleTime" BO_ 653 100;
+BA_ "GenMsgCycleTime" BO_ 385 20;
+BA_ "GenMsgCycleTime" BO_ 641 20;
+BA_ "GenMsgCycleTime" BO_ 897 100;
+BA_ "GenMsgCycleTime" BO_ 386 20;
+BA_ "GenMsgCycleTime" BO_ 642 20;
+BA_ "GenMsgCycleTime" BO_ 898 100;
+BA_ "GenMsgCycleTime" BO_ 387 20;
+BA_ "GenMsgCycleTime" BO_ 643 20;
+BA_ "GenMsgCycleTime" BO_ 899 100;
+BA_ "GenMsgCycleTime" BO_ 388 20;
+BA_ "GenMsgCycleTime" BO_ 644 20;
+BA_ "GenMsgCycleTime" BO_ 900 100;
+BA_ "GenMsgCycleTime" BO_ 513 20;
+BA_ "GenMsgCycleTime" BO_ 769 100;
+BA_ "GenMsgCycleTime" BO_ 1025 100;
+BA_ "GenMsgCycleTime" BO_ 514 20;
+BA_ "GenMsgCycleTime" BO_ 770 100;
+BA_ "GenMsgCycleTime" BO_ 1026 100;
+BA_ "GenMsgCycleTime" BO_ 515 20;
+BA_ "GenMsgCycleTime" BO_ 771 100;
+BA_ "GenMsgCycleTime" BO_ 1027 100;
+BA_ "GenMsgCycleTime" BO_ 516 20;
+BA_ "GenMsgCycleTime" BO_ 772 100;
+BA_ "GenMsgCycleTime" BO_ 1028 100;
+
+BA_ "GenSigStartValue" SG_ 1546 RDM_Fr40A_Byte0 0;
+BA_ "GenSigStartValue" SG_ 1546 RDM_Fr40A_Byte1 0;
+BA_ "GenSigStartValue" SG_ 1546 RDM_Fr40A_Byte2 0;
+BA_ "GenSigStartValue" SG_ 1546 RDM_Fr40A_Byte3 0;
+BA_ "GenSigStartValue" SG_ 1546 RDM_Fr40A_Byte4 0;
+BA_ "GenSigStartValue" SG_ 1546 RDM_Fr40A_Byte5 0;
+BA_ "GenSigStartValue" SG_ 1546 RDM_Fr40A_Byte6 0;
+BA_ "GenSigStartValue" SG_ 1546 RDM_Fr40A_Byte7 0;
+BA_ "GenSigStartValue" SG_ 1547 RDM_Fr40B_Byte0 0;
+BA_ "GenSigStartValue" SG_ 1547 RDM_Fr40B_Byte1 0;
+BA_ "GenSigStartValue" SG_ 1547 RDM_Fr40B_Byte2 0;
+BA_ "GenSigStartValue" SG_ 1547 RDM_Fr40B_Byte3 0;
+BA_ "GenSigStartValue" SG_ 1547 RDM_Fr40B_Byte4 0;
+BA_ "GenSigStartValue" SG_ 1547 RDM_Fr40B_Byte5 0;
+BA_ "GenSigStartValue" SG_ 1547 RDM_Fr40B_Byte6 0;
+BA_ "GenSigStartValue" SG_ 1547 RDM_Fr40B_Byte7 0;
+BA_ "GenSigStartValue" SG_ 1548 RDM_Fr40C_Byte0 0;
+BA_ "GenSigStartValue" SG_ 1548 RDM_Fr40C_Byte1 0;
+BA_ "GenSigStartValue" SG_ 1548 RDM_Fr40C_Byte2 0;
+BA_ "GenSigStartValue" SG_ 1548 RDM_Fr40C_Byte3 0;
+BA_ "GenSigStartValue" SG_ 1548 RDM_Fr40C_Byte4 0;
+BA_ "GenSigStartValue" SG_ 1548 RDM_Fr40C_Byte5 0;
+BA_ "GenSigStartValue" SG_ 1548 RDM_Fr40C_Byte6 0;
+BA_ "GenSigStartValue" SG_ 1548 RDM_Fr40C_Byte7 0;
+BA_ "GenSigStartValue" SG_ 1549 RDM_Fr40D_Byte0 0;
+BA_ "GenSigStartValue" SG_ 1549 RDM_Fr40D_Byte1 0;
+BA_ "GenSigStartValue" SG_ 1549 RDM_Fr40D_Byte2 0;
+BA_ "GenSigStartValue" SG_ 1549 RDM_Fr40D_Byte3 0;
+BA_ "GenSigStartValue" SG_ 1549 RDM_Fr40D_Byte4 0;
+BA_ "GenSigStartValue" SG_ 1549 RDM_Fr40D_Byte5 0;
+BA_ "GenSigStartValue" SG_ 1549 RDM_Fr40D_Byte6 0;
+BA_ "GenSigStartValue" SG_ 1549 RDM_Fr40D_Byte7 0;
+BA_ "GenSigStartValue" SG_ 1418 FDD_Fr10A_Byte0 0;
+BA_ "GenSigStartValue" SG_ 1418 FDD_Fr10A_Byte1 0;
+BA_ "GenSigStartValue" SG_ 1418 FDD_Fr10A_Byte2 0;
+BA_ "GenSigStartValue" SG_ 1418 FDD_Fr10A_Byte3 0;
+BA_ "GenSigStartValue" SG_ 1418 FDD_Fr10A_Byte4 0;
+BA_ "GenSigStartValue" SG_ 1418 FDD_Fr10A_Byte5 0;
+BA_ "GenSigStartValue" SG_ 1418 FDD_Fr10A_Byte6 0;
+BA_ "GenSigStartValue" SG_ 1418 FDD_Fr10A_Byte7 0;
+BA_ "GenSigStartValue" SG_ 1419 FDD_Fr10B_Byte0 0;
+BA_ "GenSigStartValue" SG_ 1419 FDD_Fr10B_Byte1 0;
+BA_ "GenSigStartValue" SG_ 1419 FDD_Fr10B_Byte2 0;
+BA_ "GenSigStartValue" SG_ 1419 FDD_Fr10B_Byte3 0;
+BA_ "GenSigStartValue" SG_ 1419 FDD_Fr10B_Byte4 0;
+BA_ "GenSigStartValue" SG_ 1419 FDD_Fr10B_Byte5 0;
+BA_ "GenSigStartValue" SG_ 1419 FDD_Fr10B_Byte6 0;
+BA_ "GenSigStartValue" SG_ 1419 FDD_Fr10B_Byte7 0;
+BA_ "GenSigStartValue" SG_ 1420 RDD_Fr10C_Byte0 0;
+BA_ "GenSigStartValue" SG_ 1420 RDD_Fr10C_Byte1 0;
+BA_ "GenSigStartValue" SG_ 1420 RDD_Fr10C_Byte2 0;
+BA_ "GenSigStartValue" SG_ 1420 RDD_Fr10C_Byte3 0;
+BA_ "GenSigStartValue" SG_ 1420 RDD_Fr10C_Byte4 0;
+BA_ "GenSigStartValue" SG_ 1420 RDD_Fr10C_Byte5 0;
+BA_ "GenSigStartValue" SG_ 1420 RDD_Fr10C_Byte6 0;
+BA_ "GenSigStartValue" SG_ 1420 RDD_Fr10C_Byte7 0;
+BA_ "GenSigStartValue" SG_ 1421 RDD_Fr10D_Byte0 0;
+BA_ "GenSigStartValue" SG_ 1421 RDD_Fr10D_Byte1 0;
+BA_ "GenSigStartValue" SG_ 1421 RDD_Fr10D_Byte2 0;
+BA_ "GenSigStartValue" SG_ 1421 RDD_Fr10D_Byte3 0;
+BA_ "GenSigStartValue" SG_ 1421 RDD_Fr10D_Byte4 0;
+BA_ "GenSigStartValue" SG_ 1421 RDD_Fr10D_Byte5 0;
+BA_ "GenSigStartValue" SG_ 1421 RDD_Fr10D_Byte6 0;
+BA_ "GenSigStartValue" SG_ 1421 RDD_Fr10D_Byte7 0;
+BA_ "GenSigStartValue" SG_ 394 FDD_Fr01_FLDrvMotorSpd 0;
+BA_ "GenSigStartValue" SG_ 394 FDD_Fr01_FLDrvMotorPstn 0;
+BA_ "GenSigStartValue" SG_ 395 FDD_Fr02_FRDrvMotorSpd 0;
+BA_ "GenSigStartValue" SG_ 395 FDD_Fr02_FRDrvMotorPstn 0;
+BA_ "GenSigStartValue" SG_ 396 RDD_Fr01_RLDrvMotorSpd 0;
+BA_ "GenSigStartValue" SG_ 396 RDD_Fr01_RLDrvMotorPstn 0;
+BA_ "GenSigStartValue" SG_ 397 RDD_Fr02_RRDrvMotorSpd 0;
+BA_ "GenSigStartValue" SG_ 397 RDD_Fr02_RRDrvMotorPstn 0;
+BA_ "GenSigStartValue" SG_ 650 FDD_Fr03_FLDrvMotorVolt 0;
+BA_ "GenSigStartValue" SG_ 650 FDD_Fr03_FLDrvMotorCurrt 0;
+BA_ "GenSigStartValue" SG_ 650 FDD_Fr03_FLDrvMotorTemp 0;
+BA_ "GenSigStartValue" SG_ 650 FDD_Fr03_FLDrvMotorErrorStat 0;
+BA_ "GenSigStartValue" SG_ 651 FDD_Fr04_FRDrvMotorVolt 0;
+BA_ "GenSigStartValue" SG_ 651 FDD_Fr04_FRDrvMotorCurrt 0;
+BA_ "GenSigStartValue" SG_ 651 FDD_Fr04_FRDrvMotorTemp 0;
+BA_ "GenSigStartValue" SG_ 651 FDD_Fr04_FRDrvMotorErrorStat 0;
+BA_ "GenSigStartValue" SG_ 652 RDD_Fr03_RLDrvMotorVolt 0;
+BA_ "GenSigStartValue" SG_ 652 RDD_Fr03_RLDrvMotorCurrt 0;
+BA_ "GenSigStartValue" SG_ 652 RDD_Fr03_RLDrvMotorTemp 0;
+BA_ "GenSigStartValue" SG_ 652 RDD_Fr03_RLDrvMotorErrorStat 0;
+BA_ "GenSigStartValue" SG_ 653 RDD_Fr04_RRDrvMotorVolt 0;
+BA_ "GenSigStartValue" SG_ 653 RDD_Fr04_RRDrvMotorCurrt 0;
+BA_ "GenSigStartValue" SG_ 653 RDD_Fr04_RRDrvMotorTemp 0;
+BA_ "GenSigStartValue" SG_ 653 RDD_Fr04_RRDrvMotorErrorStat 0;
+BA_ "GenSigStartValue" SG_ 385 FLSD_Fr01_FLSteerMotorCtrlSt 0;
+BA_ "GenSigStartValue" SG_ 385 FLSD_Fr01_FLSteerMotorWrkMode 0;
+BA_ "GenSigStartValue" SG_ 385 FLSD_Fr01_FLSteerMotorActCurrt 0;
+BA_ "GenSigStartValue" SG_ 385 FLSD_Fr01_FLSteerMotorFltVal 0;
+BA_ "GenSigStartValue" SG_ 641 FLSD_Fr02_FLSteerMotorActPstn 0;
+BA_ "GenSigStartValue" SG_ 641 FLSD_Fr02_FLSteerMotorActSpd 0;
+BA_ "GenSigStartValue" SG_ 897 FLSD_Fr03_FLSteerMotorStVal 0;
+BA_ "GenSigStartValue" SG_ 897 FLSD_Fr03_FLSteerDetailFlt 0;
+BA_ "GenSigStartValue" SG_ 386 FRSD_Fr01_FRSteerMotorCtrlSt 0;
+BA_ "GenSigStartValue" SG_ 386 FRSD_Fr01_FRSteerMotorWrkMode 0;
+BA_ "GenSigStartValue" SG_ 386 FRSD_Fr01_FRSteerMotorActCurrt 0;
+BA_ "GenSigStartValue" SG_ 386 FRSD_Fr01_FRSteerMotorFltVal 0;
+BA_ "GenSigStartValue" SG_ 642 FRSD_Fr02_FRSteerMotorActPstn 0;
+BA_ "GenSigStartValue" SG_ 642 FRSD_Fr02_FRSteerMotorActSpd 0;
+BA_ "GenSigStartValue" SG_ 898 FRSD_Fr03_FRSteerMotorStVal 0;
+BA_ "GenSigStartValue" SG_ 898 FRSD_Fr03_FRSteerDetailFlt 0;
+BA_ "GenSigStartValue" SG_ 387 RLSD_Fr01_RLSteerMotorCtrlSt 0;
+BA_ "GenSigStartValue" SG_ 387 RLSD_Fr01_RLSteerMotorWrkMode 0;
+BA_ "GenSigStartValue" SG_ 387 RLSD_Fr01_RLSteerMotorActCurrt 0;
+BA_ "GenSigStartValue" SG_ 387 RLSD_Fr01_RLSteerMotorFltVal 0;
+BA_ "GenSigStartValue" SG_ 643 RLSD_Fr02_RLSteerMotorActPstn 0;
+BA_ "GenSigStartValue" SG_ 643 RLSD_Fr02_RLSteerMotorActSpd 0;
+BA_ "GenSigStartValue" SG_ 899 RLSD_Fr03_RLSteerMotorStVal 0;
+BA_ "GenSigStartValue" SG_ 899 RLSD_Fr03_RLSteerDetailFlt 0;
+BA_ "GenSigStartValue" SG_ 388 RRSD_Fr01_RRSteerMotorCtrlSt 0;
+BA_ "GenSigStartValue" SG_ 388 RRSD_Fr01_RRSteerMotorWrkMode 0;
+BA_ "GenSigStartValue" SG_ 388 RRSD_Fr01_RRSteerMotorActCurrt 0;
+BA_ "GenSigStartValue" SG_ 388 RRSD_Fr01_RRSteerMotorFltVal 0;
+BA_ "GenSigStartValue" SG_ 644 RRSD_Fr02_RRSteerMotorActPstn 0;
+BA_ "GenSigStartValue" SG_ 644 RRSD_Fr02_RRSteerMotorActSpd 0;
+BA_ "GenSigStartValue" SG_ 900 RRSD_Fr03_RRSteerMotorStVal 0;
+BA_ "GenSigStartValue" SG_ 900 RRSD_Fr03_RRSteerDetailFlt 0;
+BA_ "GenSigStartValue" SG_ 513 RDM_Fr101_FLSteerMotorStCtrl 0;
+BA_ "GenSigStartValue" SG_ 513 RDM_Fr101_FLSteerMotorWrkModCtrl 0;
+BA_ "GenSigStartValue" SG_ 513 RDM_Fr101_FLSteerMotorTrgtPstn 0;
+BA_ "GenSigStartValue" SG_ 769 RDM_Fr102_FLSteerMotorSpdInc 0;
+BA_ "GenSigStartValue" SG_ 769 RDM_Fr102_FLSteerMotorSpdDec 0;
+BA_ "GenSigStartValue" SG_ 1025 RDM_Fr103_FLSteerMotorSpdLmt 0;
+BA_ "GenSigStartValue" SG_ 1025 RDM_Fr103_FLSteerMotorSpdCmd 0;
+BA_ "GenSigStartValue" SG_ 514 RDM_Fr201_FRSteerMotorStCtrl 0;
+BA_ "GenSigStartValue" SG_ 514 RDM_Fr201_FRSteerMotorWrkModCtrl 0;
+BA_ "GenSigStartValue" SG_ 514 RDM_Fr201_FRSteerMotorTrgtPstn 0;
+BA_ "GenSigStartValue" SG_ 770 RDM_Fr202_FRSteerMotorSpdInc 0;
+BA_ "GenSigStartValue" SG_ 770 RDM_Fr202_FRSteerMotorSpdDec 0;
+BA_ "GenSigStartValue" SG_ 1026 RDM_Fr203_FRSteerMotorSpdLmt 0;
+BA_ "GenSigStartValue" SG_ 1026 RDM_Fr203_FRSteerMotorSpdCmd 0;
+BA_ "GenSigStartValue" SG_ 515 RDM_Fr301_RLSteerMotorStCtrl 0;
+BA_ "GenSigStartValue" SG_ 515 RDM_Fr301_RLSteerMotorWrkModCtrl 0;
+BA_ "GenSigStartValue" SG_ 515 RDM_Fr301_RLSteerMotorTrgtPstn 0;
+BA_ "GenSigStartValue" SG_ 771 RDM_Fr302_RLSteerMotorSpdInc 0;
+BA_ "GenSigStartValue" SG_ 771 RDM_Fr302_RLSteerMotorSpdDec 0;
+BA_ "GenSigStartValue" SG_ 1027 RDM_Fr303_RLSteerMotorSpdLmt 0;
+BA_ "GenSigStartValue" SG_ 1027 RDM_Fr303_RLSteerMotorSpdCmd 0;
+BA_ "GenSigStartValue" SG_ 516 RDM_Fr401_RRSteerMotorStCtrl 0;
+BA_ "GenSigStartValue" SG_ 516 RDM_Fr401_RRSteerMotorWrkModCtrl 0;
+BA_ "GenSigStartValue" SG_ 516 RDM_Fr401_RRSteerMotorTrgtPstn 0;
+BA_ "GenSigStartValue" SG_ 772 RDM_Fr402_RRSteerMotorSpdInc 0;
+BA_ "GenSigStartValue" SG_ 772 RDM_Fr402_RRSteerMotorSpdDec 0;
+BA_ "GenSigStartValue" SG_ 1028 RDM_Fr403_RRSteerMotorSpdLmt 0;
+BA_ "GenSigStartValue" SG_ 1028 RDM_Fr403_RRSteerMotorSpdCmd 0;
+
+VAL_ 897 FLSD_Fr03_FLSteerDetailFlt 65307 "STO2错误" 65306 "STO1错误" 65296 "STO错误" 29446 "主编码器计数错误" 29570 "主编码器ABZ错误" 35457 "全闭环检查错误" 33279 "总线通讯超时" 33024 "总线通讯出错" 24594 "SPI通讯故障" 21569 "负限位报错" 21570 "正限位报错" 21571 "预使能错误" 65298 "STO2错误" 65297 "STO1错误" 65281 "数字输出过载" 25377 "电机缺相" 25376 "电机型号错误" 29696 "检测到错误处理器型号" 24593 "无效中断发生" 24592 "软件看门狗复位" 21008 "电流传感器出错" 0 "None" ;
+VAL_ 898 FRSD_Fr03_FRSteerDetailFlt 65307 "STO2错误" 65306 "STO1错误" 65296 "STO错误" 29446 "主编码器计数错误" 29570 "主编码器ABZ错误" 35457 "全闭环检查错误" 33279 "总线通讯超时" 33024 "总线通讯出错" 24594 "SPI通讯故障" 21569 "负限位报错" 21570 "正限位报错" 21571 "预使能错误" 65298 "STO2错误" 65297 "STO1错误" 65281 "数字输出过载" 25377 "电机缺相" 25376 "电机型号错误" 29696 "检测到错误处理器型号" 24593 "无效中断发生" 24592 "软件看门狗复位" 21008 "电流传感器出错" 0 "None" ;
+VAL_ 899 RLSD_Fr03_RLSteerDetailFlt 65307 "STO2错误" 65306 "STO1错误" 65296 "STO错误" 29446 "主编码器计数错误" 29570 "主编码器ABZ错误" 35457 "全闭环检查错误" 33279 "总线通讯超时" 33024 "总线通讯出错" 24594 "SPI通讯故障" 21569 "负限位报错" 21570 "正限位报错" 21571 "预使能错误" 65298 "STO2错误" 65297 "STO1错误" 65281 "数字输出过载" 25377 "电机缺相" 25376 "电机型号错误" 29696 "检测到错误处理器型号" 24593 "无效中断发生" 24592 "软件看门狗复位" 21008 "电流传感器出错" 0 "None" ;
+VAL_ 900 RRSD_Fr03_RRSteerDetailFlt 65307 "STO2错误" 65306 "STO1错误" 65296 "STO错误" 29446 "主编码器计数错误" 29570 "主编码器ABZ错误" 35457 "全闭环检查错误" 33279 "总线通讯超时" 33024 "总线通讯出错" 24594 "SPI通讯故障" 21569 "负限位报错" 21570 "正限位报错" 21571 "预使能错误" 65298 "STO2错误" 65297 "STO1错误" 65281 "数字输出过载" 25377 "电机缺相" 25376 "电机型号错误" 29696 "检测到错误处理器型号" 24593 "无效中断发生" 24592 "软件看门狗复位" 21008 "电流传感器出错" 0 "None" ;

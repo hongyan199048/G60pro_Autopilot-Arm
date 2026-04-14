@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>robot_sensors</name>
+  <version>1.0.0</version>
+  <description>G60Pro 传感器驱动管理</description>
+  <maintainer email="admin@example.com">G60Pro Team</maintainer>
+  <license>MIT</license>
+
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>image_transport</depend>
+
+  <exec_depend>rslidar_sdk</exec_depend>
+  <exec_depend>ydlidar_ros2_driver</exec_depend>
+  <exec_depend>realsense2_camera</exec_depend>
+  <exec_depend>imu_complementary_filter</exec_depend>
+  <exec_depend>orbbec_camera</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

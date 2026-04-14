@@ -1,0 +1,12 @@
+source;share/arm_vision/hook/path.ps1
+source;share/arm_vision/hook/path.dsv
+source;share/arm_vision/hook/path.sh
+source;share/arm_vision/hook/pythonpath.ps1
+source;share/arm_vision/hook/pythonpath.dsv
+source;share/arm_vision/hook/pythonpath.sh
+source;share/arm_vision/hook/pythonscriptspath.ps1
+source;share/arm_vision/hook/pythonscriptspath.dsv
+source;share/arm_vision/hook/pythonscriptspath.sh
+source;share/arm_vision/hook/ament_prefix_path.ps1
+source;share/arm_vision/hook/ament_prefix_path.dsv
+source;share/arm_vision/hook/ament_prefix_path.sh
