@@ -238,7 +238,7 @@
     <xacro:robosense_16_lidar name="rs16" parent="base_link" xyz="${multi_lidar_offset_x} 0 ${multi_lidar_z}" rpy="0 0 0"/>
   </xacro:unless>
 
-  <!-- 单线 1: 右前，车身外；倒装(roll 180°) + 270° 扇区朝右前(yaw -45°) -->
+  <!-- 单线 1: 物理右前（橙色），车身外；倒装(roll 180°) + 315° 扇区朝右前(yaw -45°) -->
   <link name="single_lidar_1_link">
     <visual>
       <geometry><box size="0.03 0.03 0.02"/></geometry>
@@ -288,7 +288,7 @@
     </sensor>
   </gazebo>
 
-  <!-- 单线 2: 左后，车身外；倒装(roll 180°) + 270° 扇区朝左后(yaw 135°) -->
+  <!-- 单线 2: 物理左后（绿色），车身外；倒装(roll 180°) + 225° 扇区朝左后(yaw 135°) -->
   <link name="single_lidar_2_link">
     <visual>
       <geometry><box size="0.03 0.03 0.02"/></geometry>

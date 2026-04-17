@@ -14,7 +14,7 @@ colcon build
 ```
 
 ## 启动
-
+### 虚拟环境启动slam
 ```bash
 cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 ./start_slam.sh
@@ -22,6 +22,17 @@ cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 ## 键盘控制
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/cmd_vel
+```
+
+### 实机启动slam
+```bash
+cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
+./start_slam_real.sh
+```
+### rviz实机所有外设显示（orbbec相机暂时被注释）
+```bash
+cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
+./view_sensors.sh
 ```
 ## 保存地图
 ```bash

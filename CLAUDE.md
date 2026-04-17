@@ -42,16 +42,16 @@ HAL → 定位 → 感知 → 决策 → 规划 → 控制
 
 ### 传感器配置
 
-| 硬件 | 接口 | 作用 |
-|------|------|------|
-| Livox Mid360 | Ethernet | 主 3D LiDAR + 建图 |
-| RoboSense Helios 16 | Ethernet | 备选/辅助 3D LiDAR |
-| 单线激光雷达 ×2 | Ethernet/串口 | 近场/低矮障碍盲区补盲；离地约 40cm，前后对角线布置 |
-| Orbbec DaBai DCW2 | USB3.0 | RGBD 深度相机 |
-| IMU | — | EKF 融合 |
-| 4 轮 8 驱全向底盘 | CAN (can0, 500kbps) | 线控底盘，CAN ID 0x10/0x11/0x1FF 发送，0x18/0x19/0x1A 接收 |
+| 硬件 | 接口 | IP | 作用 |
+|------|------|----|------|
+| RoboSense Helios 16 | Ethernet | 192.168.2.200 | **主力** 3D LiDAR；建图/定位；msop 6699，difop 7788 |
+| LakiBeam1S 右前（单线） | Ethernet | 192.168.2.151 | 近场盲区补盲；离地约 40cm |
+| LakiBeam1S 左后（单线） | Ethernet | 192.168.2.150 | 近场盲区补盲；离地约 40cm |
+| Orbbec DaBai DCW2 | USB3.0 | — | RGBD 深度相机 |
+| IMU | — | — | EKF 融合 |
+| 4 轮 8 驱全向底盘 | CAN (can0, 500kbps) | — | 线控底盘，CAN ID 0x10/0x11/0x1FF 发送，0x18/0x19/0x1A 接收 |
 
-URDF 模型（`g60pro_gazebo/`) 支持通过 `lidar_type` 参数切换 RoboSense Helios 16 和 Livox Mid360。
+**网络配置**：电脑网口 `enp0s31f6` IP 固定为 `192.168.2.102`，三个雷达均向此 IP 发 ARP。
 
 ### 关键话题
 
@@ -134,11 +134,38 @@ source install/setup.bash
 ros2 launch arm_vision arm_vision.launch.py
 ```
 
-### FAST-LIO（定位）
+### 实车 Cartographer SLAM（已验证）
+
+工作空间：`AutoPilot/20260325G60pro/`
 
 ```bash
-ros2 launch fast_lio mapping_mid360.launch.py
-ros2 launch livox_ros_driver2 msg_MID360_launch.py
+# 一键启动（Helios16 驱动 + Cartographer + RViz）
+cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
+./start_slam_real.sh
+
+# 建图完成后保存地图（自动加版本号 _v1/_v2/...）
+./save_map.sh            # 保存为 maps/g60pro_v1.pgm + .yaml
+./save_map.sh mymap      # 自定义名称
+```
+
+地图文件保存在 `AutoPilot/20260325G60pro/maps/`，PGM + YAML 格式，可直接用于 Nav2。
+
+**关键配置文件**：
+
+| 文件 | 说明 |
+|------|------|
+| `src/rslidar_sdk/config/config.yaml` | Helios16 驱动：`lidar_type: RSHELIOS_16P`，话题 `/lidar/rs16/points`，frame `rs16_link` |
+| `src/robot_slam/config/cartographer_real.lua` | 实车 Cartographer：无 IMU，`tracking_frame=base_link`，`published_frame=base_footprint` |
+| `src/robot_bringup/rviz/slam_real.rviz` | 实车 RViz 配置，点云话题 `/lidar/rs16/points` |
+
+**编译说明**（rslidar_sdk 需手动处理）：
+
+```bash
+cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro
+source /opt/ros/humble/setup.bash
+# rslidar_sdk 当前编译为 POINT_TYPE XYZI（适配 Cartographer）
+# 若切换到 Fast-LIO，需改为 XYZIRT 并重编
+colcon build --packages-select rslidar_sdk
 ```
 
 ---
@@ -157,3 +184,6 @@ ros2 launch livox_ros_driver2 msg_MID360_launch.py
 - `T_cam2gripper`（手眼标定矩阵）当前硬编码为单位矩阵，需替换为实际标定结果
 - `pyorbbecsdk` 重新编译后确保 `LD_LIBRARY_PATH` 包含 `pyorbbecsdk/install/lib`
 - Gazebo 仿真需设置 `OGRE_RENDERER='GL'` 避免 GPU 问题
+- `rslidar_sdk` 的 `POINT_TYPE`：Cartographer SLAM 用 `XYZI`；若切换 Fast-LIO 定位需改为 `XYZIRT` 并重编
+- LakiBeam1S 单线雷达驱动尚未集成，待开发
+- CAN 总线（can0/can1）尚未在实车上调通，底盘里程计暂不可用
