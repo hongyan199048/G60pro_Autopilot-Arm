@@ -140,4 +140,15 @@ URDF 中所有 link 的 `inertial.mass` 设为 `0.001`，车体和机械臂的 `
 
 ## Orbbec 相机
 
-`sensors.launch.py` 中 4 个 Orbbec 相机使用 `usb_port` 参数区分设备，需根据实际 USB 端口修改。
+使用 `orbbec_camera/launch/dabai_dcw2.launch.py` 启动，`usb_port` 参数区分设备，需根据实际 USB 端口修改。
+
+## RViz 配置
+
+所有 RViz 配置文件统一在 `robot_rviz/rviz/`：
+
+| 文件 | 用途 |
+|------|------|
+| `slam.rviz` | Gazebo 仿真 SLAM 建图视图 |
+| `slam_real.rviz` | 实车 SLAM 建图视图（Helios16 点云）|
+| `navigation.rviz` | Nav2 导航视图（地图 + 路径 + 代价地图） |
+| `sensors_view.rviz` | 实车传感器查看（Helios16 + 双 LakiBeam1S） |
