@@ -14,32 +14,33 @@ colcon build
 ```
 
 ## 启动
-### 虚拟环境启动slam
+
+命名规则：`_sim` = Gazebo 仿真，`_real` = 实车，无后缀 = 通用
+
+### 仿真环境（Gazebo）
 ```bash
 cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
-./start_slam.sh
+./start_slam_sim.sh        # Gazebo + Cartographer SLAM + RViz
+./start_nav_sim.sh         # Gazebo SLAM 建图 → 保存地图 → Nav2 导航
 ```
+
+### 实车环境
+```bash
+cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
+./start_slam_real.sh       # Helios16 + Cartographer + RViz
+./view_sensors_real.sh     # 查看所有传感器（Helios16 + 双 LakiBeam1S）
+```
+
+### 通用工具
+```bash
+cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
+./save_map.sh              # 保存当前 /map 为 maps/g60pro_v*.pgm + .yaml
+```
+
 ## 键盘控制
 ```bash
 ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/cmd_vel
 ```
-
-### 实机启动slam
-```bash
-cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
-./start_slam_real.sh
-```
-### rviz实机所有外设显示（orbbec相机暂时被注释）
-```bash
-cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
-./view_sensors.sh
-```
-## 保存地图
-```bash
-cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
-./save_map.sh
-```
-保存完成后会生成 .pgm + .yaml，Nav2 直接用
 
 
 
@@ -78,11 +79,11 @@ cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 
 | 启动文件 | 用途 |
 |---------|------|
-| `robot_bringup/launch/robot_all.launch.py` | 整车：描述 + 底盘 + CAN + 传感器 + 定位 |
-| `robot_bringup/launch/robot_slam.launch.py` | SLAM 建图：描述 + 底盘 + 传感器 + Cartographer |
-| `robot_bringup/launch/robot_navigation.launch.py` | 导航：描述 + 底盘 + 传感器 + EKF + Nav2 |
 | `robot_gazebo/launch/sim.launch.py` | Gazebo 仿真：Gazebo + 描述 + spawn |
-| `start_slam.sh` | 一键脚本：清理进程 → colcon build → Gazebo + 底盘 + SLAM + RViz |
+| `robot_slam/launch/slam.launch.py` | Cartographer SLAM |
+| `robot_navigation/launch/navigation.launch.py` | Nav2 导航（含 AMCL 定位） |
+| `robot_base/launch/base.launch.py` | 底盘运动学节点 |
+| `robot_description/launch/description.launch.py` | URDF + TF 发布 |
 
 ### 关键话题
 
@@ -133,15 +134,9 @@ export GAZEBO_MODEL_PATH=...           # 包含 robot_description 和 /usr/share
 
 URDF 中所有 link 的 `inertial.mass` 设为 `0.001`，车体和机械臂的 `gravity` 设为 `0`。
 
-## 已知 Bug
+## 注意事项
 
-1. `robot_navigation/launch/navigation.launch.py` 缺少 `IncludeLaunchDescription` 和 `PythonLaunchDescriptionSource` 的 import，会导致启动失败。需在文件头部添加：
-   ```python
-   from launch.actions import IncludeLaunchDescription
-   from launch.launch_description_sources import PythonLaunchDescriptionSource
-   ```
-
-2. `robot_description/launch/description.launch.py` 中 `lidar_type` 参数硬编码为 `robosense_16`，`lidar_type_arg` 声明了但未使用。
+- `robot_description/launch/description.launch.py` 中 `lidar_type` 参数硬编码为 `robosense_16`，如需切换雷达需修改该文件中的 `process_file` 调用。
 
 ## Orbbec 相机
 

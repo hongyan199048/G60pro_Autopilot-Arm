@@ -1,23 +1,15 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>robot_bringup</name>
+  <name>robot_rviz</name>
   <version>1.0.0</version>
-  <description>G60Pro 整车启动包</description>
+  <description>G60Pro RViz 配置文件（SLAM、导航、传感器视图）</description>
   <maintainer email="admin@example.com">G60Pro Team</maintainer>
   <license>MIT</license>
 
   <buildtool_depend>ament_python</buildtool_depend>
 
-  <depend>robot_description</depend>
-  <depend>robot_base</depend>
-  <depend>robot_can</depend>
-  <depend>robot_sensors</depend>
-  <depend>robot_localization</depend>
-  <depend>robot_slam</depend>
-  <depend>robot_navigation</depend>
   <depend>rviz2</depend>
-  <depend>teleop_twist_keyboard</depend>
 
   <export>
     <build_type>ament_python</build_type>

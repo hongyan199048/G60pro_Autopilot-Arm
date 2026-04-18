@@ -93,9 +93,9 @@ controller_server:
       xy_goal_tolerance: 0.25
       yaw_goal_tolerance: 0.25
       stateful: True
-    # DWA 控制器
-    dwa:
-      plugin: dwa_plugins::DWBLocalPlanner
+    controller_plugins: ["FollowPath"]
+    FollowPath:
+      plugin: dwb_core::DWBLocalPlanner
       debug_trajectory_details: True
       min_vel_x: 0.0
       max_vel_x: 0.5
@@ -181,9 +181,17 @@ global_costmap:
       robot_radius: 0.5
       resolution: 0.05
       plugins:
-        - name: static_layer
-          plugin: nav2_costmap_2d::StaticLayer
-          map_subscribe_transient_local: True
+        - name: obstacle_layer
+          plugin: nav2_costmap_2d::ObstacleLayer
+          enabled: True
+          observation_sources: scan
+          scan:
+            sensor_type: sensor_msgs/msg/LaserScan
+            topic: /scan
+            marking: True
+            clearing: True
+            min_obstacle_height: 0.0
+            max_obstacle_height: 2.0
         - name: inflation_layer
           plugin: nav2_costmap_2d::InflationLayer
           enabled: True
@@ -202,7 +210,7 @@ global_costmap_rclcpp_node:
 map_server:
   ros__parameters:
     use_sim_time: false
-    yaml_filename: /home/admin123/Development/AutoPilot/20260325G60pro/src/robot_bringup/maps/g60pro_map.yaml
+    yaml_filename: "g60pro_sim_map.yaml"
 
 map_saver:
   ros__parameters:
@@ -245,21 +253,6 @@ nav2_navigator:
 
 nav2_planner:
   ros__parameters:
-    use_sim_time: false
-    planner_plugins: ['grid_global']
-    grid_global:
-      plugin: nav2_planner::PlannerServer
-      expected_planner_frequency: 20.0
-      use_sim_time: false
-      grid_global:
-        plugin: nav2_navfn_planner::NavfnPlanner
-        tolerance: 0.5
-        use_astar: false
-        allow_unknown: true
-
-planner_server:
-  ros__parameters:
-    expected_planner_frequency: 20.0
     use_sim_time: false
     planner_plugins: ['grid_global']
     grid_global:

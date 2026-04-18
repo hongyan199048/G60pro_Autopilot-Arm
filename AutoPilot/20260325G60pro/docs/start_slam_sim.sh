@@ -1,6 +1,9 @@
 #!/bin/bash
 # G60Pro SLAM 一键启动脚本
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+WS_DIR="$SCRIPT_DIR/.."
+
 echo "=========================================="
 echo "G60Pro Cartographer SLAM 一键启动"
 echo "=========================================="
@@ -16,7 +19,7 @@ sleep 2
 
 # 第2步：编译项目
 echo "[2/5] 编译项目..."
-cd "$(dirname "$0")/.."
+cd "$WS_DIR"
 source /opt/ros/humble/setup.bash
 source install/setup.bash
 colcon build
@@ -48,7 +51,7 @@ sleep 3
 
 # 第6步：启动RViz
 echo "[6/6] 启动RViz..."
-rviz2 -d "$(dirname "$0")/../src/robot_bringup/rviz/slam.rviz" &
+rviz2 -d "$WS_DIR/src/robot_rviz/rviz/slam.rviz" &
 RVIZ_PID=$!
 
 echo ""

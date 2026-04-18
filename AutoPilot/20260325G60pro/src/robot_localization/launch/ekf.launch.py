@@ -44,8 +44,8 @@ def generate_launch_description():
             'odom0_differential': False,
             'odom0_relative': False,
 
-            # IMU 配置
-            'imu0': '/imu/data',
+            # IMU 配置（Gazebo URDF 发布到 /imu）
+            'imu0': '/imu',
             'imu0_config': [
                 False, False, False, # x, y, z
                 True, True, True,   # roll, pitch, yaw
