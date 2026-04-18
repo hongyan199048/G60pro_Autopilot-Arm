@@ -40,7 +40,13 @@ TRAJECTORY_BUILDER_2D.use_imu_data = true
 -- 每帧实时处理，避免积攒多帧后产生跳变
 TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1
 
--- 过滤近处点云：雷达在车头0.7m，车身对角约1.5m，设1.6m过滤自身车体
+-- 距离过滤：过滤车身自遮挡（车身对角约 1.5m）
 TRAJECTORY_BUILDER_2D.min_range = 1.6
+
+-- Z 方向高度过滤（相对雷达坐标系，Helios16 离地 1.54m）
+-- 有效障碍物高度范围（相对地面）：0.1m ~ 2.0m
+-- 换算到雷达坐标系：min_z = 0.1 - 1.54 = -1.44m，max_z = 2.0 - 1.54 = +0.46m
+TRAJECTORY_BUILDER_2D.min_z = -1.44
+TRAJECTORY_BUILDER_2D.max_z = 0.46
 
 return options

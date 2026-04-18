@@ -51,7 +51,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/cmd_vel
 
 | 层级 | 包 | 职责 |
 |------|-----|------|
-| 感知 | `robot_sensors` / `robot_slam` | 激光雷达 + RGBD 相机 + IMU；Cartographer 2D SLAM |
+| 感知 | `robot_slam` / `rslidar_sdk` / `lakibeam1` / `orbbec_camera` | 激光雷达 + RGBD 相机 + IMU；Cartographer 2D SLAM |
 | 定位 | `robot_localization` | robot_localization EKF 融合（odom + IMU → /odom_combined） |
 | 规划 | `robot_navigation` | Nav2 全局/局部规划 |
 | 控制 | `robot_base` / `robot_can` | 底盘运动学解算 + 双 CAN 总线通信 |
