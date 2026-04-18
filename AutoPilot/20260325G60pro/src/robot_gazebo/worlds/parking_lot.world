@@ -151,57 +151,57 @@
       <static>true</static>
       <link name="pillar_1">
         <pose>-25 -15 1.5 0 0 0</pose>
-        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
-        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+        <collision name="collision"><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 0.4 3</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 1</ambient></material>
         </visual>
       </link>
       <link name="pillar_2">
         <pose>-10 -15 1.5 0 0 0</pose>
-        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
-        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+        <collision name="collision"><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 0.4 3</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 1</ambient></material>
         </visual>
       </link>
       <link name="pillar_3">
         <pose>5 -15 1.5 0 0 0</pose>
-        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
-        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+        <collision name="collision"><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 0.4 3</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 1</ambient></material>
         </visual>
       </link>
       <link name="pillar_4">
         <pose>20 -15 1.5 0 0 0</pose>
-        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
-        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+        <collision name="collision"><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 0.4 3</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 1</ambient></material>
         </visual>
       </link>
       <link name="pillar_5">
         <pose>-25 15 1.5 0 0 0</pose>
-        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
-        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+        <collision name="collision"><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 0.4 3</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 1</ambient></material>
         </visual>
       </link>
       <link name="pillar_6">
         <pose>-10 15 1.5 0 0 0</pose>
-        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
-        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+        <collision name="collision"><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 0.4 3</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 1</ambient></material>
         </visual>
       </link>
       <link name="pillar_7">
         <pose>5 15 1.5 0 0 0</pose>
-        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
-        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+        <collision name="collision"><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 0.4 3</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 1</ambient></material>
         </visual>
       </link>
       <link name="pillar_8">
         <pose>20 15 1.5 0 0 0</pose>
-        <collision><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
-        <visual><geometry><box><size>0.4 0.4 3</size></box></geometry>
+        <collision name="collision"><geometry><box><size>0.4 0.4 3</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.4 0.4 3</size></box></geometry>
           <material><ambient>0.7 0.7 0.7 1</ambient></material>
         </visual>
       </link>
@@ -211,29 +211,29 @@
       <static>true</static>
       <link name="trash_1">
         <pose>-30 -5 0.5 0 0 0</pose>
-        <collision><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
-        <visual><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+        <collision name="collision"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
           <material><ambient>0.2 0.6 0.2 1</ambient></material>
         </visual>
       </link>
       <link name="trash_2">
         <pose>30 -5 0.5 0 0 0</pose>
-        <collision><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
-        <visual><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+        <collision name="collision"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
           <material><ambient>0.2 0.6 0.2 1</ambient></material>
         </visual>
       </link>
       <link name="trash_3">
         <pose>30 5 0.5 0 0 0</pose>
-        <collision><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
-        <visual><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+        <collision name="collision"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
           <material><ambient>0.2 0.6 0.2 1</ambient></material>
         </visual>
       </link>
       <link name="trash_4">
         <pose>-30 5 0.5 0 0 0</pose>
-        <collision><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
-        <visual><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
+        <collision name="collision"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.3</radius><length>1</length></cylinder></geometry>
           <material><ambient>0.2 0.6 0.2 1</ambient></material>
         </visual>
       </link>
@@ -243,13 +243,15 @@
       <static>true</static>
       <link name="barrier_1">
         <pose>-35 0 0.3 0 0 0</pose>
-        <visual><geometry><box><size>2 0.2 0.6</size></box></geometry>
+        <collision name="collision"><geometry><box><size>2 0.2 0.6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2 0.2 0.6</size></box></geometry>
           <material><ambient>1 0.8 0 1</ambient></material>
         </visual>
       </link>
       <link name="barrier_2">
         <pose>35 0 0.3 0 0 0</pose>
-        <visual><geometry><box><size>2 0.2 0.6</size></box></geometry>
+        <collision name="collision"><geometry><box><size>2 0.2 0.6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2 0.2 0.6</size></box></geometry>
           <material><ambient>1 0.8 0 1</ambient></material>
         </visual>
       </link>

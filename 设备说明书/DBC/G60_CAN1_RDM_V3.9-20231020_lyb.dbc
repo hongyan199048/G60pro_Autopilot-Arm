@@ -1,0 +1,1595 @@
+VERSION ""
+
+
+NS_ : 
+	NS_DESC_
+	CM_
+	BA_DEF_
+	BA_
+	VAL_
+	CAT_DEF_
+	CAT_
+	FILTER
+	BA_DEF_DEF_
+	EV_DATA_
+	ENVVAR_DATA_
+	SGTYPE_
+	SGTYPE_VAL_
+	BA_DEF_SGTYPE_
+	BA_SGTYPE_
+	SIG_TYPE_REF_
+	VAL_TABLE_
+	SIG_GROUP_
+	SIG_VALTYPE_
+	SIGTYPE_VALTYPE_
+	BO_TX_BU_
+	BA_DEF_REL_
+	BA_REL_
+	BA_DEF_DEF_REL_
+	BU_SG_REL_
+	BU_EV_REL_
+	BU_BO_REL_
+	SG_MUL_VAL_
+
+BS_:
+
+BU_: RDM
+
+
+BO_ 21 RDM_Fr01_0x15: 8 RDM
+ SG_ RDM_Fr01_PcuModeReq : 7|3@0+ (1,0) [0|7] " " PCU
+ SG_ RDM_Fr01_V2VEndState : 4|3@0+ (1,0) [0|7] " " PCU
+ SG_ RDM_Fr01_ChargerIndex : 1|25@0+ (1,0) [0|33554431] " " PCU
+ SG_ RDM_Fr01_RollgCntr : 24|4@0+ (1,0) [0|15] " " PCU
+ SG_ RDM_Fr01_ElckUnlockEnbl : 36|1@0+ (1,0) [0|1] " " PCU
+ SG_ RDM_Fr01_EssPackU : 35|10@0+ (1,0) [0|1023] "V" PCU
+ SG_ RDM_Fr01_KeyOnStat : 41|2@0+ (1,0) [0|3] " " Vector__XXX
+ SG_ RDM_Fr01_G2VInterLockStat : 55|2@0+ (1,0) [0|3] " " Vector__XXX
+
+BO_ 18 RDM_Fr02_0x12: 8 RDM
+ SG_ RDM_Fr02_DcIReqOfAcDc : 7|12@0+ (0.1,-409.5) [-409.5|0] "A" PCU
+ SG_ RDM_Fr02_Ess2PcuILmt : 11|13@0+ (0.1,0) [0|819.1] "A" PCU
+ SG_ RDM_Fr02_RollgCntr : 30|4@0+ (1,0) [0|15] " " PCU
+ SG_ RDM_Fr02_EssAvailUMin : 26|10@0+ (1,0) [0|1023] "V" PCU
+ SG_ RDM_Fr02_EssAvailUMax : 32|10@0+ (1,0) [0|1023] "V" PCU
+
+BO_ 31 RDM_Fr03_0x1F: 8 RDM
+ SG_ RDM_Fr03_EssHvReady : 7|1@0+ (1,0) [0|1] " " PCU
+ SG_ RDM_Fr03_RollgCntr : 6|4@0+ (1,0) [0|15] " " CHS,PCU
+ SG_ RDM_Fr03_EptRdy : 2|1@0+ (1,0) [0|1] " " CHS
+ SG_ RDM_Fr03_PLockStatReq : 1|2@0+ (1,0) [0|3] " " CHS
+ SG_ RDM_Fr03_VehStopReq : 15|1@0+ (1,0) [0|1] " " CHS
+
+BO_ 511 RDM_Fr04_0x1FF: 8 RDM
+ SG_ RDM_Fr04_TskTyp : 7|4@0+ (1,0) [0|15] " " ADM,LAS
+ SG_ RDM_Fr04_TskCtrlStat : 3|4@0+ (1,0) [0|15] " " ADM,LAS
+ SG_ RDM_Fr04_AprchTgtSpotIdfr : 15|16@0+ (1,0) [0|65535] " " ADM,LAS
+ SG_ RDM_Fr04_MPSParkPose : 31|4@0+ (1,0) [0|15] " " LAS
+ SG_ RDM_Fr04_ChgrConnectStat : 27|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ RDM_Fr04_SrvVehIdfr : 39|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Fr04_SrvVehChrgrPstn : 47|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ RDM_Fr04_ChkSum : 63|8@0+ (1,0) [0|255] " " ADM,LAS
+ SG_ RDM_Fr04_RollgCntr : 43|4@0+ (1,0) [0|15] " " CHS,ADM,LAS
+ SG_ RDM_Fr04_DrvModeCtrlReq : 55|4@0+ (1,0) [0|15] " " CHS,ADM
+ SG_ RDM_Fr04_IPCOffReq : 51|1@0+ (1,0) [0|1] " " LAS
+
+BO_ 16 RDM_Fr05_0x10: 8 RDM
+ SG_ RDM_Fr05_FLWhlSpdReq : 7|11@0+ (0.2,-200) [-200|209.4] "rpm" CHS
+ SG_ RDM_Fr05_FRWhlSpdReq : 12|11@0+ (0.2,-200) [-200|209.4] "rpm" CHS
+ SG_ RDM_Fr05_RLWhlSpdReq : 17|11@0+ (0.2,-200) [-200|209.4] "rpm" CHS
+ SG_ RDM_Fr05_RRWhlSpdReq : 38|11@0+ (0.2,-200) [-200|209.4] "rpm" CHS
+ SG_ RDM_Fr05_RollgCntr : 43|8@0+ (1,0) [0|255] " " CHS
+
+BO_ 17 RDM_Fr06_0x11: 8 RDM
+ SG_ RDM_Fr06_FLWhlYawReq : 7|12@0+ (0.1,-200) [-200|209.5] "deg" CHS
+ SG_ RDM_Fr06_FRWhlYawReq : 11|12@0+ (0.1,-200) [-200|209.5] "deg" CHS
+ SG_ RDM_Fr06_RLWhlYawReq : 31|12@0+ (0.1,-200) [-200|209.5] "deg" CHS
+ SG_ RDM_Fr06_RRWhlYawReq : 35|12@0+ (0.1,-200) [-200|209.5] "deg" CHS
+ SG_ RDM_Fr06_RollgCntr : 55|4@0+ (1,0) [0|15] " " CHS
+
+BO_ 508 RDM_Fr08_0x1FC: 8 RDM
+ SG_ RDM_Fr08_ImmStatReq : 7|4@0+ (1,0) [0|15] " " IMM
+ SG_ RDM_Fr08_ChgrConnectStat : 3|4@0+ (1,0) [0|15] " " IMM
+ SG_ RDM_Fr08_SrvVehIdfr : 15|16@0+ (1,0) [0|65535] " " IMM
+ SG_ RDM_Fr08_SrvVehChrgrPstn : 31|4@0+ (1,0) [0|15] " " IMM
+ SG_ RDM_Fr08_ChkSum : 63|8@0+ (1,0) [0|255] " " IMM
+ SG_ RDM_Fr08_RollgCntr : 27|4@0+ (1,0) [0|15] " " IMM
+
+BO_ 2566857967 RDM_Fr09_0x18FF24EF: 8 RDM
+ SG_ RDM_Fr09_12VEnblCtrl : 7|2@0+ (1,0) [0|3] " " DCPro12,DCDC12
+ SG_ RDM_Fr09_12VDCDCOupVoltReq : 5|8@0+ (0.1,0) [9|16] "V" DCPro12,DCDC12
+ SG_ RDM_Fr09_RollgCntr : 13|4@0+ (1,0) [0|15] " " DCPro48,DCPro12,DCDC48,DCDC12
+ SG_ RDM_Fr09_48VEnblCtrl : 9|2@0+ (1,0) [0|3] " " DCPro48,DCDC48
+ SG_ RDM_Fr09_48VDCDCOupVoltReq : 23|16@0+ (0.1,0) [0|6553.5] "V" DCPro48,DCDC48
+
+BO_ 321 RDM_Fr10_0x141: 8 RDM
+ SG_ RDM_Fr10_TurnLightReq : 7|2@0+ (1,0) [0|3] " " LSC
+ SG_ RDM_Fr10_BrakeLightReq : 5|1@0+ (1,0) [0|1] " " LSC
+ SG_ RDM_Fr10_BackUpLightReq : 4|1@0+ (1,0) [0|1] " " LSC
+ SG_ RDM_Fr10_ChrgrLightReq : 3|1@0+ (1,0) [0|1] " " LSC
+ SG_ RDM_Fr10_DrvLightReq : 2|1@0+ (1,0) [0|1] " " LSC
+ SG_ RDM_Fr10_FltLightReq : 1|1@0+ (1,0) [0|1] " " LSC
+ SG_ RDM_Fr10_ChrgrSocDisplyLightReq : 0|10@0+ (0.1,-1) [-1|101.3] "%" LSC
+ SG_ RDM_Fr10_IMMWrkLightReq : 22|1@0+ (1,0) [0|1] " " LSC
+ SG_ RDM_Fr10_MPSGreetLightReq : 21|1@0+ (1,0) [0|1] " " LSC
+ SG_ RDM_Fr10_MPSGreetLightFreq : 20|8@0+ (0.1,0) [0|25.5] "s" LSC
+ SG_ RDM_Fr10_RollgCntr : 28|4@0+ (1,0) [0|15] " " LSC
+
+BO_ 1248 RDM_Fr20_0x4E0: 8 RDM
+ SG_ RDM_Fr20_CoolntFanRlyEnbl : 7|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Fr20_CoolntPmpRlyEnbl : 6|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Fr20_CmprRlyEnbl : 5|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Fr20_CoolntFanDuty : 4|7@0+ (1,0) [0|127] " " Vector__XXX
+ SG_ RDM_Fr20_CoolntMainPmpDuty : 13|7@0+ (1,0) [0|127] " " Vector__XXX
+ SG_ RDM_Fr20_CoolntChrgtPmpDuty : 22|7@0+ (1,0) [0|127] " " Vector__XXX
+ SG_ RDM_Fr20_ElecMagnVlvDuty : 31|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Fr20_EASMotorSpdTrgt : 39|16@0+ (0.25,0) [0|16383.75] "rpm" EAS
+ SG_ RDM_Fr20_EASEnblReq : 55|8@0+ (1,0) [0|255] " " EAS
+ SG_ RDM_Fr20_ElecMagnVlvDeg : 63|8@0+ (1,0) [0|255] "deg" Vector__XXX
+
+BO_ 334 RDM_Fr23_0x14E: 8 RDM
+ SG_ RDM_Fr23_MPSCurrtWrkMd : 7|8@0+ (1,0) [0|255] " " IPC
+ SG_ RDM_Fr23_MPSCurrtChrgStat : 15|8@0+ (1,0) [0|255] " " IPC
+ SG_ RDM_Fr23_MPSCurrtSoc : 23|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Fr23_CurrtChrgVolt : 31|16@0+ (0.1,0) [0|6553.5] "V" IPC
+ SG_ RDM_Fr23_CurrtChrgCurr : 47|16@0+ (0.1,0) [0|6553.5] "A" IPC
+
+BO_ 335 RDM_Fr24_0x14F: 8 RDM
+ SG_ RDM_Fr24_CurrtSrvChrgedCnseTm : 7|16@0+ (0.1,0) [0|6553.5] "s" IPC
+ SG_ RDM_Fr24_CurrtSrvChrgedAcunt : 23|16@0+ (0.01,0) [0|655.35] "rmb" IPC
+ SG_ RDM_Fr24_CurrtSrvChrgedPwrEngy : 39|16@0+ (0.1,0) [0|6553.5] "kwh" IPC
+ SG_ RDM_Fr24_CustVehSoc : 55|8@0+ (1,0) [0|255] "pct" IPC
+
+BO_ 666 RDM_Debug_0x29A: 8 RDM
+ SG_ RDM_Debug_PmmPuPdSta : 7|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ RDM_Debug_PmmPuPdTmoutSta : 3|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ RDM_Debug_EssHVCnntnReq : 15|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Debug_HvRdy : 14|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Debug_EptRdy : 13|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Debug_MpsType : 12|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ RDM_Debug_RcsCnnctnReq : 9|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Debug_VmmMainStat : 8|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ RDM_Debug_VmmCtrlStat : 20|7@0+ (1,0) [0|127] " " Vector__XXX
+ SG_ RDM_Debug_VmmTmoutStat : 29|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ RDM_Debug_ESSBascStat : 25|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ RDM_Debug_ESSMainPosRlyStat : 38|2@0+ (1,0) [0|3] " " Vector__XXX
+ SG_ RDM_Debug_ESSMainNegRlyStat : 36|2@0+ (1,0) [0|3] " " Vector__XXX
+ SG_ RDM_Debug_ESSPreChrgRlyStat : 34|2@0+ (1,0) [0|3] " " Vector__XXX
+ SG_ RDM_Debug_ESSDcChrgPosRlyStat : 32|2@0+ (1,0) [0|3] " " Vector__XXX
+ SG_ RDM_Debug_ESSDcChrgrCnnctStat : 46|2@0+ (1,0) [0|3] " " Vector__XXX
+
+BO_ 667 RDM_Debug_0x29B: 8 RDM
+ SG_ RDM_Debug_MPSVINNum1 : 7|32@0+ (1,0) [0|4294967295] " " Vector__XXX
+ SG_ RDM_Debug_MPSVINNum2 : 39|32@0+ (1,0) [0|4294967295] " " Vector__XXX
+
+BO_ 668 RDM_Debug_0x29C: 8 RDM
+ SG_ RDM_Debug_HvCnntionReq : 7|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Debug_ESSFltLvl : 6|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ RDM_Debug_EssHvOffReq : 3|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Debug_ESSInsdUOfMainPosRly : 2|10@0+ (1,0) [0|1023] "V" Vector__XXX
+ SG_ RDM_Debug_CurrtChrgPwrEngy : 8|13@0+ (0.01,0) [0|81.91] "kwh" Vector__XXX
+ SG_ RDM_Debug_CurrtChrgrAcunt : 27|14@0+ (0.01,0) [0|163.83] "rmb" Vector__XXX
+ SG_ RDM_Debug_CurrtSrvChrgAcunt : 45|14@0+ (0.01,0) [0|163.83] "rmb" Vector__XXX
+
+BO_ 669 RDM_Debug_0x29D: 8 RDM
+ SG_ RDM_Debug_ESSPackI : 7|14@0+ (0.1,-800) [-800|838.3] "A" Vector__XXX
+ SG_ RDM_Debug_ESSCellTMax : 9|8@0+ (1,-50) [-50|205] "℃" Vector__XXX
+ SG_ RDM_Debug_ESSCellTMin : 17|8@0+ (1,-50) [-50|205] "℃" Vector__XXX
+ SG_ RDM_Debug_ESSCellTAvg : 25|8@0+ (1,-50) [-50|205] "℃" Vector__XXX
+ SG_ RDM_Debug_ESSCellUMax : 33|13@0+ (1,0) [0|8191] "mV" Vector__XXX
+ SG_ RDM_Debug_ESSCellUMin : 52|13@0+ (1,0) [0|8191] "mV" Vector__XXX
+
+BO_ 670 RDM_Debug_0x29E: 8 RDM
+ SG_ RDM_Debug_ESSCellUAvg : 7|13@0+ (1,0) [0|8191] "mV" Vector__XXX
+ SG_ RDM_Debug_ESSEssInletT : 10|8@0+ (1,-50) [-50|205] "℃" Vector__XXX
+ SG_ RDM_Debug_ESSEssOutletT : 18|8@0+ (1,-50) [-50|205] "℃" Vector__XXX
+ SG_ RDM_Debug_ESSContnsDchaILmt : 26|13@0+ (0.1,0) [0|819.1] "A" Vector__XXX
+ SG_ RDM_Debug_ESSContnsChrgILmt : 45|13@0+ (0.1,0) [0|819.1] "A" Vector__XXX
+
+BO_ 671 RDM_Debug_0x29F: 8 RDM
+ SG_ RDM_Debug_ServReqMPSChrg : 7|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ RDM_Debug_DateYear : 6|12@0+ (1,0) [0|4095] " " Vector__XXX
+ SG_ RDM_Debug_DateMonth : 10|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ RDM_Debug_DateDay : 22|6@0+ (1,0) [0|63] " " Vector__XXX
+ SG_ RDM_Debug_TimeHour : 16|5@0+ (1,0) [0|31] "h" Vector__XXX
+ SG_ RDM_Debug_TimeMin : 27|6@0+ (1,0) [0|63] "min" Vector__XXX
+ SG_ RDM_Debug_TimeSec : 37|6@0+ (1,0) [0|63] "s" Vector__XXX
+ SG_ RDM_Debug_V2VStopReasn : 47|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Debug_ReChrgStopReasn : 55|8@0+ (1,0) [0|255] " " Vector__XXX
+
+BO_ 672 RDM_Debug_0x2A0: 8 RDM
+ SG_ RDM_Debug_MPS_DTC1 : 7|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Debug_MPS_DTC2 : 15|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Debug_MPS_DTC3 : 23|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Debug_MPS_DTC4 : 31|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Debug_MPS_DTC5 : 39|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Debug_MPS_DTC6 : 47|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Debug_MPS_DTC7 : 55|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ RDM_Debug_MPS_DTC8 : 63|8@0+ (1,0) [0|255] " " Vector__XXX
+
+BO_ 673 RDM_Fr30_0x2A1: 8 RDM
+ SG_ RDM_Fr30_RDMSwVersionMain : 7|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ RDM_Fr30_RDMSwVersionSub1 : 4|5@0+ (1,0) [0|31] " " Vector__XXX
+ SG_ RDM_Fr30_RDMSwVersionSub2 : 15|5@0+ (1,0) [0|31] " " Vector__XXX
+ SG_ RDM_Fr30_CloudPlatfmVersion : 10|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ RDM_Fr30_MpsType : 23|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ RDM_Fr30_RdmSwState : 20|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ RDM_Fr30_CoolntFanType : 17|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ RDM_Fr30_CoolntFanPWM : 30|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ RDM_Fr30_EnblV2VByChrgrInStat : 26|2@0+ (1,0) [0|3] " " Vector__XXX
+ SG_ RDM_Fr30_G2VPwrLmt : 24|7@0+ (1,0) [0|127] " " Vector__XXX
+
+BO_ 22 ADM_Fr01_0x16: 8 ADM
+ SG_ ADM_Fr01_TskTypFeb : 7|4@0+ (1,0) [0|15] " " RDM
+ SG_ ADM_Fr01_WorkState : 3|4@0+ (1,0) [0|15] " " RDM
+ SG_ ADM_Fr01_CtrlModeReq : 15|4@0+ (1,0) [0|15] " " RDM,CHS
+ SG_ ADM_Fr01_RollgCntr : 11|4@0+ (1,0) [0|15] " " RDM,CHS
+ SG_ ADM_Fr01_VehXSpdReq : 23|8@0+ (0.02,-2.5) [-2.5|2.6] "m/s" RDM,CHS
+ SG_ ADM_Fr01_VehYSpdReq : 31|8@0+ (0.02,-2.5) [-2.5|2.6] "m/s" RDM,CHS
+ SG_ ADM_Fr01_YawRateReq : 39|8@0+ (0.02,-2.5) [-2.5|2.6] "rad/s" RDM,CHS
+
+BO_ 767 IMM_Fr01_0x2FF: 8 IMM
+ SG_ IMM_Fr01_ArmPoseStat : 7|4@0+ (1,0) [0|15] " " RDM
+ SG_ IMM_Fr01_ArmWorkStat : 3|4@0+ (1,0) [0|15] " " RDM
+ SG_ IMM_Fr01_ArmSysFltStat : 15|8@0+ (1,0) [0|255] " " RDM
+ SG_ IMM_Fr01_PushPullF : 23|16@0+ (0.1,-3000) [-3000|3553.5] "N" RDM
+ SG_ IMM_Fr01_RollgCntr : 39|4@0+ (1,0) [0|15] " " RDM
+ SG_ IMM_Fr01_ChkSum : 63|8@0+ (1,0) [0|255] " " RDM
+
+BO_ 24 CHS_Fr01_0x18: 8 CHS
+ SG_ CHS_Fr01_VehSpdXAct : 7|8@0+ (0.02,-2.5) [-2.5|2.6] "m/s" RDM,ADM
+ SG_ CHS_Fr01_VehSpdYAct : 15|8@0+ (0.02,-2.5) [-2.5|2.6] "m/s" RDM,ADM
+ SG_ CHS_Fr01_YawRateAct : 23|8@0+ (0.02,-2.5) [-2.5|2.6] "rad/s" RDM,ADM
+ SG_ CHS_Fr01_PLockStat : 31|3@0+ (1,0) [0|7] " " RDM
+ SG_ CHS_Fr01_CurrtDrvMode : 28|2@0+ (1,0) [0|3] " " RDM,ADM
+ SG_ CHS_Fr01_CurrtCtrlMode : 26|3@0+ (1,0) [0|7] " " RDM,ADM
+ SG_ CHS_Fr01_RollgCntr : 39|8@0+ (1,0) [0|255] " " RDM,ADM
+ SG_ CHS_Fr01_DCChrgrActnSimltionReq : 47|3@0+ (1,0) [0|7] " " RDM
+ SG_ CHS_Fr01_ChgrConnectSimltionStat : 44|3@0+ (1,0) [0|7] " " RDM
+
+BO_ 25 CHS_Fr02_0x19: 8 CHS
+ SG_ CHS_Fr02_FLWhlSpd : 7|16@0+ (0.01,-300) [-300|355.35] "rpm" RDM,LAS
+ SG_ CHS_Fr02_FRWhlSpd : 23|16@0+ (0.01,-300) [-300|355.35] "rpm" RDM,LAS
+ SG_ CHS_Fr02_RLWhlSpd : 39|16@0+ (0.01,-300) [-300|355.35] "rpm" RDM,LAS
+ SG_ CHS_Fr02_RRWhlSpd : 55|16@0+ (0.01,-300) [-300|355.35] "rpm" RDM,LAS
+
+BO_ 26 CHS_Fr03_0x1A: 8 CHS
+ SG_ CHS_Fr03_FLWhlAnglSpd : 7|16@0+ (0.01,-300) [-300|355.35] "rad/s" RDM,LAS
+ SG_ CHS_Fr03_FRWhlAnglSpd : 23|16@0+ (0.01,-300) [-300|355.35] "rad/s" RDM,LAS
+ SG_ CHS_Fr03_RLWhlAnglSpd : 39|16@0+ (0.01,-300) [-300|355.35] "rad/s" RDM,LAS
+ SG_ CHS_Fr03_RRWhlAnglSpd : 55|16@0+ (0.01,-300) [-300|355.35] "rad/s" RDM,LAS
+
+BO_ 27 CHS_Fr04_0x1B: 8 CHS
+ SG_ CHS_Fr04_FLWhlYaw : 7|16@0+ (0.1,-200) [-200|6353.5] "deg" RDM,LAS
+ SG_ CHS_Fr04_FRWhlYaw : 23|16@0+ (0.1,-200) [-200|6353.5] "deg" RDM,LAS
+ SG_ CHS_Fr04_RLWhlYaw : 39|16@0+ (0.1,-200) [-200|6353.5] "deg" RDM,LAS
+ SG_ CHS_Fr04_RRWhlYaw : 55|16@0+ (0.1,-200) [-200|6353.5] "deg" RDM,LAS
+
+BO_ 29 CHS_Fr05_0x1D: 8 CHS
+ SG_ CHS_Fr05_48VBattVolt : 7|8@0+ (0.5,0) [0|127.5] "V" RDM
+ SG_ CHS_Fr05_48VBattCurrt : 15|12@0+ (0.1,-200) [-200|209.5] "A" RDM
+ SG_ CHS_Fr05_48VBattSoc : 19|10@0+ (0.1,0) [0|102.3] "%" RDM
+ SG_ CHS_Fr05_48VBattFltLvl : 25|3@0+ (1,0) [0|7] " " RDM
+ SG_ CHS_Fr05_12VDCDCDsablReq : 38|2@0+ (1,0) [0|3] " " RDM
+ SG_ CHS_Fr05_RollgCntr : 36|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 42 CHS_Fr07_0x2A: 8 CHS
+ SG_ CHS_Fr07_FLMotorPstnFedbck : 7|32@0- (1,0) [-2147483648|2147483647] " " RDM,LAS
+ SG_ CHS_Fr07_RollgCntr : 39|4@0+ (1,0) [0|15] " " RDM,LAS
+
+BO_ 43 CHS_Fr08_0x2B: 8 CHS
+ SG_ CHS_Fr08_FRMotorPstnFedbck : 7|32@0- (1,0) [-2147483648|2147483647] " " RDM,LAS
+ SG_ CHS_Fr08_RollgCntr : 39|4@0+ (1,0) [0|15] " " RDM,LAS
+
+BO_ 44 CHS_Fr09_0x2C: 8 CHS
+ SG_ CHS_Fr09_RLMotorPstnFedbck : 7|32@0- (1,0) [-2147483648|2147483647] " " RDM,LAS
+ SG_ CHS_Fr09_RollgCntr : 39|4@0+ (1,0) [0|15] " " RDM,LAS
+
+BO_ 45 CHS_Fr10_0x2D: 8 CHS
+ SG_ CHS_Fr10_RRMotorPstnFedbck : 7|32@0- (1,0) [-2147483648|2147483647] " " RDM,LAS
+ SG_ CHS_Fr10_RollgCntr : 39|4@0+ (1,0) [0|15] " " RDM,LAS
+
+BO_ 46 CHS_Fr11_0x2E: 8 CHS
+ SG_ CHS_Fr11_RRDrvMotrFltStat : 0|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_RRDrvEPSFltStat : 1|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_RLDrvMotrFltStat : 2|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_RLDrvEPSFltStat : 3|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_FRDrvMotrFltStat : 4|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_FRDrvEPSFltStat : 5|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_FLDrvMotrFltStat : 6|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_FLDrvEPSFltStat : 7|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_CHSFltStat : 13|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_EHBFltStat : 14|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_48VBattFltStat : 15|1@0+ (1,0) [0|1] " " RDM
+ SG_ CHS_Fr11_RollgCntr : 59|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 33 PCU_Fr01_0x21: 8 PCU
+ SG_ PCU_Fr01_ChrgCnnctState : 7|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr01_PcuStat : 5|4@0+ (1,0) [0|15] " " RDM
+ SG_ PCU_Fr01_FastChrgStat : 1|3@0+ (1,0) [0|7] " " RDM
+ SG_ PCU_Fr01_ElcLockStat : 14|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr01_EssHvStateReq : 12|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr01_PcuFamilyNum : 10|5@0+ (1,0) [0|31] " " RDM
+ SG_ PCU_Fr01_PcuTemp : 21|8@0+ (1,-40) [-40|215] "degC" RDM
+ SG_ PCU_Fr01_PwrCnvrtUnitTempIn : 29|8@0+ (1,-40) [-40|215] "degC" RDM
+ SG_ PCU_Fr01_PwrCnvrtUnitTempOu : 37|8@0+ (1,-40) [-40|215] "degC" RDM
+ SG_ PCU_Fr01_WaterChrgrTemp : 45|8@0+ (1,-40) [-40|215] "degC" RDM
+ SG_ PCU_Fr01_CustVehSoc : 53|10@0+ (0.1,-1) [-1|101.3] "%" RDM
+ SG_ PCU_Fr01_RollgCntr : 59|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 34 PCU_Fr02_0x22: 8 PCU
+ SG_ PCU_Fr02_CustVehCurrt : 7|13@0+ (0.1,-819.1) [-819.1|0] "A" RDM
+ SG_ PCU_Fr02_DcIAvaiOfG2V : 10|12@0+ (0.1,-409.5) [-409.5|0] "A" RDM
+ SG_ PCU_Fr02_DcIAvaiOfV2G : 30|12@0+ (0.1,0) [0|409.5] "A" RDM
+ SG_ PCU_Fr02_CustVehVoltge : 34|10@0+ (1,0) [0|1023] "V" RDM
+ SG_ PCU_Fr02_RollgCntr : 40|4@0+ (1,0) [0|15] " " RDM
+ SG_ PCU_Fr02_CustVehChrgTmRest : 52|10@0+ (1,0) [0|1023] "min" RDM
+
+BO_ 35 PCU_Fr03_0x23: 8 PCU
+ SG_ PCU_Fr03_DcDcInI : 7|13@0+ (0.1,0) [0|819.1] "A" RDM
+ SG_ PCU_Fr03_DcDcInU : 10|10@0+ (1,0) [0|1023] "V" RDM
+ SG_ PCU_Fr03_DcDcOutI : 16|13@0+ (0.1,0) [0|819.1] "A" RDM
+ SG_ PCU_Fr03_DcDcOutU : 35|10@0+ (1,0) [0|1023] "V" RDM
+ SG_ PCU_Fr03_RollgCntr : 41|4@0+ (1,0) [0|15] " " RDM
+ SG_ PCU_Fr03_DcMeterIncVal : 53|14@0+ (0.01,0) [0|163.83] "kWh" RDM
+
+BO_ 36 PCU_Fr04_0x24: 8 PCU
+ SG_ PCU_Fr04_AcUOfAcDc : 7|9@0+ (1,0) [0|511] "V" RDM
+ SG_ PCU_Fr04_AcIOfAcDc : 14|10@0+ (0.5,-255) [-255|256.5] "A" RDM
+ SG_ PCU_Fr04_DcUOfAcDc : 20|10@0+ (1,0) [0|1023] "V" RDM
+ SG_ PCU_Fr04_DcIOfAcDc : 26|12@0+ (0.1,-409.5) [-409.5|0] "A" RDM
+ SG_ PCU_Fr04_RollgCntr : 46|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 37 PCU_Fr05_0x25: 8 PCU
+ SG_ PCU_Fr05_V2VChrgrStpFeb : 7|3@0+ (1,0) [0|7] " " RDM
+ SG_ PCU_Fr05_BMSNrmlStpReson : 4|8@0+ (1,0) [0|255] " " RDM
+ SG_ PCU_Fr05_BMSAbnrmlStpReson : 12|16@0+ (1,0) [0|65535] " " RDM
+ SG_ PCU_Fr05_BMSFltStpReson : 28|4@0+ (1,0) [0|15] " " RDM
+ SG_ PCU_Fr05_RecvChrgrIdntfyMsg1OvTm : 24|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvChrgrIdntfyMsg2OvTm : 38|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvChrgrIdntfyMsg3OvTm : 36|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvChrgrIdntfyMsg4OvTm : 34|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvChrgrIdntfyMsg5OvTm : 32|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvChrgrIdntfyMsg6OvTm : 46|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvChrgrIdntfyMsg7OvTm : 44|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvBMSMsg1OvTm : 42|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvBMSMsg2OvTm : 40|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvBMSMsg3OvTm : 54|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvBMSMsg4OvTm : 52|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvBMSMsg5OvTm : 50|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvBMSMsg6OvTm : 48|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RecvBMSMsg7OvTm : 62|2@0+ (1,0) [0|3] " " RDM
+ SG_ PCU_Fr05_RollgCntr : 60|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 38 PCU_Fr06_0x26: 8 PCU
+ SG_ PCU_Fr06_PcuFltLvl : 7|4@0+ (1,0) [0|15] " " RDM
+ SG_ PCU_Fr06_ChrgrFltCode1 : 3|8@0+ (1,0) [0|255] " " RDM
+ SG_ PCU_Fr06_ChrgrFltCode2 : 11|8@0+ (1,0) [0|255] " " RDM
+ SG_ PCU_Fr06_ChrgrFltCode3 : 19|8@0+ (1,0) [0|255] " " RDM
+ SG_ PCU_Fr06_ChrgrFltCode4 : 27|8@0+ (1,0) [0|255] " " RDM
+ SG_ PCU_Fr06_RollgCntr : 35|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 39 PCU_Fr07_0x27: 8 PCU
+ SG_ PCU_Fr07_PcuSwVersionMain : 7|3@0+ (1,0) [0|7] " " RDM
+ SG_ PCU_Fr07_PcuSwVersionSub1 : 4|5@0+ (1,0) [0|31] " " RDM
+ SG_ PCU_Fr07_PcuSwVersionSub2 : 15|5@0+ (1,0) [0|31] " " RDM
+ SG_ PCU_Fr07_RollgCntr : 10|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 40 PCU_Fr08_0x28: 8 PCU
+ SG_ PCU_Fr08_V2VReqDischrgVolt : 7|10@0+ (1,0) [0|1023] "V" RDM
+ SG_ PCU_Fr08_V2VReqDischrgCurrt : 13|10@0+ (1,0) [0|1023] "A" RDM
+ SG_ PCU_Fr08_CustVehReqChrgVolt : 19|10@0+ (1,0) [0|1023] "V" RDM
+ SG_ PCU_Fr08_CustVehReqChrgCurrt : 25|10@0+ (1,0) [0|1023] "A" RDM
+ SG_ PCU_Fr08_ACModeReqVolt : 47|10@0+ (1,0) [0|1023] "V" RDM
+ SG_ PCU_Fr08_ACModeReqCurrt : 53|10@0+ (1,0) [0|1023] "A" RDM
+ SG_ PCU_Fr08_RollgCntr : 59|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 256 DCDC48_Fr01_0x100: 8 DCDC48
+ SG_ DCDC48_Fr01_WrkStat : 7|8@0+ (1,0) [0|255] " " RDM
+ SG_ DCDC48_Fr01_OupI : 15|16@0+ (0.1,0) [0|6553.5] "A" RDM
+ SG_ DCDC48_Fr01_OupU : 31|16@0+ (0.1,0) [0|6553.5] "V" RDM
+ SG_ DCDC48_Fr01_Temp : 47|8@0+ (1,-40) [-40|215] "degC" RDM
+ SG_ DCDC48_Fr01_FltCode : 55|8@0+ (1,0) [0|255] " " RDM
+ SG_ DCDC48_Fr01_RollgCntr : 63|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 2566853367 DCDC12_Fr01_0x18FF12F7: 8 DCDC12
+ SG_ DCDC12_Fr01_OupU : 7|16@0+ (0.1,0) [0|20] "V" RDM,CHS
+ SG_ DCDC12_Fr01_OupI : 23|16@0+ (0.1,0) [0|6553.5] "A" RDM,CHS
+ SG_ DCDC12_Fr01_FltCode : 39|8@0+ (1,0) [0|255] " " RDM,CHS
+ SG_ DCDC12_Fr01_Temp : 47|8@0+ (1,-40) [-40|125] "degC" RDM,CHS
+ SG_ DCDC12_Fr01_WrkStat : 55|6@0+ (1,0) [0|63] " " RDM,CHS
+ SG_ DCDC12_Fr01_RollgCntr : 49|4@0+ (1,0) [0|15] " " RDM,CHS
+
+BO_ 2566853623 DCDC12_Fr02_0x18FF13F7: 8 DCDC12
+ SG_ DCDC12_Fr02_HwSubVersn : 7|4@0+ (1,0) [0|15] " " RDM,CHS
+ SG_ DCDC12_Fr02_HwMainVersn : 3|4@0+ (1,0) [0|15] " " RDM,CHS
+ SG_ DCDC12_Fr02_SwSubVersn : 15|4@0+ (1,0) [0|15] " " RDM,CHS
+ SG_ DCDC12_Fr02_SwMainVersn : 11|4@0+ (1,0) [0|15] " " RDM,CHS
+ SG_ DCDC12_Fr02_InpU : 23|16@0+ (0.1,0) [0|6553.5] "V" RDM,CHS
+ SG_ DCDC12_Fr02_InpI : 39|8@0+ (0.1,0) [0|25.5] "A" RDM,CHS
+
+BO_ 257 DCPro48_Fr01_0x101: 8 DCPro48
+ SG_ DCPro48_Fr01_OupU : 7|16@0+ (0.1,0) [0|6553.5] "V" RDM
+ SG_ DCPro48_Fr01_OupI : 23|16@0+ (0.1,0) [0|6553.5] "A" RDM
+ SG_ DCPro48_Fr01_Temp : 39|8@0+ (1,-40) [-40|125] "degC" RDM
+ SG_ DCPro48_Fr01_WrkStat : 47|8@0+ (1,0) [0|255] " " RDM
+ SG_ DCPro48_Fr01_OTErr : 55|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro48_Fr01_HWErr : 54|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro48_Fr01_OVInputErr : 53|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro48_Fr01_UVInputErr : 52|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro48_Fr01_OVOutputErr : 51|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro48_Fr01_UVOutputErr : 50|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro48_Fr01_OCOutputErr : 49|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro48_Fr01_OCInputErr : 48|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro48_Fr01_E2PROMErr : 63|1@0+ (1,0) [0|1] " " RDM
+
+BO_ 258 DCPro48_Fr02_0x102: 8 DCPro48
+ SG_ DCPro48_Fr02_SwSubVersn : 7|4@0+ (1,0) [0|15] " " RDM
+ SG_ DCPro48_Fr02_SwMainVersn : 3|4@0+ (1,0) [0|15] " " RDM
+ SG_ DCPro48_Fr02_InpU : 15|16@0+ (0.1,0) [0|6553.5] "V" RDM
+ SG_ DCPro48_Fr02_InpI : 31|16@0+ (0.01,0) [0|655.35] "A" RDM
+
+BO_ 259 DCPro12_Fr01_0x103: 8 DCPro12
+ SG_ DCPro12_Fr01_OupU : 7|16@0+ (0.1,0) [0|6553.5] "V" RDM
+ SG_ DCPro12_Fr01_OupI : 23|16@0+ (0.1,0) [0|6553.5] "A" RDM
+ SG_ DCPro12_Fr01_Temp : 39|8@0+ (1,-40) [-40|125] "degC" RDM
+ SG_ DCPro12_Fr01_WrkStat : 47|8@0+ (1,0) [0|255] " " RDM
+ SG_ DCPro12_Fr01_OTErr : 55|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro12_Fr01_HWErr : 54|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro12_Fr01_OVInputErr : 53|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro12_Fr01_UVInputErr : 52|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro12_Fr01_OVOutputErr : 51|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro12_Fr01_UVOutputErr : 50|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro12_Fr01_OCOutputErr : 49|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro12_Fr01_OCInputErr : 48|1@0+ (1,0) [0|1] " " RDM
+ SG_ DCPro12_Fr01_E2PROMErr : 63|1@0+ (1,0) [0|1] " " RDM
+
+BO_ 260 DCPro12_Fr02_0x104: 8 DCPro12
+ SG_ DCPro12_Fr02_SwSubVersn : 7|4@0+ (1,0) [0|15] " " RDM
+ SG_ DCPro12_Fr02_SwMainVersn : 3|4@0+ (1,0) [0|15] " " RDM
+ SG_ DCPro12_Fr02_InpU : 15|16@0+ (0.1,0) [0|6553.5] "V" RDM
+ SG_ DCPro12_Fr02_InpI : 31|16@0+ (0.01,0) [0|655.35] "A" RDM
+
+BO_ 97 LSC_Fr01_0x61: 8 LSC
+ SG_ LSC_Fr01_TurnLightStat : 7|3@0+ (1,0) [0|7] " " RDM
+ SG_ LSC_Fr01_BrakeLightStat : 4|1@0+ (1,0) [0|1] " " RDM
+ SG_ LSC_Fr01_BackUpLightStat : 3|1@0+ (1,0) [0|1] " " RDM
+ SG_ LSC_Fr01_ChrgrLightStat : 2|1@0+ (1,0) [0|1] " " RDM
+ SG_ LSC_Fr01_DrvLightStat : 1|1@0+ (1,0) [0|1] " " RDM
+ SG_ LSC_Fr01_FaultLightStat : 0|1@0+ (1,0) [0|1] " " RDM
+ SG_ LSC_Fr01_ChrgrSocDisplyLightStat : 15|1@0+ (1,0) [0|1] " " RDM
+ SG_ LSC_Fr01_IMMWrkLightStat : 14|1@0+ (1,0) [0|1] " " RDM
+ SG_ LSC_Fr01_RollgCntr : 13|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 528 LAS_Fr01_0x210: 8 LAS
+ SG_ LAS_Fr01_FLWhlSpdReq : 7|16@0+ (0.01,-300) [-300|355.35] "rpm" RDM
+ SG_ LAS_Fr01_FRWhlSpdReq : 23|16@0+ (0.01,-300) [-300|355.35] "rpm" RDM
+ SG_ LAS_Fr01_RLWhlSpdReq : 39|16@0+ (0.01,-300) [-300|355.35] "rpm" RDM
+ SG_ LAS_Fr01_RRWhlSpdReq : 55|16@0+ (0.01,-300) [-300|355.35] "rpm" RDM
+
+BO_ 529 LAS_Fr02_0x211: 8 LAS
+ SG_ LAS_Fr02_FLWhlYawReq : 7|16@0+ (0.01,-300) [-300|355.35] "deg" RDM
+ SG_ LAS_Fr02_FRWhlYawReq : 23|16@0+ (0.01,-300) [-300|355.35] "deg" RDM
+ SG_ LAS_Fr02_RLWhlYawReq : 39|16@0+ (0.01,-300) [-300|355.35] "deg" RDM
+ SG_ LAS_Fr02_RRWhlYawReq : 55|16@0+ (0.01,-300) [-300|355.35] "deg" RDM
+
+BO_ 530 LAS_Fr03_0x212: 8 LAS
+ SG_ LAS_Fr03_TskTypFeb : 7|4@0+ (1,0) [0|15] " " RDM
+ SG_ LAS_Fr03_WorkState : 3|4@0+ (1,0) [0|15] " " RDM
+ SG_ LAS_Fr03_VehStopReq : 15|4@0+ (1,0) [0|15] " " RDM
+ SG_ LAS_Fr03_VehDrvState : 11|4@0+ (1,0) [0|15] " " RDM
+ SG_ LAS_Fr03_FaultCode : 23|8@0+ (1,0) [0|255] " " RDM
+ SG_ LAS_Fr03_RollgCntr : 31|4@0+ (1,0) [0|15] " " RDM
+
+BO_ 1168 EAS_Fr01_0x490: 8 EAS
+ SG_ EAS_Fr01_WrkStat : 7|8@0+ (1,0) [0|255] " " RDM
+ SG_ EAS_Fr01_FltStat : 15|8@0+ (1,0) [0|255] " " RDM
+ SG_ EAS_Fr01_InputVolt : 23|8@0+ (4,0) [0|1020] "V" RDM
+ SG_ EAS_Fr01_EASTemp : 31|8@0+ (1,-40) [-40|215] "℃" RDM
+ SG_ EAS_Fr01_MotorCurrent : 39|16@0+ (0.02,0) [0|1310.7] "A" RDM
+ SG_ EAS_Fr01_MotorSpd : 55|16@0+ (1,0) [0|65535] "rpm" RDM
+
+BO_ 656 PCAN_Fr01_0x290: 8 RDM
+ SG_ PCAN_Fr01_OvrdCmd : 7|2@0+ (1,0) [0|3] " " Vector__XXX
+ SG_ PCAN_Fr01_PLockStatReq : 5|2@0+ (1,0) [0|3] " " Vector__XXX
+ SG_ PCAN_Fr01_VehStopReq : 3|1@0+ (1,0) [0|1] " " Vector__XXX
+ SG_ PCAN_Fr01_WhlAngleSet : 2|3@0+ (1,0) [0|7] " " Vector__XXX
+ SG_ PCAN_Fr01_DrvModeCtrlReq : 15|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ PCAN_Fr01_FreqState : 11|4@0+ (1,0) [0|15] " " Vector__XXX
+ SG_ PCAN_Fr01_DriveAmp : 23|4@0+ (0.1,0) [0|1.5] "mps" Vector__XXX
+ SG_ PCAN_Fr01_DriveBias : 19|5@0+ (0.1,-1.5) [-1.5|1.6] "mps" Vector__XXX
+ SG_ PCAN_Fr01_SteerAmp : 30|12@0+ (0.1,-180) [-180|229.5] "deg" Vector__XXX
+ SG_ PCAN_Fr01_SteerBias : 34|12@0+ (0.1,-180) [-180|229.5] "deg" Vector__XXX
+
+BO_ 657 PCAN_Fr02_0x291: 8 RDM
+ SG_ PCAN_Fr02_StraightAngReq : 7|12@0+ (0.1,-200) [-200|209.5] "deg" Vector__XXX
+ SG_ PCAN_Fr02_StraightVehSpdReq : 11|5@0+ (0.1,-1.5) [-1.5|1.6] "m/s" Vector__XXX
+ SG_ PCAN_Fr02_RotationDelayT : 22|6@0+ (1,0) [0|63] "s" Vector__XXX
+ SG_ PCAN_Fr02_RotationOmegaReq : 16|8@0+ (1,-100) [-100|155] "rpm" Vector__XXX
+ SG_ PCAN_Fr02_VehSpdReq : 24|5@0+ (0.1,-1.5) [-1.5|1.6] "m/s" Vector__XXX
+ SG_ PCAN_Fr02_RotationRReq : 35|16@0+ (1,-30000) [-30000|35535] "m" Vector__XXX
+
+BO_ 546 PCAN_Fr03_0x222: 8 RDM
+ SG_ PCAN_Fr03_SN_Byte0 : 7|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ PCAN_Fr03_SN_Byte1 : 15|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ PCAN_Fr03_SN_Byte2 : 23|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ PCAN_Fr03_SN_Byte3 : 31|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ PCAN_Fr03_SN_Byte4 : 39|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ PCAN_Fr03_SN_Byte5 : 47|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ PCAN_Fr03_SN_Byte6 : 55|8@0+ (1,0) [0|255] " " Vector__XXX
+ SG_ PCAN_Fr03_SN_Byte7 : 63|8@0+ (1,0) [0|255] " " Vector__XXX
+
+BO_ 659 PCAN_Fr04_0x293: 8 RDM
+ SG_ PCAN_Fr04_MpsConfig_Byte0 : 7|16@0+ (1,0) [0|65535] " " Vector__XXX
+ SG_ PCAN_Fr04_MpsConfig_Byte1 : 23|16@0+ (1,0) [0|65535] " " Vector__XXX
+ SG_ PCAN_Fr04_MpsConfig_Byte2 : 39|16@0+ (1,0) [0|65535] " " Vector__XXX
+ SG_ PCAN_Fr04_MpsConfig_Byte3 : 55|16@0+ (1,0) [0|65535] " " Vector__XXX
+
+
+CM_ SG_ 21 RDM_Fr01_PcuModeReq "请求PCU进入何种工作模式";
+CM_ SG_ 21 RDM_Fr01_V2VEndState "V2V模式下，RDM可以通过此信号对对外放电功能进行中止，当发送的信号值不为None时，PCU端均要走国标下电流程";
+CM_ SG_ 21 RDM_Fr01_ChargerIndex "充电机的编号，快充国标CRM-SPN2561";
+CM_ SG_ 21 RDM_Fr01_RollgCntr "0~15之间循环，接收端可以通过此信号的变化来判断通信是否正常";
+CM_ SG_ 21 RDM_Fr01_ElckUnlockEnbl "允许快充枪电子锁解锁的标志";
+CM_ SG_ 21 RDM_Fr01_EssPackU "储能单元母线电压，主正继电器外侧电压";
+CM_ SG_ 21 RDM_Fr01_KeyOnStat "KL15点火开关状态";
+CM_ SG_ 21 RDM_Fr01_G2VInterLockStat "G2V回充模式互锁状态";
+CM_ SG_ 18 RDM_Fr02_DcIReqOfAcDc "G2V模式下，RDM请求功率器件DC输出端的电流值";
+CM_ SG_ 18 RDM_Fr02_Ess2PcuILmt "V2V模式下，允许流入DCDC输入端的电流限制；V2G模式下，允许流入ACDC输入端的电流限制";
+CM_ SG_ 18 RDM_Fr02_RollgCntr "0~15之间循环";
+CM_ SG_ 18 RDM_Fr02_EssAvailUMin "ESS端电池电压的最低门限值，MPS对外放电时，当PCU检测到ESS端的电压值低于该值时，应中止对外放电功能(V2V或V2G)";
+CM_ SG_ 18 RDM_Fr02_EssAvailUMax "ESS端电池电压的最高门限值，回充时，当PCU检测到ESS端的电压高于此值时，应中止回充功能（G2V）";
+CM_ SG_ 31 RDM_Fr03_EssHvReady "通过该信号来告知MPS端高压电池高压回路是否已经就绪";
+CM_ SG_ 31 RDM_Fr03_RollgCntr "0~15之间循环";
+CM_ SG_ 31 RDM_Fr03_EptRdy "整车允许动力输出标志位";
+CM_ SG_ 31 RDM_Fr03_PLockStatReq "驻车锁模式请求";
+CM_ SG_ 31 RDM_Fr03_VehStopReq "停车请求";
+CM_ SG_ 511 RDM_Fr04_TskTyp "请求任务类型";
+CM_ SG_ 511 RDM_Fr04_TskCtrlStat "请求任务控制状态";
+CM_ SG_ 511 RDM_Fr04_AprchTgtSpotIdfr "请求智驾系统驶向的目标点位编号";
+CM_ SG_ 511 RDM_Fr04_MPSParkPose "MPS车辆停放姿态";
+CM_ SG_ 511 RDM_Fr04_ChgrConnectStat "反馈给机械臂的插枪状态";
+CM_ SG_ 511 RDM_Fr04_SrvVehIdfr "待充电车辆的型号";
+CM_ SG_ 511 RDM_Fr04_SrvVehChrgrPstn "待充电车辆的充电口位置";
+CM_ SG_ 511 RDM_Fr04_ChkSum "校验位，暂定常发FF值";
+CM_ SG_ 511 RDM_Fr04_RollgCntr "0~15之间循环";
+CM_ SG_ 511 RDM_Fr04_DrvModeCtrlReq "底盘控制模式请求
+0x0:底盘通过ADM发出的线速度和Yawrate来进行驱动和转向的控制；0x1：四个驱动的电机和四个转向电机的速度指令转角指令由RDM计算得到，CHS将这些指令转发给电机驱动器，实现驱动和转向；0x3:遥控器控制模式，由外接遥控器来控制底盘的运动";
+CM_ SG_ 511 RDM_Fr04_IPCOffReq "RDM请求工控机停机休眠";
+CM_ SG_ 16 RDM_Fr05_FLWhlSpdReq "左前轮驱动电机转速请求,规定前进方向为正，后退方向为负";
+CM_ SG_ 16 RDM_Fr05_FRWhlSpdReq "右前轮驱动电机转速请求规定前进方向为正，后退方向为负";
+CM_ SG_ 16 RDM_Fr05_RLWhlSpdReq "左后轮驱动电机转速请求规定前进方向为正，后退方向为负";
+CM_ SG_ 16 RDM_Fr05_RRWhlSpdReq "右后轮驱动电机转速请求规定前进方向为正，后退方向为负";
+CM_ SG_ 16 RDM_Fr05_RollgCntr "0~15之间循环";
+CM_ SG_ 17 RDM_Fr06_FLWhlYawReq "左前轮转向电机角度,，实际使用范围-180°~180°";
+CM_ SG_ 17 RDM_Fr06_FRWhlYawReq "右前轮转向电机角度,，实际使用范围-180°~180°";
+CM_ SG_ 17 RDM_Fr06_RLWhlYawReq "左后轮转向电机角度,，实际使用范围-180°~180°";
+CM_ SG_ 17 RDM_Fr06_RRWhlYawReq "右后轮转向电机角度,，实际使用范围-180°~180°";
+CM_ SG_ 17 RDM_Fr06_RollgCntr "0~15之间循环";
+CM_ SG_ 508 RDM_Fr08_ImmStatReq "请求机械臂插枪或者拔枪的动作";
+CM_ SG_ 508 RDM_Fr08_ChgrConnectStat "反馈给机械臂的插枪状态";
+CM_ SG_ 508 RDM_Fr08_SrvVehIdfr "待充电车辆的型号";
+CM_ SG_ 508 RDM_Fr08_SrvVehChrgrPstn "待充电车辆的充电口位置";
+CM_ SG_ 508 RDM_Fr08_ChkSum "校验位，暂定常发FF值";
+CM_ SG_ 508 RDM_Fr08_RollgCntr "0~15之间循环";
+CM_ BO_ 2566857967 "DCDC控制信息";
+CM_ SG_ 2566857967 RDM_Fr09_12VEnblCtrl "12VDCDC使能控制";
+CM_ SG_ 2566857967 RDM_Fr09_12VDCDCOupVoltReq "12VDCDC输出电压";
+CM_ SG_ 2566857967 RDM_Fr09_RollgCntr "0~15之间循环";
+CM_ SG_ 2566857967 RDM_Fr09_48VEnblCtrl "48VDCDC使能控制";
+CM_ SG_ 2566857967 RDM_Fr09_48VDCDCOupVoltReq "48VDCDC输出电压";
+CM_ BO_ 321 "车辆灯控制信息";
+CM_ SG_ 321 RDM_Fr10_TurnLightReq "转向灯请求";
+CM_ SG_ 321 RDM_Fr10_BrakeLightReq "制动灯请求";
+CM_ SG_ 321 RDM_Fr10_BackUpLightReq "倒车灯请求";
+CM_ SG_ 321 RDM_Fr10_ChrgrLightReq "充电指示灯请求";
+CM_ SG_ 321 RDM_Fr10_DrvLightReq "行驶灯请求";
+CM_ SG_ 321 RDM_Fr10_FltLightReq "故障灯请求";
+CM_ SG_ 321 RDM_Fr10_ChrgrSocDisplyLightReq "充电电量显示灯请求，（-1代表未充电，充电时，发送具体SOC）";
+CM_ SG_ 321 RDM_Fr10_IMMWrkLightReq "机械臂工作灯带点灯请求";
+CM_ SG_ 321 RDM_Fr10_MPSGreetLightReq "MPS发布会 打招呼灯语请求";
+CM_ SG_ 321 RDM_Fr10_MPSGreetLightFreq "MPS发布会 打招呼灯语周期";
+CM_ SG_ 321 RDM_Fr10_RollgCntr "0~15之间循环";
+CM_ BO_ 1248 "空调压缩机控制指令";
+CM_ SG_ 1248 RDM_Fr20_CoolntFanRlyEnbl "冷却风扇继电器控制";
+CM_ SG_ 1248 RDM_Fr20_CoolntPmpRlyEnbl "冷却水泵继电器控制";
+CM_ SG_ 1248 RDM_Fr20_CmprRlyEnbl "压缩机继电器控制";
+CM_ SG_ 1248 RDM_Fr20_CoolntFanDuty "Chiller风扇占空比";
+CM_ SG_ 1248 RDM_Fr20_CoolntMainPmpDuty "主水泵占空比";
+CM_ SG_ 1248 RDM_Fr20_CoolntChrgtPmpDuty "充电枪水泵占空比";
+CM_ SG_ 1248 RDM_Fr20_ElecMagnVlvDuty "电子比例阀占空比";
+CM_ SG_ 1248 RDM_Fr20_EASMotorSpdTrgt "压缩机电机目标转速";
+CM_ SG_ 1248 RDM_Fr20_EASEnblReq "使能EAS请求";
+CM_ SG_ 1248 RDM_Fr20_ElecMagnVlvDeg "电子比例阀门角度";
+CM_ SG_ 334 RDM_Fr23_MPSCurrtWrkMd "MPS当前工作模式";
+CM_ SG_ 334 RDM_Fr23_MPSCurrtChrgStat "MPS当前充电状态";
+CM_ SG_ 334 RDM_Fr23_MPSCurrtSoc "MPS当前SOC";
+CM_ SG_ 334 RDM_Fr23_CurrtChrgVolt "当前充电电压";
+CM_ SG_ 334 RDM_Fr23_CurrtChrgCurr "当前充电电流";
+CM_ SG_ 335 RDM_Fr24_CurrtSrvChrgedCnseTm "本次服务累计已充电时间";
+CM_ SG_ 335 RDM_Fr24_CurrtSrvChrgedAcunt "本次服务累计已充电金额（包含电费和服务费）";
+CM_ SG_ 335 RDM_Fr24_CurrtSrvChrgedPwrEngy "本次服务累计充电电量";
+CM_ SG_ 335 RDM_Fr24_CustVehSoc "客户车辆当前SOC";
+CM_ BO_ 666 "发出的调试信息";
+CM_ SG_ 666 RDM_Debug_PmmPuPdSta "RDM_Debug_PmmPuPdSta";
+CM_ SG_ 666 RDM_Debug_PmmPuPdTmoutSta "RDM_Debug_PmmPuPdTmoutSta";
+CM_ SG_ 666 RDM_Debug_EssHVCnntnReq "RDM_Debug_EssHVCnntnReq";
+CM_ SG_ 666 RDM_Debug_HvRdy "RDM_Debug_HvRdy";
+CM_ SG_ 666 RDM_Debug_EptRdy "RDM_Debug_EptRdy";
+CM_ SG_ 666 RDM_Debug_MpsType "RDM_Debug_MpsType";
+CM_ SG_ 666 RDM_Debug_RcsCnnctnReq "RDM_Debug_RcsCnnctnReq";
+CM_ SG_ 666 RDM_Debug_VmmMainStat "RDM_Debug_VmmMainStat";
+CM_ SG_ 666 RDM_Debug_VmmCtrlStat "RDM_Debug_VmmCtrlStat";
+CM_ SG_ 666 RDM_Debug_VmmTmoutStat "RDM_Debug_VmmTmoutStat";
+CM_ SG_ 666 RDM_Debug_ESSBascStat "储能单元工作状态";
+CM_ SG_ 666 RDM_Debug_ESSMainPosRlyStat "主正继电器状态";
+CM_ SG_ 666 RDM_Debug_ESSMainNegRlyStat "主负继电器状态";
+CM_ SG_ 666 RDM_Debug_ESSPreChrgRlyStat "预充继电器状态";
+CM_ SG_ 666 RDM_Debug_ESSDcChrgPosRlyStat "快充主正继电器状态";
+CM_ SG_ 666 RDM_Debug_ESSDcChrgrCnnctStat "快充枪插入状态";
+CM_ BO_ 667 "发出的调试信息";
+CM_ SG_ 667 RDM_Debug_MPSVINNum1 "MPS车辆VIN码1";
+CM_ SG_ 667 RDM_Debug_MPSVINNum2 "MPS车辆VIN码2";
+CM_ BO_ 668 "发出的调试信息";
+CM_ SG_ 668 RDM_Debug_HvCnntionReq "请求ESS闭合/断开放电回路的指令";
+CM_ SG_ 668 RDM_Debug_ESSFltLvl "储能单元故障等级";
+CM_ SG_ 668 RDM_Debug_EssHvOffReq "Ess请求下电";
+CM_ SG_ 668 RDM_Debug_ESSInsdUOfMainPosRly "主正继电器内侧电压值";
+CM_ SG_ 668 RDM_Debug_CurrtChrgPwrEngy "MPS停止本次充电电量";
+CM_ SG_ 668 RDM_Debug_CurrtChrgrAcunt "MPS停止本次充电金额";
+CM_ SG_ 668 RDM_Debug_CurrtSrvChrgAcunt "MPS停止本次充电服务费金额";
+CM_ BO_ 669 "发出的调试信息";
+CM_ SG_ 669 RDM_Debug_ESSPackI "储能单元电流，充电为负，放电为正";
+CM_ SG_ 669 RDM_Debug_ESSCellTMax "储能单元电芯最高温度";
+CM_ SG_ 669 RDM_Debug_ESSCellTMin "储能单元电芯最低温度";
+CM_ SG_ 669 RDM_Debug_ESSCellTAvg "储能单元电芯平均温度";
+CM_ SG_ 669 RDM_Debug_ESSCellUMax "储能单元电芯最高电压";
+CM_ SG_ 669 RDM_Debug_ESSCellUMin "储能单元电芯最低电压";
+CM_ BO_ 670 "发出的调试信息";
+CM_ SG_ 670 RDM_Debug_ESSCellUAvg "储能单元电芯平均电压";
+CM_ SG_ 670 RDM_Debug_ESSEssInletT "储能单元进水口温度";
+CM_ SG_ 670 RDM_Debug_ESSEssOutletT "储能单元出水口温度";
+CM_ SG_ 670 RDM_Debug_ESSContnsDchaILmt "储能单元允许的最大持续放电电流";
+CM_ SG_ 670 RDM_Debug_ESSContnsChrgILmt "储能单元允许的最大持续充电电流";
+CM_ BO_ 671 "发出的调试信息";
+CM_ SG_ 671 RDM_Debug_ServReqMPSChrg "后台请求MPS对外充电";
+CM_ SG_ 671 RDM_Debug_DateYear "年";
+CM_ SG_ 671 RDM_Debug_DateMonth "月";
+CM_ SG_ 671 RDM_Debug_DateDay "日";
+CM_ SG_ 671 RDM_Debug_TimeHour "时";
+CM_ SG_ 671 RDM_Debug_TimeMin "分";
+CM_ SG_ 671 RDM_Debug_TimeSec "秒";
+CM_ SG_ 671 RDM_Debug_V2VStopReasn "V2V放电终止详细原因";
+CM_ SG_ 671 RDM_Debug_ReChrgStopReasn "MPS回充失败详细原因";
+CM_ BO_ 672 "发出的调试信息";
+CM_ SG_ 672 RDM_Debug_MPS_DTC1 "MPS故障信息1";
+CM_ SG_ 672 RDM_Debug_MPS_DTC2 "MPS故障信息2";
+CM_ SG_ 672 RDM_Debug_MPS_DTC3 "MPS故障信息3";
+CM_ SG_ 672 RDM_Debug_MPS_DTC4 "MPS故障信息4";
+CM_ SG_ 672 RDM_Debug_MPS_DTC5 "MPS故障信息5";
+CM_ SG_ 672 RDM_Debug_MPS_DTC6 "MPS故障信息6";
+CM_ SG_ 672 RDM_Debug_MPS_DTC7 "MPS故障信息7";
+CM_ SG_ 672 RDM_Debug_MPS_DTC8 "MPS故障信息8";
+CM_ BO_ 673 "车辆配置信息";
+CM_ SG_ 673 RDM_Fr30_RDMSwVersionMain "RDM软件主版本号";
+CM_ SG_ 673 RDM_Fr30_RDMSwVersionSub1 "RDM软件子版本号1";
+CM_ SG_ 673 RDM_Fr30_RDMSwVersionSub2 "RDM软件子版本号2";
+CM_ SG_ 673 RDM_Fr30_CloudPlatfmVersion "云平台版本";
+CM_ SG_ 673 RDM_Fr30_MpsType "MPS配置类型";
+CM_ SG_ 673 RDM_Fr30_RdmSwState "RDM软件状态";
+CM_ SG_ 673 RDM_Fr30_CoolntFanType "冷却风扇类型";
+CM_ SG_ 673 RDM_Fr30_CoolntFanPWM "冷却风扇PWM反馈数值";
+CM_ SG_ 673 RDM_Fr30_EnblV2VByChrgrInStat "允许插枪充电（非下单）功能使能状态";
+CM_ SG_ 673 RDM_Fr30_G2VPwrLmt "G2V功率上限";
+CM_ SG_ 22 ADM_Fr01_TskTypFeb "任务类型反馈";
+CM_ SG_ 22 ADM_Fr01_WorkState "运行状态";
+CM_ SG_ 22 ADM_Fr01_CtrlModeReq "ADM底盘控制模式请求";
+CM_ SG_ 22 ADM_Fr01_RollgCntr "0~15之间循环";
+CM_ SG_ 22 ADM_Fr01_VehXSpdReq "X方向的线速度请求值";
+CM_ SG_ 22 ADM_Fr01_VehYSpdReq "Y方向的线速度请求值";
+CM_ SG_ 22 ADM_Fr01_YawRateReq "车辆绕Z轴的旋转角速度请求值";
+CM_ SG_ 767 IMM_Fr01_ArmPoseStat "机械臂姿态状态";
+CM_ SG_ 767 IMM_Fr01_ArmWorkStat "机械臂系统工作状态";
+CM_ SG_ 767 IMM_Fr01_ArmSysFltStat "机械臂系统故障代码";
+CM_ SG_ 767 IMM_Fr01_PushPullF "机械臂插拔力";
+CM_ SG_ 767 IMM_Fr01_RollgCntr "0~15之间循环";
+CM_ SG_ 767 IMM_Fr01_ChkSum "校验位Byte1(Xor)Byte2(Xor)…..Byte(7)";
+CM_ SG_ 24 CHS_Fr01_VehSpdXAct "X方向的线速度实际值";
+CM_ SG_ 24 CHS_Fr01_VehSpdYAct "Y方向的线速度实际值";
+CM_ SG_ 24 CHS_Fr01_YawRateAct "车辆绕Z轴的旋转角速度实际值";
+CM_ SG_ 24 CHS_Fr01_PLockStat "驻车锁实际状态";
+CM_ SG_ 24 CHS_Fr01_CurrtDrvMode "当前工作模式";
+CM_ SG_ 24 CHS_Fr01_CurrtCtrlMode "当前运动控制实际响应状态";
+CM_ SG_ 24 CHS_Fr01_RollgCntr "0~15之间循环";
+CM_ SG_ 24 CHS_Fr01_DCChrgrActnSimltionReq "放电枪插拔动作模拟请求";
+CM_ SG_ 24 CHS_Fr01_ChgrConnectSimltionStat "底盘模拟的放电枪连接状态";
+CM_ SG_ 25 CHS_Fr02_FLWhlSpd "左前轮驱动电机转速,转向角度为0时前进方向为正";
+CM_ SG_ 25 CHS_Fr02_FRWhlSpd "右前轮驱动电机转速,转向角度为0时前进方向为正";
+CM_ SG_ 25 CHS_Fr02_RLWhlSpd "左后轮驱动电机转速,转向角度为0时前进方向为正";
+CM_ SG_ 25 CHS_Fr02_RRWhlSpd "右后轮驱动电机转速,转向角度为0时前进方向为正";
+CM_ SG_ 26 CHS_Fr03_FLWhlAnglSpd "左前轮转向角速度,左正右负";
+CM_ SG_ 26 CHS_Fr03_FRWhlAnglSpd "右前轮转向角速度,左正右负";
+CM_ SG_ 26 CHS_Fr03_RLWhlAnglSpd "左后轮转向角速度,左正右负";
+CM_ SG_ 26 CHS_Fr03_RRWhlAnglSpd "右后轮转向角速度,左正右负";
+CM_ SG_ 27 CHS_Fr04_FLWhlYaw "左前轮转向角度,左正右负";
+CM_ SG_ 27 CHS_Fr04_FRWhlYaw "右前轮转向角度,左正右负";
+CM_ SG_ 27 CHS_Fr04_RLWhlYaw "左后轮转向角度,左正右负";
+CM_ SG_ 27 CHS_Fr04_RRWhlYaw "右后轮转向角度,左正右负";
+CM_ SG_ 29 CHS_Fr05_48VBattVolt "48v蓄电池电压";
+CM_ SG_ 29 CHS_Fr05_48VBattCurrt "48v蓄电池电流";
+CM_ SG_ 29 CHS_Fr05_48VBattSoc "48V蓄电池SOC";
+CM_ SG_ 29 CHS_Fr05_48VBattFltLvl "48V蓄电池故障等级";
+CM_ SG_ 29 CHS_Fr05_12VDCDCDsablReq "12vDCDC暂停工作请求";
+CM_ SG_ 29 CHS_Fr05_RollgCntr "0~15之间循环";
+CM_ SG_ 42 CHS_Fr07_FLMotorPstnFedbck "左前轮转向电机位置反馈（8191/360°一直累加）";
+CM_ SG_ 42 CHS_Fr07_RollgCntr "0~15之间循环";
+CM_ SG_ 43 CHS_Fr08_FRMotorPstnFedbck "右前轮转向电机位置反馈（8191/360°一直累加）";
+CM_ SG_ 43 CHS_Fr08_RollgCntr "0~15之间循环";
+CM_ SG_ 44 CHS_Fr09_RLMotorPstnFedbck "左后轮转向电机位置反馈（8191/360°一直累加）";
+CM_ SG_ 44 CHS_Fr09_RollgCntr "0~15之间循环";
+CM_ SG_ 45 CHS_Fr10_RRMotorPstnFedbck "右后转向电机位置反馈（8191/360°一直累加）";
+CM_ SG_ 45 CHS_Fr10_RollgCntr "0~15之间循环";
+CM_ SG_ 46 CHS_Fr11_RRDrvMotrFltStat "右后轮驱动电机故障状态";
+CM_ SG_ 46 CHS_Fr11_RRDrvEPSFltStat "右后轮转向电机故障状态";
+CM_ SG_ 46 CHS_Fr11_RLDrvMotrFltStat "左后轮驱动电机故障状态";
+CM_ SG_ 46 CHS_Fr11_RLDrvEPSFltStat "左后轮转向电机故障状态";
+CM_ SG_ 46 CHS_Fr11_FRDrvMotrFltStat "右前轮驱动电机故障状态";
+CM_ SG_ 46 CHS_Fr11_FRDrvEPSFltStat "右前轮转向电机故障状态";
+CM_ SG_ 46 CHS_Fr11_FLDrvMotrFltStat "左前轮驱动电机故障状态";
+CM_ SG_ 46 CHS_Fr11_FLDrvEPSFltStat "左前轮转向电机故障状态";
+CM_ SG_ 46 CHS_Fr11_CHSFltStat "CHS故障状态";
+CM_ SG_ 46 CHS_Fr11_EHBFltStat "EHB故障状态";
+CM_ SG_ 46 CHS_Fr11_48VBattFltStat "48V电池故障状态";
+CM_ SG_ 46 CHS_Fr11_RollgCntr "0~15之间循环";
+CM_ SG_ 33 PCU_Fr01_ChrgCnnctState "快充枪的连接状态";
+CM_ SG_ 33 PCU_Fr01_PcuStat "PCU的工作模式";
+CM_ SG_ 33 PCU_Fr01_FastChrgStat "快充的实际状态";
+CM_ SG_ 33 PCU_Fr01_ElcLockStat "电子锁实际状态";
+CM_ SG_ 33 PCU_Fr01_EssHvStateReq "V2V模式下，进入快充流程后，RDM通过此信号来控制车端高压电池的断开与连接";
+CM_ SG_ 33 PCU_Fr01_PcuFamilyNum "PCU总成产品型号";
+CM_ SG_ 33 PCU_Fr01_PcuTemp "PCU（功率模块内部）温度";
+CM_ SG_ 33 PCU_Fr01_PwrCnvrtUnitTempIn "功率模块入水口温度";
+CM_ SG_ 33 PCU_Fr01_PwrCnvrtUnitTempOu "功率模块入出口温度";
+CM_ SG_ 33 PCU_Fr01_WaterChrgrTemp "液冷充电枪温度";
+CM_ SG_ 33 PCU_Fr01_CustVehSoc "客户车辆的SOC值，V2V充电过程中发出SOC实际值，其他情况发送-1即可";
+CM_ SG_ 33 PCU_Fr01_RollgCntr "0~15之间循环";
+CM_ SG_ 34 PCU_Fr02_CustVehCurrt "V2V模式下，客户车辆反馈的充电电流值";
+CM_ SG_ 34 PCU_Fr02_DcIAvaiOfG2V "G2V模式下，AcDc的Dc端总输出能力";
+CM_ SG_ 34 PCU_Fr02_DcIAvaiOfV2G "V2G模式下，AcDc的Dc端总接收能力";
+CM_ SG_ 34 PCU_Fr02_CustVehVoltge "V2V模式下，客户车辆反馈的电池包总压";
+CM_ SG_ 34 PCU_Fr02_RollgCntr "0~15之间循环";
+CM_ SG_ 34 PCU_Fr02_CustVehChrgTmRest "V2V模式下，客户车辆反馈充电剩余估算时间
+(快充协议中，SPN序号3079)";
+CM_ BO_ 35 "DcDc模块的电压电流反馈值";
+CM_ SG_ 35 PCU_Fr03_DcDcInI "V2V模式下，流入DCDC的实际电流值";
+CM_ SG_ 35 PCU_Fr03_DcDcInU "V2V模式下，DCDC输入端的实际电压";
+CM_ SG_ 35 PCU_Fr03_DcDcOutI "V2V模式下，流出DCDC的实际电流值";
+CM_ SG_ 35 PCU_Fr03_DcDcOutU "V2V模式下，DCDC输出端的实际电压";
+CM_ SG_ 35 PCU_Fr03_RollgCntr "0~15之间循环";
+CM_ SG_ 35 PCU_Fr03_DcMeterIncVal "本次充电已充电的度数（从DC电表获取）";
+CM_ BO_ 36 "AcDc模块的电压电流反馈值";
+CM_ SG_ 36 PCU_Fr04_AcUOfAcDc "AcDc交流端的实际电压";
+CM_ SG_ 36 PCU_Fr04_AcIOfAcDc "AcDc交流端的实际电流，G2V模式下，该值符号恒为负，V2G模式下，该值恒为正";
+CM_ SG_ 36 PCU_Fr04_DcUOfAcDc "AcDc直流端的实际电压";
+CM_ SG_ 36 PCU_Fr04_DcIOfAcDc "AcDc直流端的实际电流";
+CM_ SG_ 36 PCU_Fr04_RollgCntr "0~15之间循环";
+CM_ BO_ 37 "充放电停止原因";
+CM_ SG_ 37 PCU_Fr05_V2VChrgrStpFeb "对外放电停止原因反馈";
+CM_ SG_ 37 PCU_Fr05_BMSNrmlStpReson "BMS（受电车）正常中止充电";
+CM_ SG_ 37 PCU_Fr05_BMSAbnrmlStpReson "BMS（受电车）异常中止充电";
+CM_ SG_ 37 PCU_Fr05_BMSFltStpReson "BMS（受电车）故障中止充电";
+CM_ SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg1OvTm "接收SPN2560 =0X00的充电机辨识报文超时（对应停止原因0x03）+RC:R[13]C";
+CM_ SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg2OvTm "接收SPN2560 =0XAA的充电机辨识报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg3OvTm "接收充电机的时间同步和充电机最大输出能力报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg4OvTm "接收充电机完成充电准备报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg5OvTm "接收充电机充电状态报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg6OvTm "接收充电机中止充电报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg7OvTm "接收充电机充电统计报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvBMSMsg1OvTm "接收 BMS 和车辆的辨识报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvBMSMsg2OvTm "接收电池充电参数报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvBMSMsg3OvTm "接收 BMS 完成充电准备报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvBMSMsg4OvTm "接收电池充电总状态报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvBMSMsg5OvTm "接收电池充电要求报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvBMSMsg6OvTm "接收 BMS 中止充电报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RecvBMSMsg7OvTm "接收 BMS 充电统计报文超时（对应停止原因0x03）";
+CM_ SG_ 37 PCU_Fr05_RollgCntr "0~15之间循环";
+CM_ BO_ 38 "功率模块故障信息";
+CM_ SG_ 38 PCU_Fr06_PcuFltLvl "PCU故障等级";
+CM_ SG_ 38 PCU_Fr06_ChrgrFltCode1 "充电机故障码1";
+CM_ SG_ 38 PCU_Fr06_ChrgrFltCode2 "充电机故障码2";
+CM_ SG_ 38 PCU_Fr06_ChrgrFltCode3 "充电机故障码3";
+CM_ SG_ 38 PCU_Fr06_ChrgrFltCode4 "充电机故障码4";
+CM_ SG_ 38 PCU_Fr06_RollgCntr "0~15之间循环";
+CM_ BO_ 39 "功率模块版本信息";
+CM_ SG_ 39 PCU_Fr07_PcuSwVersionMain "PCU软件主版本号";
+CM_ SG_ 39 PCU_Fr07_PcuSwVersionSub1 "PCU软件子版本号1";
+CM_ SG_ 39 PCU_Fr07_PcuSwVersionSub2 "PCU软件子版本号2";
+CM_ SG_ 39 PCU_Fr07_RollgCntr "0~15之间循环";
+CM_ BO_ 40 "充放电参数";
+CM_ SG_ 40 PCU_Fr08_V2VReqDischrgVolt "V2V模式下，PCU请求放电电压";
+CM_ SG_ 40 PCU_Fr08_V2VReqDischrgCurrt "V2V模式下，PCU请求放电电流";
+CM_ SG_ 40 PCU_Fr08_CustVehReqChrgVolt "V2V模式下，客户车辆请求充电电压";
+CM_ SG_ 40 PCU_Fr08_CustVehReqChrgCurrt "V2V模式下，客户车辆请求充电电流";
+CM_ SG_ 40 PCU_Fr08_ACModeReqVolt "V2G/G2V模式下，PCU请求电压";
+CM_ SG_ 40 PCU_Fr08_ACModeReqCurrt "V2G/G2V模式下，PCU请求电流";
+CM_ SG_ 40 PCU_Fr08_RollgCntr "0~15之间循环";
+CM_ BO_ 256 "48V DCDC的反馈信息";
+CM_ SG_ 256 DCDC48_Fr01_WrkStat "48V DCDC实际工作状态";
+CM_ SG_ 256 DCDC48_Fr01_OupI "48V DCDC输出电流";
+CM_ SG_ 256 DCDC48_Fr01_OupU "48V DCDC输出电压";
+CM_ SG_ 256 DCDC48_Fr01_Temp "48V DCDC模块温度";
+CM_ SG_ 256 DCDC48_Fr01_FltCode "48V DCDC故障代码";
+CM_ SG_ 256 DCDC48_Fr01_RollgCntr "0~15之间循环";
+CM_ BO_ 2566853367 "12V DCDC的反馈信息";
+CM_ SG_ 2566853367 DCDC12_Fr01_OupU "12V DCDC输出电压";
+CM_ SG_ 2566853367 DCDC12_Fr01_OupI "12V DCDC输出电流";
+CM_ SG_ 2566853367 DCDC12_Fr01_FltCode "12V DCD故障代码";
+CM_ SG_ 2566853367 DCDC12_Fr01_Temp "12V DCDC温度";
+CM_ SG_ 2566853367 DCDC12_Fr01_WrkStat "12V DCDC工作状态";
+CM_ SG_ 2566853367 DCDC12_Fr01_RollgCntr "0~15之间循环";
+CM_ BO_ 2566853623 "12V DCDC控制器信息";
+CM_ SG_ 2566853623 DCDC12_Fr02_HwSubVersn "硬件子版本号";
+CM_ SG_ 2566853623 DCDC12_Fr02_HwMainVersn "硬件主版本号";
+CM_ SG_ 2566853623 DCDC12_Fr02_SwSubVersn "软件字版本号";
+CM_ SG_ 2566853623 DCDC12_Fr02_SwMainVersn "软件主版本号";
+CM_ SG_ 2566853623 DCDC12_Fr02_InpU "DCDC输入电压";
+CM_ SG_ 2566853623 DCDC12_Fr02_InpI "DCDC输入电流";
+CM_ BO_ 257 "液冷版福宝48V DCDC的反馈信息";
+CM_ SG_ 257 DCPro48_Fr01_OupU "48V DCDC输出电压";
+CM_ SG_ 257 DCPro48_Fr01_OupI "48V DCDC输出电流";
+CM_ SG_ 257 DCPro48_Fr01_Temp "48V DCDC温度";
+CM_ SG_ 257 DCPro48_Fr01_WrkStat "48V DCDC工作状态";
+CM_ SG_ 257 DCPro48_Fr01_OTErr "温度过高";
+CM_ SG_ 257 DCPro48_Fr01_HWErr "硬件故障";
+CM_ SG_ 257 DCPro48_Fr01_OVInputErr "输入过压故障";
+CM_ SG_ 257 DCPro48_Fr01_UVInputErr "输入欠压故障";
+CM_ SG_ 257 DCPro48_Fr01_OVOutputErr "输出过压故障";
+CM_ SG_ 257 DCPro48_Fr01_UVOutputErr "输出欠压故障";
+CM_ SG_ 257 DCPro48_Fr01_OCOutputErr "输出过电流故障";
+CM_ SG_ 257 DCPro48_Fr01_OCInputErr "输入过电流故障";
+CM_ SG_ 257 DCPro48_Fr01_E2PROMErr "E2PROM故障";
+CM_ BO_ 258 "液冷福宝48V DCDC控制器信息";
+CM_ SG_ 258 DCPro48_Fr02_SwSubVersn "软件主版本号";
+CM_ SG_ 258 DCPro48_Fr02_SwMainVersn "软件子版本号";
+CM_ SG_ 258 DCPro48_Fr02_InpU "DCDC输入电压";
+CM_ SG_ 258 DCPro48_Fr02_InpI "DCDC输入电流";
+CM_ BO_ 259 "液冷福宝12V DCDC的反馈信息";
+CM_ SG_ 259 DCPro12_Fr01_OupU "12V DCDC输出电压";
+CM_ SG_ 259 DCPro12_Fr01_OupI "12V DCDC输出电流";
+CM_ SG_ 259 DCPro12_Fr01_Temp "12V DCDC温度";
+CM_ SG_ 259 DCPro12_Fr01_WrkStat "12V DCDC工作状态";
+CM_ SG_ 259 DCPro12_Fr01_OTErr "温度过高";
+CM_ SG_ 259 DCPro12_Fr01_HWErr "硬件故障";
+CM_ SG_ 259 DCPro12_Fr01_OVInputErr "输入过压故障";
+CM_ SG_ 259 DCPro12_Fr01_UVInputErr "输入欠压故障";
+CM_ SG_ 259 DCPro12_Fr01_OVOutputErr "输出过压故障";
+CM_ SG_ 259 DCPro12_Fr01_UVOutputErr "输出欠压故障";
+CM_ SG_ 259 DCPro12_Fr01_OCOutputErr "输出过电流故障";
+CM_ SG_ 259 DCPro12_Fr01_OCInputErr "输入过电流故障";
+CM_ SG_ 259 DCPro12_Fr01_E2PROMErr "E2PROM故障";
+CM_ BO_ 260 "液冷福宝12V DCDC控制器信息";
+CM_ SG_ 260 DCPro12_Fr02_SwSubVersn "软件主版本号";
+CM_ SG_ 260 DCPro12_Fr02_SwMainVersn "软件子版本号";
+CM_ SG_ 260 DCPro12_Fr02_InpU "DCDC输入电压";
+CM_ SG_ 260 DCPro12_Fr02_InpI "DCDC输入电流";
+CM_ BO_ 97 "灯带状态信息";
+CM_ SG_ 97 LSC_Fr01_TurnLightStat "转向灯状态";
+CM_ SG_ 97 LSC_Fr01_BrakeLightStat "制动灯点灯状态";
+CM_ SG_ 97 LSC_Fr01_BackUpLightStat "倒车灯点灯状态";
+CM_ SG_ 97 LSC_Fr01_ChrgrLightStat "充电灯点灯状态";
+CM_ SG_ 97 LSC_Fr01_DrvLightStat "行驶灯点灯状态";
+CM_ SG_ 97 LSC_Fr01_FaultLightStat "故障灯点灯状态";
+CM_ SG_ 97 LSC_Fr01_ChrgrSocDisplyLightStat "充电电量显示灯状态";
+CM_ SG_ 97 LSC_Fr01_IMMWrkLightStat "机械臂工作灯带状态";
+CM_ SG_ 97 LSC_Fr01_RollgCntr "0~15之间循环";
+CM_ SG_ 528 LAS_Fr01_FLWhlSpdReq "左前轮驱动电机转速请求,,转向角度为0时前进方向为正";
+CM_ SG_ 528 LAS_Fr01_FRWhlSpdReq "右前轮驱动电机转速请求,转向角度为0时前进方向为正";
+CM_ SG_ 528 LAS_Fr01_RLWhlSpdReq "左后轮驱动电机转速请求,转向角度为0时前进方向为正";
+CM_ SG_ 528 LAS_Fr01_RRWhlSpdReq "右后轮驱动电机转速请求,转向角度为0时前进方向为正";
+CM_ SG_ 529 LAS_Fr02_FLWhlYawReq "左前轮转向电机角度,，实际使用范围-180°~180°";
+CM_ SG_ 529 LAS_Fr02_FRWhlYawReq "右前轮转向电机角度,，实际使用范围-180°~180°";
+CM_ SG_ 529 LAS_Fr02_RLWhlYawReq "左后轮转向电机角度,，实际使用范围-180°~180°";
+CM_ SG_ 529 LAS_Fr02_RRWhlYawReq "右后轮转向电机角度,，实际使用范围-180°~180°";
+CM_ SG_ 530 LAS_Fr03_TskTypFeb "任务类型反馈";
+CM_ SG_ 530 LAS_Fr03_WorkState "自动驾驶运行（工作）状态";
+CM_ SG_ 530 LAS_Fr03_VehStopReq "停车请求";
+CM_ SG_ 530 LAS_Fr03_VehDrvState "车辆行驶状态";
+CM_ SG_ 530 LAS_Fr03_FaultCode "故障代码";
+CM_ SG_ 530 LAS_Fr03_RollgCntr "0~15之间循环";
+CM_ BO_ 1168 "EAS空调压缩机信息反馈";
+CM_ SG_ 1168 EAS_Fr01_WrkStat "压缩机工作状态";
+CM_ SG_ 1168 EAS_Fr01_FltStat "压缩机故障状态";
+CM_ SG_ 1168 EAS_Fr01_InputVolt "压缩机输入电压";
+CM_ SG_ 1168 EAS_Fr01_EASTemp "压缩机控制器温度";
+CM_ SG_ 1168 EAS_Fr01_MotorCurrent "压缩机线电流";
+CM_ SG_ 1168 EAS_Fr01_MotorSpd "压缩机电机转速";
+CM_ BO_ 656 "上位机发送的控制指令信息";
+CM_ SG_ 656 PCAN_Fr01_OvrdCmd "";
+CM_ SG_ 656 PCAN_Fr01_PLockStatReq "驻车锁模式请求";
+CM_ SG_ 656 PCAN_Fr01_VehStopReq "停车请求";
+CM_ SG_ 656 PCAN_Fr01_WhlAngleSet "设置车轮的角度";
+CM_ SG_ 656 PCAN_Fr01_DrvModeCtrlReq "底盘控制模式请求
+0x0:底盘通过ADM发出的线速度和Yawrate来进行驱动和转向的控制；0x1：四个驱动的电机和四个转向电机的速度指令转角指令由RDM计算得到，CHS将这些指令转发给电机驱动器，实现驱动和转向；0x3:遥控器控制模式，由外接遥控器来控制底盘的运动";
+CM_ SG_ 656 PCAN_Fr01_FreqState "正弦激励时的频率选择";
+CM_ SG_ 656 PCAN_Fr01_DriveAmp "驱动正弦激励时其幅值";
+CM_ SG_ 656 PCAN_Fr01_DriveBias "驱动正弦激励时其幅值偏移量";
+CM_ SG_ 656 PCAN_Fr01_SteerAmp "转向正弦激励时其幅值";
+CM_ SG_ 656 PCAN_Fr01_SteerBias "转向正弦激励时其幅值偏移量";
+CM_ BO_ 657 "上位机发送的控制指令信息";
+CM_ SG_ 657 PCAN_Fr02_StraightAngReq "Straight模式下,车轮角度请求值";
+CM_ SG_ 657 PCAN_Fr02_StraightVehSpdReq "Straight模式下,车辆移动速度请求值";
+CM_ SG_ 657 PCAN_Fr02_RotationDelayT "Straight、Rotation模式下,线速度指令的滞后时间";
+CM_ SG_ 657 PCAN_Fr02_RotationOmegaReq "Rotation模式下，Mps绕自身几何中心自转的角速度";
+CM_ SG_ 657 PCAN_Fr02_VehSpdReq "Curve模式下,Mps速度请求";
+CM_ SG_ 657 PCAN_Fr02_RotationRReq "转弯半径，左正右负，半径绝对值需要大于0.27";
+CM_ BO_ 546 "上位机发送的控制指令信息";
+CM_ SG_ 546 PCAN_Fr03_SN_Byte0 "Sn0";
+CM_ SG_ 546 PCAN_Fr03_SN_Byte1 "Sn1";
+CM_ SG_ 546 PCAN_Fr03_SN_Byte2 "Sn2";
+CM_ SG_ 546 PCAN_Fr03_SN_Byte3 "Sn3";
+CM_ SG_ 546 PCAN_Fr03_SN_Byte4 "Sn4";
+CM_ SG_ 546 PCAN_Fr03_SN_Byte5 "Sn5";
+CM_ SG_ 546 PCAN_Fr03_SN_Byte6 "Sn6";
+CM_ SG_ 546 PCAN_Fr03_SN_Byte7 "Sn7";
+CM_ BO_ 659 "车辆配置信息";
+CM_ SG_ 659 PCAN_Fr04_MpsConfig_Byte0 "ConfigByte0";
+CM_ SG_ 659 PCAN_Fr04_MpsConfig_Byte1 "ConfigByte1";
+CM_ SG_ 659 PCAN_Fr04_MpsConfig_Byte2 "ConfigByte2";
+CM_ SG_ 659 PCAN_Fr04_MpsConfig_Byte3 "ConfigByte3";
+
+BA_DEF_  "BusType" STRING ;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnWrite","OnWriteWithRepetition","OnChange","OnChangeWithRepetition","IfActive","IfActiveWithRepetition","NoSigSendType","NotUsed","NotUsed","NotUsed","NotUsed","NotUsed";
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 1;
+BA_DEF_ SG_  "GenSigStartValue" FLOAT 0 100000000000;
+BA_DEF_ SG_  "GenSigTimeoutValue" INT 0 65535;
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 1000;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 65535;
+BA_DEF_ BO_  "DiagResponse" ENUM  "no","yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "no","yes";
+BA_DEF_ BO_  "TpTxIndex" INT 0 255;
+BA_DEF_ BO_  "NmAsrMessage" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 65535;
+BA_DEF_ BO_  "NmMessage" ENUM  "no","yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "cyclic","spontaneous","cyclicIfActive","spontaneousWithDelay","immediate";
+BA_DEF_ BO_  "GenMsgFastOnStart" INT 0 65535;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 65535;
+BA_DEF_ BO_  "DiagState" ENUM  "no","yes";
+BA_DEF_ BO_  "DiagUudtResponse" ENUM  "false","true";
+BA_DEF_ BU_  "NmNode" ENUM  "no","yes";
+BA_DEF_ BU_  "NmAsrCanMsgCycleOffset" INT 0 65535;
+BA_DEF_ BU_  "NmStationAddress" HEX 0 255;
+BA_DEF_ BU_  "NmAsrNodeIdentifier" HEX 0 255;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ILUsed" ENUM  "no","yes";
+BA_DEF_ BU_  "NmAsrCanMsgReducedTime" INT 1 65535;
+BA_DEF_ BU_  "NmAsrNode" ENUM  "no","yes";
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ SG_  "SystemSignalLongSymbol" STRING ;
+BA_DEF_DEF_  "BusType" "";
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "GenSigSendType" "NoSigSendType";
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigTimeoutValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "DiagResponse" "no";
+BA_DEF_DEF_  "DiagRequest" "no";
+BA_DEF_DEF_  "TpTxIndex" 0;
+BA_DEF_DEF_  "NmAsrMessage" "no";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "GenMsgILSupport" "no";
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "NmMessage" "no";
+BA_DEF_DEF_  "GenMsgSendType" "cyclic";
+BA_DEF_DEF_  "GenMsgFastOnStart" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "DiagState" "no";
+BA_DEF_DEF_  "DiagUudtResponse" "false";
+BA_DEF_DEF_  "NmNode" "no";
+BA_DEF_DEF_  "NmAsrCanMsgCycleOffset" 0;
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmAsrNodeIdentifier" 50;
+BA_DEF_DEF_  "NodeLayerModules" " ";
+BA_DEF_DEF_  "ILUsed" "no";
+BA_DEF_DEF_  "NmAsrCanMsgReducedTime" 320;
+BA_DEF_DEF_  "NmAsrNode" "no";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "SystemSignalLongSymbol" "";
+BA_ "BusType" "CAN";
+BA_ "DBName" "MpsCanProtocol";
+BA_ "NmAsrCanMsgReducedTime" BU_ RDM 1;
+BA_ "ECU" BU_ RDM "RDM";
+
+BA_ "GenMsgCycleTime" BO_ 21 20;
+BA_ "GenMsgCycleTime" BO_ 18 20;
+BA_ "GenMsgCycleTime" BO_ 31 20;
+BA_ "GenMsgCycleTime" BO_ 511 200;
+BA_ "GenMsgCycleTime" BO_ 16 10;
+BA_ "GenMsgCycleTime" BO_ 17 10;
+BA_ "GenMsgCycleTime" BO_ 508 200;
+BA_ "GenMsgCycleTime" BO_ 2566857967 500;
+BA_ "GenMsgCycleTime" BO_ 321 100;
+BA_ "GenMsgCycleTime" BO_ 1248 100;
+BA_ "GenMsgCycleTime" BO_ 334 100;
+BA_ "GenMsgCycleTime" BO_ 335 100;
+BA_ "GenMsgCycleTime" BO_ 666 100;
+BA_ "GenMsgCycleTime" BO_ 667 100;
+BA_ "GenMsgCycleTime" BO_ 668 100;
+BA_ "GenMsgCycleTime" BO_ 669 100;
+BA_ "GenMsgCycleTime" BO_ 670 100;
+BA_ "GenMsgCycleTime" BO_ 671 100;
+BA_ "GenMsgCycleTime" BO_ 672 500;
+BA_ "GenMsgCycleTime" BO_ 673 1000;
+BA_ "GenMsgCycleTime" BO_ 22 10;
+BA_ "GenMsgCycleTime" BO_ 767 100;
+BA_ "GenMsgCycleTime" BO_ 24 10;
+BA_ "GenMsgCycleTime" BO_ 25 10;
+BA_ "GenMsgCycleTime" BO_ 26 10;
+BA_ "GenMsgCycleTime" BO_ 27 10;
+BA_ "GenMsgCycleTime" BO_ 29 10;
+BA_ "GenMsgCycleTime" BO_ 42 20;
+BA_ "GenMsgCycleTime" BO_ 43 20;
+BA_ "GenMsgCycleTime" BO_ 44 20;
+BA_ "GenMsgCycleTime" BO_ 45 20;
+BA_ "GenMsgCycleTime" BO_ 46 100;
+BA_ "GenMsgCycleTime" BO_ 33 20;
+BA_ "GenMsgCycleTime" BO_ 34 20;
+BA_ "GenMsgCycleTime" BO_ 35 20;
+BA_ "GenMsgCycleTime" BO_ 36 20;
+BA_ "GenMsgCycleTime" BO_ 37 100;
+BA_ "GenMsgCycleTime" BO_ 38 20;
+BA_ "GenMsgCycleTime" BO_ 39 1000;
+BA_ "GenMsgCycleTime" BO_ 40 100;
+BA_ "GenMsgCycleTime" BO_ 256 500;
+BA_ "GenMsgCycleTime" BO_ 2566853367 500;
+BA_ "GenMsgCycleTime" BO_ 2566853623 500;
+BA_ "GenMsgCycleTime" BO_ 257 500;
+BA_ "GenMsgCycleTime" BO_ 258 500;
+BA_ "GenMsgCycleTime" BO_ 259 500;
+BA_ "GenMsgCycleTime" BO_ 260 500;
+BA_ "GenMsgCycleTime" BO_ 97 100;
+BA_ "GenMsgCycleTime" BO_ 528 10;
+BA_ "GenMsgCycleTime" BO_ 529 10;
+BA_ "GenMsgCycleTime" BO_ 530 10;
+BA_ "GenMsgCycleTime" BO_ 1168 100;
+BA_ "GenMsgCycleTime" BO_ 656 50;
+BA_ "GenMsgCycleTime" BO_ 657 50;
+BA_ "GenMsgCycleTime" BO_ 546 50;
+BA_ "GenMsgCycleTime" BO_ 659 50;
+
+BA_ "GenSigStartValue" SG_ 21 RDM_Fr01_PcuModeReq 0;
+BA_ "GenSigStartValue" SG_ 21 RDM_Fr01_V2VEndState 0;
+BA_ "GenSigStartValue" SG_ 21 RDM_Fr01_ChargerIndex 0;
+BA_ "GenSigStartValue" SG_ 21 RDM_Fr01_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 21 RDM_Fr01_ElckUnlockEnbl 0;
+BA_ "GenSigStartValue" SG_ 21 RDM_Fr01_EssPackU 0;
+BA_ "GenSigStartValue" SG_ 21 RDM_Fr01_KeyOnStat 0;
+BA_ "GenSigStartValue" SG_ 21 RDM_Fr01_G2VInterLockStat 0;
+BA_ "GenSigStartValue" SG_ 18 RDM_Fr02_DcIReqOfAcDc 4095;
+BA_ "GenSigStartValue" SG_ 18 RDM_Fr02_Ess2PcuILmt 0;
+BA_ "GenSigStartValue" SG_ 18 RDM_Fr02_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 18 RDM_Fr02_EssAvailUMin 0;
+BA_ "GenSigStartValue" SG_ 18 RDM_Fr02_EssAvailUMax 0;
+BA_ "GenSigStartValue" SG_ 31 RDM_Fr03_EssHvReady 0;
+BA_ "GenSigStartValue" SG_ 31 RDM_Fr03_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 31 RDM_Fr03_EptRdy 0;
+BA_ "GenSigStartValue" SG_ 31 RDM_Fr03_PLockStatReq 0;
+BA_ "GenSigStartValue" SG_ 31 RDM_Fr03_VehStopReq 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_TskTyp 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_TskCtrlStat 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_AprchTgtSpotIdfr 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_MPSParkPose 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_ChgrConnectStat 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_SrvVehIdfr 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_SrvVehChrgrPstn 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_ChkSum 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_DrvModeCtrlReq 0;
+BA_ "GenSigStartValue" SG_ 511 RDM_Fr04_IPCOffReq 0;
+BA_ "GenSigStartValue" SG_ 16 RDM_Fr05_FLWhlSpdReq 1000;
+BA_ "GenSigStartValue" SG_ 16 RDM_Fr05_FRWhlSpdReq 1000;
+BA_ "GenSigStartValue" SG_ 16 RDM_Fr05_RLWhlSpdReq 1000;
+BA_ "GenSigStartValue" SG_ 16 RDM_Fr05_RRWhlSpdReq 1000;
+BA_ "GenSigStartValue" SG_ 16 RDM_Fr05_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 17 RDM_Fr06_FLWhlYawReq 2000;
+BA_ "GenSigStartValue" SG_ 17 RDM_Fr06_FRWhlYawReq 2000;
+BA_ "GenSigStartValue" SG_ 17 RDM_Fr06_RLWhlYawReq 2000;
+BA_ "GenSigStartValue" SG_ 17 RDM_Fr06_RRWhlYawReq 2000;
+BA_ "GenSigStartValue" SG_ 17 RDM_Fr06_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 508 RDM_Fr08_ImmStatReq 0;
+BA_ "GenSigStartValue" SG_ 508 RDM_Fr08_ChgrConnectStat 0;
+BA_ "GenSigStartValue" SG_ 508 RDM_Fr08_SrvVehIdfr 0;
+BA_ "GenSigStartValue" SG_ 508 RDM_Fr08_SrvVehChrgrPstn 0;
+BA_ "GenSigStartValue" SG_ 508 RDM_Fr08_ChkSum 0;
+BA_ "GenSigStartValue" SG_ 508 RDM_Fr08_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 2566857967 RDM_Fr09_12VEnblCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566857967 RDM_Fr09_12VDCDCOupVoltReq 0;
+BA_ "GenSigStartValue" SG_ 2566857967 RDM_Fr09_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 2566857967 RDM_Fr09_48VEnblCtrl 0;
+BA_ "GenSigStartValue" SG_ 2566857967 RDM_Fr09_48VDCDCOupVoltReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_TurnLightReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_BrakeLightReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_BackUpLightReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_ChrgrLightReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_DrvLightReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_FltLightReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_ChrgrSocDisplyLightReq 10;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_IMMWrkLightReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_MPSGreetLightReq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_MPSGreetLightFreq 0;
+BA_ "GenSigStartValue" SG_ 321 RDM_Fr10_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_CoolntFanRlyEnbl 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_CoolntPmpRlyEnbl 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_CmprRlyEnbl 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_CoolntFanDuty 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_CoolntMainPmpDuty 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_CoolntChrgtPmpDuty 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_ElecMagnVlvDuty 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_EASMotorSpdTrgt 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_EASEnblReq 0;
+BA_ "GenSigStartValue" SG_ 1248 RDM_Fr20_ElecMagnVlvDeg 0;
+BA_ "GenSigStartValue" SG_ 334 RDM_Fr23_MPSCurrtWrkMd 0;
+BA_ "GenSigStartValue" SG_ 334 RDM_Fr23_MPSCurrtChrgStat 0;
+BA_ "GenSigStartValue" SG_ 334 RDM_Fr23_MPSCurrtSoc 0;
+BA_ "GenSigStartValue" SG_ 334 RDM_Fr23_CurrtChrgVolt 0;
+BA_ "GenSigStartValue" SG_ 334 RDM_Fr23_CurrtChrgCurr 0;
+BA_ "GenSigStartValue" SG_ 335 RDM_Fr24_CurrtSrvChrgedCnseTm 0;
+BA_ "GenSigStartValue" SG_ 335 RDM_Fr24_CurrtSrvChrgedAcunt 0;
+BA_ "GenSigStartValue" SG_ 335 RDM_Fr24_CurrtSrvChrgedPwrEngy 0;
+BA_ "GenSigStartValue" SG_ 335 RDM_Fr24_CustVehSoc 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_PmmPuPdSta 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_PmmPuPdTmoutSta 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_EssHVCnntnReq 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_HvRdy 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_EptRdy 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_MpsType 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_RcsCnnctnReq 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_VmmMainStat 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_VmmCtrlStat 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_VmmTmoutStat 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_ESSBascStat 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_ESSMainPosRlyStat 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_ESSMainNegRlyStat 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_ESSPreChrgRlyStat 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_ESSDcChrgPosRlyStat 0;
+BA_ "GenSigStartValue" SG_ 666 RDM_Debug_ESSDcChrgrCnnctStat 0;
+BA_ "GenSigStartValue" SG_ 667 RDM_Debug_MPSVINNum1 0;
+BA_ "GenSigStartValue" SG_ 667 RDM_Debug_MPSVINNum2 0;
+BA_ "GenSigStartValue" SG_ 668 RDM_Debug_HvCnntionReq 0;
+BA_ "GenSigStartValue" SG_ 668 RDM_Debug_ESSFltLvl 0;
+BA_ "GenSigStartValue" SG_ 668 RDM_Debug_EssHvOffReq 0;
+BA_ "GenSigStartValue" SG_ 668 RDM_Debug_ESSInsdUOfMainPosRly 0;
+BA_ "GenSigStartValue" SG_ 668 RDM_Debug_CurrtChrgPwrEngy 0;
+BA_ "GenSigStartValue" SG_ 668 RDM_Debug_CurrtChrgrAcunt 0;
+BA_ "GenSigStartValue" SG_ 668 RDM_Debug_CurrtSrvChrgAcunt 0;
+BA_ "GenSigStartValue" SG_ 669 RDM_Debug_ESSPackI 8000;
+BA_ "GenSigStartValue" SG_ 669 RDM_Debug_ESSCellTMax 50;
+BA_ "GenSigStartValue" SG_ 669 RDM_Debug_ESSCellTMin 50;
+BA_ "GenSigStartValue" SG_ 669 RDM_Debug_ESSCellTAvg 50;
+BA_ "GenSigStartValue" SG_ 669 RDM_Debug_ESSCellUMax 0;
+BA_ "GenSigStartValue" SG_ 669 RDM_Debug_ESSCellUMin 0;
+BA_ "GenSigStartValue" SG_ 670 RDM_Debug_ESSCellUAvg 0;
+BA_ "GenSigStartValue" SG_ 670 RDM_Debug_ESSEssInletT 50;
+BA_ "GenSigStartValue" SG_ 670 RDM_Debug_ESSEssOutletT 50;
+BA_ "GenSigStartValue" SG_ 670 RDM_Debug_ESSContnsDchaILmt 0;
+BA_ "GenSigStartValue" SG_ 670 RDM_Debug_ESSContnsChrgILmt 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_ServReqMPSChrg 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_DateYear 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_DateMonth 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_DateDay 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_TimeHour 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_TimeMin 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_TimeSec 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_V2VStopReasn 0;
+BA_ "GenSigStartValue" SG_ 671 RDM_Debug_ReChrgStopReasn 0;
+BA_ "GenSigStartValue" SG_ 672 RDM_Debug_MPS_DTC1 0;
+BA_ "GenSigStartValue" SG_ 672 RDM_Debug_MPS_DTC2 0;
+BA_ "GenSigStartValue" SG_ 672 RDM_Debug_MPS_DTC3 0;
+BA_ "GenSigStartValue" SG_ 672 RDM_Debug_MPS_DTC4 0;
+BA_ "GenSigStartValue" SG_ 672 RDM_Debug_MPS_DTC5 0;
+BA_ "GenSigStartValue" SG_ 672 RDM_Debug_MPS_DTC6 0;
+BA_ "GenSigStartValue" SG_ 672 RDM_Debug_MPS_DTC7 0;
+BA_ "GenSigStartValue" SG_ 672 RDM_Debug_MPS_DTC8 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_RDMSwVersionMain 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_RDMSwVersionSub1 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_RDMSwVersionSub2 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_CloudPlatfmVersion 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_MpsType 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_RdmSwState 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_CoolntFanType 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_CoolntFanPWM 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_EnblV2VByChrgrInStat 0;
+BA_ "GenSigStartValue" SG_ 673 RDM_Fr30_G2VPwrLmt 0;
+BA_ "GenSigStartValue" SG_ 22 ADM_Fr01_TskTypFeb 0;
+BA_ "GenSigStartValue" SG_ 22 ADM_Fr01_WorkState 0;
+BA_ "GenSigStartValue" SG_ 22 ADM_Fr01_CtrlModeReq 0;
+BA_ "GenSigStartValue" SG_ 22 ADM_Fr01_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 22 ADM_Fr01_VehXSpdReq 125;
+BA_ "GenSigStartValue" SG_ 22 ADM_Fr01_VehYSpdReq 125;
+BA_ "GenSigStartValue" SG_ 22 ADM_Fr01_YawRateReq 125;
+BA_ "GenSigStartValue" SG_ 767 IMM_Fr01_ArmPoseStat 0;
+BA_ "GenSigStartValue" SG_ 767 IMM_Fr01_ArmWorkStat 0;
+BA_ "GenSigStartValue" SG_ 767 IMM_Fr01_ArmSysFltStat 0;
+BA_ "GenSigStartValue" SG_ 767 IMM_Fr01_PushPullF 30000;
+BA_ "GenSigStartValue" SG_ 767 IMM_Fr01_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 767 IMM_Fr01_ChkSum 0;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_VehSpdXAct 125;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_VehSpdYAct 125;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_YawRateAct 125;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_PLockStat 0;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_CurrtDrvMode 0;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_CurrtCtrlMode 0;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_DCChrgrActnSimltionReq 0;
+BA_ "GenSigStartValue" SG_ 24 CHS_Fr01_ChgrConnectSimltionStat 0;
+BA_ "GenSigStartValue" SG_ 25 CHS_Fr02_FLWhlSpd 30000;
+BA_ "GenSigStartValue" SG_ 25 CHS_Fr02_FRWhlSpd 30000;
+BA_ "GenSigStartValue" SG_ 25 CHS_Fr02_RLWhlSpd 30000;
+BA_ "GenSigStartValue" SG_ 25 CHS_Fr02_RRWhlSpd 30000;
+BA_ "GenSigStartValue" SG_ 26 CHS_Fr03_FLWhlAnglSpd 30000;
+BA_ "GenSigStartValue" SG_ 26 CHS_Fr03_FRWhlAnglSpd 30000;
+BA_ "GenSigStartValue" SG_ 26 CHS_Fr03_RLWhlAnglSpd 30000;
+BA_ "GenSigStartValue" SG_ 26 CHS_Fr03_RRWhlAnglSpd 30000;
+BA_ "GenSigStartValue" SG_ 27 CHS_Fr04_FLWhlYaw 2000;
+BA_ "GenSigStartValue" SG_ 27 CHS_Fr04_FRWhlYaw 2000;
+BA_ "GenSigStartValue" SG_ 27 CHS_Fr04_RLWhlYaw 2000;
+BA_ "GenSigStartValue" SG_ 27 CHS_Fr04_RRWhlYaw 2000;
+BA_ "GenSigStartValue" SG_ 29 CHS_Fr05_48VBattVolt 0;
+BA_ "GenSigStartValue" SG_ 29 CHS_Fr05_48VBattCurrt 2000;
+BA_ "GenSigStartValue" SG_ 29 CHS_Fr05_48VBattSoc 0;
+BA_ "GenSigStartValue" SG_ 29 CHS_Fr05_48VBattFltLvl 0;
+BA_ "GenSigStartValue" SG_ 29 CHS_Fr05_12VDCDCDsablReq 0;
+BA_ "GenSigStartValue" SG_ 29 CHS_Fr05_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 42 CHS_Fr07_FLMotorPstnFedbck 0;
+BA_ "GenSigStartValue" SG_ 42 CHS_Fr07_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 43 CHS_Fr08_FRMotorPstnFedbck 0;
+BA_ "GenSigStartValue" SG_ 43 CHS_Fr08_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 44 CHS_Fr09_RLMotorPstnFedbck 0;
+BA_ "GenSigStartValue" SG_ 44 CHS_Fr09_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 45 CHS_Fr10_RRMotorPstnFedbck 0;
+BA_ "GenSigStartValue" SG_ 45 CHS_Fr10_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_RRDrvMotrFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_RRDrvEPSFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_RLDrvMotrFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_RLDrvEPSFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_FRDrvMotrFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_FRDrvEPSFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_FLDrvMotrFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_FLDrvEPSFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_CHSFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_EHBFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_48VBattFltStat 0;
+BA_ "GenSigStartValue" SG_ 46 CHS_Fr11_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_ChrgCnnctState 0;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_PcuStat 0;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_FastChrgStat 0;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_ElcLockStat 0;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_EssHvStateReq 0;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_PcuFamilyNum 0;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_PcuTemp 40;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_PwrCnvrtUnitTempIn 40;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_PwrCnvrtUnitTempOu 40;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_WaterChrgrTemp 40;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_CustVehSoc 10;
+BA_ "GenSigStartValue" SG_ 33 PCU_Fr01_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 34 PCU_Fr02_CustVehCurrt 8191;
+BA_ "GenSigStartValue" SG_ 34 PCU_Fr02_DcIAvaiOfG2V 4095;
+BA_ "GenSigStartValue" SG_ 34 PCU_Fr02_DcIAvaiOfV2G 0;
+BA_ "GenSigStartValue" SG_ 34 PCU_Fr02_CustVehVoltge 0;
+BA_ "GenSigStartValue" SG_ 34 PCU_Fr02_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 34 PCU_Fr02_CustVehChrgTmRest 0;
+BA_ "GenSigStartValue" SG_ 35 PCU_Fr03_DcDcInI 0;
+BA_ "GenSigStartValue" SG_ 35 PCU_Fr03_DcDcInU 0;
+BA_ "GenSigStartValue" SG_ 35 PCU_Fr03_DcDcOutI 0;
+BA_ "GenSigStartValue" SG_ 35 PCU_Fr03_DcDcOutU 0;
+BA_ "GenSigStartValue" SG_ 35 PCU_Fr03_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 35 PCU_Fr03_DcMeterIncVal 0;
+BA_ "GenSigStartValue" SG_ 36 PCU_Fr04_AcUOfAcDc 0;
+BA_ "GenSigStartValue" SG_ 36 PCU_Fr04_AcIOfAcDc 510;
+BA_ "GenSigStartValue" SG_ 36 PCU_Fr04_DcUOfAcDc 0;
+BA_ "GenSigStartValue" SG_ 36 PCU_Fr04_DcIOfAcDc 4095;
+BA_ "GenSigStartValue" SG_ 36 PCU_Fr04_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_V2VChrgrStpFeb 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_BMSNrmlStpReson 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_BMSAbnrmlStpReson 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_BMSFltStpReson 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg1OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg2OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg3OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg4OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg5OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg6OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvChrgrIdntfyMsg7OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvBMSMsg1OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvBMSMsg2OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvBMSMsg3OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvBMSMsg4OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvBMSMsg5OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvBMSMsg6OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RecvBMSMsg7OvTm 0;
+BA_ "GenSigStartValue" SG_ 37 PCU_Fr05_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 38 PCU_Fr06_PcuFltLvl 0;
+BA_ "GenSigStartValue" SG_ 38 PCU_Fr06_ChrgrFltCode1 0;
+BA_ "GenSigStartValue" SG_ 38 PCU_Fr06_ChrgrFltCode2 0;
+BA_ "GenSigStartValue" SG_ 38 PCU_Fr06_ChrgrFltCode3 0;
+BA_ "GenSigStartValue" SG_ 38 PCU_Fr06_ChrgrFltCode4 0;
+BA_ "GenSigStartValue" SG_ 38 PCU_Fr06_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 39 PCU_Fr07_PcuSwVersionMain 0;
+BA_ "GenSigStartValue" SG_ 39 PCU_Fr07_PcuSwVersionSub1 0;
+BA_ "GenSigStartValue" SG_ 39 PCU_Fr07_PcuSwVersionSub2 0;
+BA_ "GenSigStartValue" SG_ 39 PCU_Fr07_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 40 PCU_Fr08_V2VReqDischrgVolt 0;
+BA_ "GenSigStartValue" SG_ 40 PCU_Fr08_V2VReqDischrgCurrt 0;
+BA_ "GenSigStartValue" SG_ 40 PCU_Fr08_CustVehReqChrgVolt 0;
+BA_ "GenSigStartValue" SG_ 40 PCU_Fr08_CustVehReqChrgCurrt 0;
+BA_ "GenSigStartValue" SG_ 40 PCU_Fr08_ACModeReqVolt 0;
+BA_ "GenSigStartValue" SG_ 40 PCU_Fr08_ACModeReqCurrt 0;
+BA_ "GenSigStartValue" SG_ 40 PCU_Fr08_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 256 DCDC48_Fr01_WrkStat 0;
+BA_ "GenSigStartValue" SG_ 256 DCDC48_Fr01_OupI 0;
+BA_ "GenSigStartValue" SG_ 256 DCDC48_Fr01_OupU 0;
+BA_ "GenSigStartValue" SG_ 256 DCDC48_Fr01_Temp 40;
+BA_ "GenSigStartValue" SG_ 256 DCDC48_Fr01_FltCode 0;
+BA_ "GenSigStartValue" SG_ 256 DCDC48_Fr01_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 2566853367 DCDC12_Fr01_OupU 0;
+BA_ "GenSigStartValue" SG_ 2566853367 DCDC12_Fr01_OupI 0;
+BA_ "GenSigStartValue" SG_ 2566853367 DCDC12_Fr01_FltCode 0;
+BA_ "GenSigStartValue" SG_ 2566853367 DCDC12_Fr01_Temp 40;
+BA_ "GenSigStartValue" SG_ 2566853367 DCDC12_Fr01_WrkStat 0;
+BA_ "GenSigStartValue" SG_ 2566853367 DCDC12_Fr01_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 2566853623 DCDC12_Fr02_HwSubVersn 0;
+BA_ "GenSigStartValue" SG_ 2566853623 DCDC12_Fr02_HwMainVersn 0;
+BA_ "GenSigStartValue" SG_ 2566853623 DCDC12_Fr02_SwSubVersn 0;
+BA_ "GenSigStartValue" SG_ 2566853623 DCDC12_Fr02_SwMainVersn 0;
+BA_ "GenSigStartValue" SG_ 2566853623 DCDC12_Fr02_InpU 0;
+BA_ "GenSigStartValue" SG_ 2566853623 DCDC12_Fr02_InpI 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_OupU 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_OupI 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_Temp 40;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_WrkStat 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_OTErr 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_HWErr 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_OVInputErr 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_UVInputErr 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_OVOutputErr 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_UVOutputErr 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_OCOutputErr 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_OCInputErr 0;
+BA_ "GenSigStartValue" SG_ 257 DCPro48_Fr01_E2PROMErr 0;
+BA_ "GenSigStartValue" SG_ 258 DCPro48_Fr02_SwSubVersn 0;
+BA_ "GenSigStartValue" SG_ 258 DCPro48_Fr02_SwMainVersn 0;
+BA_ "GenSigStartValue" SG_ 258 DCPro48_Fr02_InpU 0;
+BA_ "GenSigStartValue" SG_ 258 DCPro48_Fr02_InpI 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_OupU 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_OupI 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_Temp 40;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_WrkStat 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_OTErr 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_HWErr 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_OVInputErr 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_UVInputErr 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_OVOutputErr 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_UVOutputErr 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_OCOutputErr 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_OCInputErr 0;
+BA_ "GenSigStartValue" SG_ 259 DCPro12_Fr01_E2PROMErr 0;
+BA_ "GenSigStartValue" SG_ 260 DCPro12_Fr02_SwSubVersn 0;
+BA_ "GenSigStartValue" SG_ 260 DCPro12_Fr02_SwMainVersn 0;
+BA_ "GenSigStartValue" SG_ 260 DCPro12_Fr02_InpU 0;
+BA_ "GenSigStartValue" SG_ 260 DCPro12_Fr02_InpI 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_TurnLightStat 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_BrakeLightStat 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_BackUpLightStat 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_ChrgrLightStat 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_DrvLightStat 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_FaultLightStat 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_ChrgrSocDisplyLightStat 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_IMMWrkLightStat 0;
+BA_ "GenSigStartValue" SG_ 97 LSC_Fr01_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 528 LAS_Fr01_FLWhlSpdReq 30000;
+BA_ "GenSigStartValue" SG_ 528 LAS_Fr01_FRWhlSpdReq 30000;
+BA_ "GenSigStartValue" SG_ 528 LAS_Fr01_RLWhlSpdReq 30000;
+BA_ "GenSigStartValue" SG_ 528 LAS_Fr01_RRWhlSpdReq 30000;
+BA_ "GenSigStartValue" SG_ 529 LAS_Fr02_FLWhlYawReq 30000;
+BA_ "GenSigStartValue" SG_ 529 LAS_Fr02_FRWhlYawReq 30000;
+BA_ "GenSigStartValue" SG_ 529 LAS_Fr02_RLWhlYawReq 30000;
+BA_ "GenSigStartValue" SG_ 529 LAS_Fr02_RRWhlYawReq 30000;
+BA_ "GenSigStartValue" SG_ 530 LAS_Fr03_TskTypFeb 0;
+BA_ "GenSigStartValue" SG_ 530 LAS_Fr03_WorkState 0;
+BA_ "GenSigStartValue" SG_ 530 LAS_Fr03_VehStopReq 0;
+BA_ "GenSigStartValue" SG_ 530 LAS_Fr03_VehDrvState 0;
+BA_ "GenSigStartValue" SG_ 530 LAS_Fr03_FaultCode 0;
+BA_ "GenSigStartValue" SG_ 530 LAS_Fr03_RollgCntr 0;
+BA_ "GenSigStartValue" SG_ 1168 EAS_Fr01_WrkStat 0;
+BA_ "GenSigStartValue" SG_ 1168 EAS_Fr01_FltStat 0;
+BA_ "GenSigStartValue" SG_ 1168 EAS_Fr01_InputVolt 0;
+BA_ "GenSigStartValue" SG_ 1168 EAS_Fr01_EASTemp 40;
+BA_ "GenSigStartValue" SG_ 1168 EAS_Fr01_MotorCurrent 0;
+BA_ "GenSigStartValue" SG_ 1168 EAS_Fr01_MotorSpd 0;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_OvrdCmd 0;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_PLockStatReq 0;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_VehStopReq 0;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_WhlAngleSet 0;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_DrvModeCtrlReq 0;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_FreqState 0;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_DriveAmp 0;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_DriveBias 15;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_SteerAmp 1800;
+BA_ "GenSigStartValue" SG_ 656 PCAN_Fr01_SteerBias 1800;
+BA_ "GenSigStartValue" SG_ 657 PCAN_Fr02_StraightAngReq 2000;
+BA_ "GenSigStartValue" SG_ 657 PCAN_Fr02_StraightVehSpdReq 15;
+BA_ "GenSigStartValue" SG_ 657 PCAN_Fr02_RotationDelayT 0;
+BA_ "GenSigStartValue" SG_ 657 PCAN_Fr02_RotationOmegaReq 100;
+BA_ "GenSigStartValue" SG_ 657 PCAN_Fr02_VehSpdReq 15;
+BA_ "GenSigStartValue" SG_ 657 PCAN_Fr02_RotationRReq 30000;
+BA_ "GenSigStartValue" SG_ 546 PCAN_Fr03_SN_Byte0 0;
+BA_ "GenSigStartValue" SG_ 546 PCAN_Fr03_SN_Byte1 0;
+BA_ "GenSigStartValue" SG_ 546 PCAN_Fr03_SN_Byte2 0;
+BA_ "GenSigStartValue" SG_ 546 PCAN_Fr03_SN_Byte3 0;
+BA_ "GenSigStartValue" SG_ 546 PCAN_Fr03_SN_Byte4 0;
+BA_ "GenSigStartValue" SG_ 546 PCAN_Fr03_SN_Byte5 0;
+BA_ "GenSigStartValue" SG_ 546 PCAN_Fr03_SN_Byte6 0;
+BA_ "GenSigStartValue" SG_ 546 PCAN_Fr03_SN_Byte7 0;
+BA_ "GenSigStartValue" SG_ 659 PCAN_Fr04_MpsConfig_Byte0 0;
+BA_ "GenSigStartValue" SG_ 659 PCAN_Fr04_MpsConfig_Byte1 0;
+BA_ "GenSigStartValue" SG_ 659 PCAN_Fr04_MpsConfig_Byte2 0;
+BA_ "GenSigStartValue" SG_ 659 PCAN_Fr04_MpsConfig_Byte3 0;
+
+VAL_ 21 RDM_Fr01_PcuModeReq 5 "G2V" 4 "V2G" 3 "V2V" 1 "Off" 0 "None" ;
+VAL_ 21 RDM_Fr01_V2VEndState 4 "Fault" 3 "SocLow" 2 "ManulStop" 1 "SetCondMeet" 0 "None" ;
+VAL_ 21 RDM_Fr01_ElckUnlockEnbl 1 "Enable" 0 "Disable" ;
+VAL_ 21 RDM_Fr01_KeyOnStat 1 "On" 0 "Off" ;
+VAL_ 21 RDM_Fr01_G2VInterLockStat 1 "Cnnct" 0 "Discnnct" ;
+VAL_ 31 RDM_Fr03_EssHvReady 1 "Ready" 0 "NotReady" ;
+VAL_ 31 RDM_Fr03_EptRdy 1 "Ready" 0 "NotReady" ;
+VAL_ 31 RDM_Fr03_PLockStatReq 2 "Park" 1 "Release" 0 "None" ;
+VAL_ 31 RDM_Fr03_VehStopReq 1 "RequestStop" 0 "NoRequest" ;
+VAL_ 511 RDM_Fr04_TskTyp 1 "SinglePointNavigation" 0 "None" ;
+VAL_ 511 RDM_Fr04_TskCtrlStat 4 "Exit" 3 "Resume" 2 "Pause" 1 "Start" 0 "None" ;
+VAL_ 511 RDM_Fr04_MPSParkPose 1 "Negtive" 0 "Positive" ;
+VAL_ 511 RDM_Fr04_ChgrConnectStat 3 "Connected" 2 "HalfConnected" 1 "DisConnected" 0 "Unknown" ;
+VAL_ 511 RDM_Fr04_SrvVehIdfr 14 "NetaV" 13 "NetaS" 12 "NetaU" 11 "F7" 10 "R7" 9 "P7" 8 "L7" 7 "TeslaModelY" 6 "TeslaModel3" 5 "NioET5" 4 "NioET7" 3 "NioEC6" 2 "NioES6" 1 "NioEs8" 0 "Undefine" ;
+VAL_ 511 RDM_Fr04_SrvVehChrgrPstn 6 "Rear" 5 "Front" 4 "RR" 3 "RL" 2 "FR" 1 "FL" 0 "UnKnown" ;
+VAL_ 511 RDM_Fr04_DrvModeCtrlReq 2 "RemoteControl" 1 "Override" 0 "Autonomous" ;
+VAL_ 511 RDM_Fr04_IPCOffReq 1 "Request" 0 "None" ;
+VAL_ 508 RDM_Fr08_ImmStatReq 5 "WaveHand" 4 "Reset" 3 "Pause" 2 "ChargerPull" 1 "ChargerPush" 0 "NoReq" ;
+VAL_ 508 RDM_Fr08_ChgrConnectStat 3 "Connected" 2 "HalfConnected" 1 "DisConnected" 0 "Unknown" ;
+VAL_ 508 RDM_Fr08_SrvVehChrgrPstn 8 "Right" 7 "Left" 6 "Rear" 5 "Front" 4 "RR" 3 "RL" 2 "FR" 1 "FL" 0 "UnKnown" ;
+VAL_ 2566857967 RDM_Fr09_12VEnblCtrl 1 "Enbl" 0 "Disbl" ;
+VAL_ 2566857967 RDM_Fr09_48VEnblCtrl 1 "Enbl" 0 "Disbl" ;
+VAL_ 321 RDM_Fr10_TurnLightReq 2 "TurnLeft" 1 "TurnRight" 0 "NoRequest" ;
+VAL_ 321 RDM_Fr10_BrakeLightReq 1 "Request" 0 "NoRequest" ;
+VAL_ 321 RDM_Fr10_BackUpLightReq 1 "Request" 0 "NoRequest" ;
+VAL_ 321 RDM_Fr10_ChrgrLightReq 1 "Request" 0 "NoRequest" ;
+VAL_ 321 RDM_Fr10_DrvLightReq 1 "Request" 0 "NoRequest" ;
+VAL_ 321 RDM_Fr10_FltLightReq 1 "Request" 0 "NoRequest" ;
+VAL_ 321 RDM_Fr10_IMMWrkLightReq 1 "Request" 0 "NoRequest" ;
+VAL_ 321 RDM_Fr10_MPSGreetLightReq 1 "Request" 0 "NoRequest" ;
+VAL_ 1248 RDM_Fr20_CoolntFanRlyEnbl 1 "On" 0 "Off" ;
+VAL_ 1248 RDM_Fr20_CoolntPmpRlyEnbl 1 "On" 0 "Off" ;
+VAL_ 1248 RDM_Fr20_CmprRlyEnbl 1 "On" 0 "Off" ;
+VAL_ 1248 RDM_Fr20_EASEnblReq 11 "Enable" 0 "Disable" ;
+VAL_ 334 RDM_Fr23_MPSCurrtWrkMd 15 "Fault" 14 "Sleeping" 11 "ReturnComplete" 10 "Returning" 9 "G2VComplete" 8 "G2VWorking" 7 "G2VPreparing" 6 "V2GComplete" 5 "V2GWorking" 4 "V2GPreparing" 3 "V2VComplete" 2 "V2VWorking" 1 "V2VPreparing" 0 "None" ;
+VAL_ 334 RDM_Fr23_MPSCurrtChrgStat 15 "Fault" 7 "ChargePreparing" 6 "ChargeFinished" 5 "Charging" 4 "ChargeConnected" 3 "ChrgCnnectAbnrml" 2 "Appointmented" 1 "Idle" 0 "NotAvailable" ;
+VAL_ 666 RDM_Debug_PmmPuPdSta 14 "HvPdHvOffCmplt" 13 "HvPdWaitEssHvOff" 12 "HvPdHvOffCmdTx" 11 "HvPdWaitCurrentDec" 10 "HvPdCloseAttachment" 9 "TmOut" 8 "HvOn" 7 "HvOnCmplt" 6 "HvPuWaitEssHvOn" 5 "HvOnCmdTx" 4 "HvPuWaitDc48Resp" 3 "HvPuWaitPcuResp" 2 "LvPwrUp" 1 "Off" 0 "Initial" ;
+VAL_ 666 RDM_Debug_PmmPuPdTmoutSta 8 "Rev" 7 "EssTmOut" 6 "PcuTmOut" 5 "HvPdWaitEssHvOff" 4 "HvPdWaitCurrentDec" 3 "HvPuWaitEssHvOn" 2 "HvPuWaitDc48Resp" 1 "HvPuWaitPcuResp" 0 "None" ;
+VAL_ 666 RDM_Debug_EssHVCnntnReq 1 "On" 0 "Off" ;
+VAL_ 666 RDM_Debug_HvRdy 1 "Ready" 0 "NotReady" ;
+VAL_ 666 RDM_Debug_EptRdy 1 "Ready" 0 "NotReady" ;
+VAL_ 666 RDM_Debug_MpsType 4 "FlagShipPro" 3 "Performance" 2 "Popular" 1 "FlagShip" 0 "Undefine" ;
+VAL_ 666 RDM_Debug_RcsCnnctnReq 1 "Request" 0 "NoReq" ;
+VAL_ 666 RDM_Debug_VmmMainStat 6 "Fault" 5 "GoHome" 4 "V2G" 3 "G2V" 2 "V2V" 1 "Standby" 0 "Initial" ;
+VAL_ 666 RDM_Debug_VmmCtrlStat 28 "GoHomeComplete" 27 "GoHomePtDisbl" 26 "GoHoming" 25 "GoHomePtEnbl" 24 "G2VComplete" 23 "G2VDiscnnctng" 22 "G2VEnding" 21 "G2VCharging" 20 "G2VHandShake" 19 "G2VCnnctng" 18 "G2VApproachSpot" 17 "G2VPtEnbl" 16 "G2VStandby" 15 "G2VNone" 14 "V2VExit" 13 "V2VComplete" 12 "V2VChargePull" 11 "V2VEnding" 10 "V2VDischarging" 9 "V2VHandShake" 8 "V2VChargePush" 7 "V2VPtDisable" 6 "V2VPostureCoordinate" 5 "V2VApproachServiceSpot" 4 "V2VPtEnbl" 3 "V2VStandby" 2 "V2VNone" 1 "Standby" 0 "Initial" ;
+VAL_ 666 RDM_Debug_VmmTmoutStat 10 "MainStatInV2V" 9 "G2VHandShake" 8 "GoHome" 7 "V2VChargePull" 6 "V2VHandShake" 5 "V2VChargePush" 4 "V2VPtDisable" 3 "V2VPostureCoordinate" 2 "V2VApproachServiceSpot" 1 "V2VPtEnbl" 0 "None" ;
+VAL_ 666 RDM_Debug_ESSBascStat 7 "Fault" 3 "DcCharge" 2 "Drive" 1 "Standby" 0 "Initial" ;
+VAL_ 666 RDM_Debug_ESSMainPosRlyStat 2 "Invalid" 1 "Connect" 0 "Disconnect" ;
+VAL_ 666 RDM_Debug_ESSMainNegRlyStat 2 "Invalid" 1 "Connect" 0 "Disconnect" ;
+VAL_ 666 RDM_Debug_ESSPreChrgRlyStat 2 "Invalid" 1 "Connect" 0 "Disconnect" ;
+VAL_ 666 RDM_Debug_ESSDcChrgPosRlyStat 2 "Invalid" 1 "Connect" 0 "Disconnect" ;
+VAL_ 666 RDM_Debug_ESSDcChrgrCnnctStat 2 "Connect" 1 "Halfconnect" 0 "Disconnect" ;
+VAL_ 668 RDM_Debug_HvCnntionReq 1 "Connect" 0 "Disconnect" ;
+VAL_ 668 RDM_Debug_ESSFltLvl 3 "Level3" 2 "Level2" 1 "Level1" 0 "NoFault" ;
+VAL_ 668 RDM_Debug_EssHvOffReq 1 "Request" 0 "NoRequest" ;
+VAL_ 671 RDM_Debug_ServReqMPSChrg 1 "Request" 0 "NoRequest" ;
+VAL_ 671 RDM_Debug_V2VStopReasn 14 "LossCommuToCloud" 13 "PCUTmptHi" 12 "FltEndV2VByRDM" 11 "EssFltLvl3" 10 "PCUFlt" 9 "MPSHVOff" 8 "MPSCellVlotLow" 7 "MPSCellTmptHi" 6 "MPSVoltLow" 5 "MPSSocLow" 4 "CustVehSocOk" 3 "PcuEndV2V" 2 "RxCloudCmd" 1 "MfSwPsd" 0 "None" ;
+VAL_ 671 RDM_Debug_ReChrgStopReasn 8 "MfSwPsd" 7 "PcuFault" 6 "PcuG2VOff" 5 "EssHvOff" 4 "EssCellUHi" 3 "EssSocHi" 2 "RechrgIgnOff" 1 "FrcCalibration" 0 "None" ;
+VAL_ 672 RDM_Debug_MPS_DTC1 160 "InvalidConfigInfo" 159 "InvalidSN" 158 "V2VChargePullTmout" 157 "V2VHandShakeTmout" 156 "V2VChargePushTmout" 155 "ImmGatherFlt" 154 "ImmSpreadFlt" 153 "ImmPlcFlt" 152 "ImmVisionFlt" 151 "ImmArmFlt" 150 "ImmRtnFlt" 149 "V2VEndByCustVehAbnormalEndUNotOK" 148 "V2VEndByCustVehAbnormalEndIHi" 147 "V2VEndByCustVehFltEndOtherFlt" 146 "V2VEndByCustVehFltEndCC2ChkFlt" 145 "V2VEndByCustVehFltEndHvRlyFlt" 144 "V2VEndByCustVehFltEndPackTHi" 143 "V2VEndByCustVehFltEndChrgrFlt" 142 "V2VEndByCustVehFltEndCptTHi" 141 "V2VEndByCustVehFltEndChrgrTHi" 140 "V2VEndByCustVehFltEndInsuFlt" 139 "V2VEndByCustVehNormalEndPcuTxCST" 138 "V2VEndByCustVehNormalEndCellUHi" 137 "V2VEndByCustVehNormalEndPackUHi" 136 "V2VEndByCustVehNormalEndSocHi" 135 "V2VEndByCustVehAbNormalEnd" 134 "V2VEndByCustVehNormalEnd" 133 "V2VEndByPcuSeeCustVehFlt" 132 "V2VEndByPcuFlt" 131 "V2VEndByRdmCmd" 130 "G2VHandShakeTmout" 129 "HvPdWaitEssHvOffTmout" 128 "HvPdWaitCurrentDecTmout" 127 "HvPuWaitEssHvOnTmout" 126 "HvPuWaitDc48RespTmout" 125 "HvPuWaitPcuRespTmout" 124 "EmgcySwPressed" 123 "RdmChkEssCellTDiffHi" 122 "RdmChkEssCellUDiffHi" 121 "EssHvilFlt" 120 "EssVoltAcquistCircuitOpen" 119 "EssThermalDiffusionFlt" 118 "EssTempAcquistCircuitOpen" 117 "EssSysSelfProtect" 116 "EssSocValStep" 115 "EssShuntsFlt" 114 "EssSOCOverlowFltLevel3" 113 "EssSOCOverlowFltLevel2" 112 "EssSOCOverlowFltLevel1" 111 "EssSOCOverHighFlt" 110 "EssPreRlyCantClose" 109 "EssPreChrgContAdhesionFlt" 108 "EssPosRealyCantClose" 107 "EssPosBattAdhesionFlt" 106 "EssOverTemptFltLevel3" 105 "EssOverTemptFltLevel2" 104 "EssOverTemptFltLevel1" 103 "EssNegRealyCantClose" 102 "EssNegBattContAdhesionFlt" 101 "EssLowTemptFlt" 100 "EssLowTempChrg" 99 "EssIsolationSuperFltLevel3" 98 "EssIsolationSuperFltLevel2" 97 "EssIsolationSuperFltLevel1" 96 "EssFeedbackOverCurrentFltLevel3" 95 "EssFeedbackOverCurrentFltLevel2" 94 "EssFeedbackOverCurrentFltLevel1" 93 "EssFastChrgContAdhesionFlt" 92 "EssFltLvl3" 91 "EssFltLvl2" 90 "EssFltLvl1" 89 "EssDischrgOverCurrentFltLevel3" 88 "EssDischrgOverCurrentFltLevel2" 87 "EssDischrgOverCurrentFltLevel1" 86 "EssContPreTmlit" 85 "EssChrgPCantClose" 84 "EssChrgOverCurrentFlt" 83 "EssChrgNtcTempOverLevel3" 82 "EssChrgNtcTempOverLevel2" 81 "EssChrgNtcTempOverLevel1" 80 "EssChrgNtcFault" 79 "EssChrgDisCurHigh" 78 "EssCellVoltDiffOver" 77 "EssCellUnderVoltFltLevel3" 76 "EssCellUnderVoltFltLevel2" 75 "EssCellUnderVoltFltLevel1" 74 "EssCellTempDiffOver" 73 "EssCellOverVoltFltLevel3" 72 "EssCellOverVoltFltLevel2" 71 "EssCellOverVoltFltLevel1" 70 "EssCellOverDischrg" 69 "EssCC2Err" 68 "EssBattUnderVoltFltLevel3" 67 "EssBattUnderVoltFltLevel2" 66 "EssBattUnderVoltFltLevel1" 65 "EssBattOverVoltFltLevel3" 64 "EssBattOverVoltFltLevel2" 63 "EssBattOverVoltFltLevel1" 62 "EssBattInnerVoltAcquistFlt" 61 "EssAccCellErr" 60 "Ess12vBattAbnorm" 59 "PcuIAbnormal" 58 "PcuBmsConnectFlt" 57 "PcuNoBmsUFlt" 56 "PcuIHiFlt" 55 "PcuBmsUNotMatchFlt" 54 "PcuInsulationFlt" 53 "PcuEletricLockFlt" 52 "PcuMainNegRlyFlt" 51 "PcuChargeModuleFlt" 50 "PcuBMSCommFlt" 49 "PcuMainPosRlyFlt" 48 "PcuEletricMeterFlt" 47 "PcuEmgcyStopFlt" 46 "EacTHi" 45 "EacIHi" 44 "EacULo" 43 "EacUHi" 42 "EacRlyOpen" 41 "EacInnerFlt" 40 "DcDC48Flt" 39 "DcDc12Flt" 38 "Batt48VFlt" 37 "PcuFlt" 36 "GoHomeTmout" 35 "V2VPtEnblTmout" 34 "V2VPtDisableTmout" 33 "V2VPostureCoordinateTmout" 32 "V2VApproachServiceSpotTmout" 31 "AdmFlt" 30 "RRDrvMotrFlt" 29 "RLDrvMotrFlt" 28 "FRDrvMotrFlt" 27 "FLDrvMotrFlt" 26 "ChsFlt" 25 "LosCommToDc48" 24 "EssLossCommWithRDM" 23 "EssLossCommWithCMU" 22 "RecvBMSMsg7OvTm" 21 "RecvBMSMsg6OvTm" 20 "RecvBMSMsg5OvTm" 19 "RecvBMSMsg4OvTm" 18 "RecvBMSMsg3OvTm" 17 "RecvBMSMsg2OvTm" 16 "RecvBMSMsg1OvTm" 15 "RecvChrgrIdntfyMsg7OvTm" 14 "RecvChrgrIdntfyMsg6OvTm" 13 "RecvChrgrIdntfyMsg5OvTm" 12 "RecvChrgrIdntfyMsg4OvTm" 11 "RecvChrgrIdntfyMsg3OvTm" 10 "RecvChrgrIdntfyMsg2OvTm" 9 "RecvChrgrIdntfyMsg1OvTm" 8 "LosCommToTBox" 7 "LosCommToEas" 6 "LosCommToImm" 5 "LosCommToAdm" 4 "LosCommToDc12" 3 "LosCommToPcu" 2 "LosCommToEss" 1 "LosCommToChs" 0 "None" ;
+VAL_ 672 RDM_Debug_MPS_DTC2 160 "InvalidConfigInfo" 159 "InvalidSN" 158 "V2VChargePullTmout" 157 "V2VHandShakeTmout" 156 "V2VChargePushTmout" 155 "ImmGatherFlt" 154 "ImmSpreadFlt" 153 "ImmPlcFlt" 152 "ImmVisionFlt" 151 "ImmArmFlt" 150 "ImmRtnFlt" 149 "V2VEndByCustVehAbnormalEndUNotOK" 148 "V2VEndByCustVehAbnormalEndIHi" 147 "V2VEndByCustVehFltEndOtherFlt" 146 "V2VEndByCustVehFltEndCC2ChkFlt" 145 "V2VEndByCustVehFltEndHvRlyFlt" 144 "V2VEndByCustVehFltEndPackTHi" 143 "V2VEndByCustVehFltEndChrgrFlt" 142 "V2VEndByCustVehFltEndCptTHi" 141 "V2VEndByCustVehFltEndChrgrTHi" 140 "V2VEndByCustVehFltEndInsuFlt" 139 "V2VEndByCustVehNormalEndPcuTxCST" 138 "V2VEndByCustVehNormalEndCellUHi" 137 "V2VEndByCustVehNormalEndPackUHi" 136 "V2VEndByCustVehNormalEndSocHi" 135 "V2VEndByCustVehAbNormalEnd" 134 "V2VEndByCustVehNormalEnd" 133 "V2VEndByPcuSeeCustVehFlt" 132 "V2VEndByPcuFlt" 131 "V2VEndByRdmCmd" 130 "G2VHandShakeTmout" 129 "HvPdWaitEssHvOffTmout" 128 "HvPdWaitCurrentDecTmout" 127 "HvPuWaitEssHvOnTmout" 126 "HvPuWaitDc48RespTmout" 125 "HvPuWaitPcuRespTmout" 124 "EmgcySwPressed" 123 "RdmChkEssCellTDiffHi" 122 "RdmChkEssCellUDiffHi" 121 "EssHvilFlt" 120 "EssVoltAcquistCircuitOpen" 119 "EssThermalDiffusionFlt" 118 "EssTempAcquistCircuitOpen" 117 "EssSysSelfProtect" 116 "EssSocValStep" 115 "EssShuntsFlt" 114 "EssSOCOverlowFltLevel3" 113 "EssSOCOverlowFltLevel2" 112 "EssSOCOverlowFltLevel1" 111 "EssSOCOverHighFlt" 110 "EssPreRlyCantClose" 109 "EssPreChrgContAdhesionFlt" 108 "EssPosRealyCantClose" 107 "EssPosBattAdhesionFlt" 106 "EssOverTemptFltLevel3" 105 "EssOverTemptFltLevel2" 104 "EssOverTemptFltLevel1" 103 "EssNegRealyCantClose" 102 "EssNegBattContAdhesionFlt" 101 "EssLowTemptFlt" 100 "EssLowTempChrg" 99 "EssIsolationSuperFltLevel3" 98 "EssIsolationSuperFltLevel2" 97 "EssIsolationSuperFltLevel1" 96 "EssFeedbackOverCurrentFltLevel3" 95 "EssFeedbackOverCurrentFltLevel2" 94 "EssFeedbackOverCurrentFltLevel1" 93 "EssFastChrgContAdhesionFlt" 92 "EssFltLvl3" 91 "EssFltLvl2" 90 "EssFltLvl1" 89 "EssDischrgOverCurrentFltLevel3" 88 "EssDischrgOverCurrentFltLevel2" 87 "EssDischrgOverCurrentFltLevel1" 86 "EssContPreTmlit" 85 "EssChrgPCantClose" 84 "EssChrgOverCurrentFlt" 83 "EssChrgNtcTempOverLevel3" 82 "EssChrgNtcTempOverLevel2" 81 "EssChrgNtcTempOverLevel1" 80 "EssChrgNtcFault" 79 "EssChrgDisCurHigh" 78 "EssCellVoltDiffOver" 77 "EssCellUnderVoltFltLevel3" 76 "EssCellUnderVoltFltLevel2" 75 "EssCellUnderVoltFltLevel1" 74 "EssCellTempDiffOver" 73 "EssCellOverVoltFltLevel3" 72 "EssCellOverVoltFltLevel2" 71 "EssCellOverVoltFltLevel1" 70 "EssCellOverDischrg" 69 "EssCC2Err" 68 "EssBattUnderVoltFltLevel3" 67 "EssBattUnderVoltFltLevel2" 66 "EssBattUnderVoltFltLevel1" 65 "EssBattOverVoltFltLevel3" 64 "EssBattOverVoltFltLevel2" 63 "EssBattOverVoltFltLevel1" 62 "EssBattInnerVoltAcquistFlt" 61 "EssAccCellErr" 60 "Ess12vBattAbnorm" 59 "PcuIAbnormal" 58 "PcuBmsConnectFlt" 57 "PcuNoBmsUFlt" 56 "PcuIHiFlt" 55 "PcuBmsUNotMatchFlt" 54 "PcuInsulationFlt" 53 "PcuEletricLockFlt" 52 "PcuMainNegRlyFlt" 51 "PcuChargeModuleFlt" 50 "PcuBMSCommFlt" 49 "PcuMainPosRlyFlt" 48 "PcuEletricMeterFlt" 47 "PcuEmgcyStopFlt" 46 "EacTHi" 45 "EacIHi" 44 "EacULo" 43 "EacUHi" 42 "EacRlyOpen" 41 "EacInnerFlt" 40 "DcDC48Flt" 39 "DcDc12Flt" 38 "Batt48VFlt" 37 "PcuFlt" 36 "GoHomeTmout" 35 "V2VPtEnblTmout" 34 "V2VPtDisableTmout" 33 "V2VPostureCoordinateTmout" 32 "V2VApproachServiceSpotTmout" 31 "AdmFlt" 30 "RRDrvMotrFlt" 29 "RLDrvMotrFlt" 28 "FRDrvMotrFlt" 27 "FLDrvMotrFlt" 26 "ChsFlt" 25 "LosCommToDc48" 24 "EssLossCommWithRDM" 23 "EssLossCommWithCMU" 22 "RecvBMSMsg7OvTm" 21 "RecvBMSMsg6OvTm" 20 "RecvBMSMsg5OvTm" 19 "RecvBMSMsg4OvTm" 18 "RecvBMSMsg3OvTm" 17 "RecvBMSMsg2OvTm" 16 "RecvBMSMsg1OvTm" 15 "RecvChrgrIdntfyMsg7OvTm" 14 "RecvChrgrIdntfyMsg6OvTm" 13 "RecvChrgrIdntfyMsg5OvTm" 12 "RecvChrgrIdntfyMsg4OvTm" 11 "RecvChrgrIdntfyMsg3OvTm" 10 "RecvChrgrIdntfyMsg2OvTm" 9 "RecvChrgrIdntfyMsg1OvTm" 8 "LosCommToTBox" 7 "LosCommToEas" 6 "LosCommToImm" 5 "LosCommToAdm" 4 "LosCommToDc12" 3 "LosCommToPcu" 2 "LosCommToEss" 1 "LosCommToChs" 0 "None" ;
+VAL_ 672 RDM_Debug_MPS_DTC3 160 "InvalidConfigInfo" 159 "InvalidSN" 158 "V2VChargePullTmout" 157 "V2VHandShakeTmout" 156 "V2VChargePushTmout" 155 "ImmGatherFlt" 154 "ImmSpreadFlt" 153 "ImmPlcFlt" 152 "ImmVisionFlt" 151 "ImmArmFlt" 150 "ImmRtnFlt" 149 "V2VEndByCustVehAbnormalEndUNotOK" 148 "V2VEndByCustVehAbnormalEndIHi" 147 "V2VEndByCustVehFltEndOtherFlt" 146 "V2VEndByCustVehFltEndCC2ChkFlt" 145 "V2VEndByCustVehFltEndHvRlyFlt" 144 "V2VEndByCustVehFltEndPackTHi" 143 "V2VEndByCustVehFltEndChrgrFlt" 142 "V2VEndByCustVehFltEndCptTHi" 141 "V2VEndByCustVehFltEndChrgrTHi" 140 "V2VEndByCustVehFltEndInsuFlt" 139 "V2VEndByCustVehNormalEndPcuTxCST" 138 "V2VEndByCustVehNormalEndCellUHi" 137 "V2VEndByCustVehNormalEndPackUHi" 136 "V2VEndByCustVehNormalEndSocHi" 135 "V2VEndByCustVehAbNormalEnd" 134 "V2VEndByCustVehNormalEnd" 133 "V2VEndByPcuSeeCustVehFlt" 132 "V2VEndByPcuFlt" 131 "V2VEndByRdmCmd" 130 "G2VHandShakeTmout" 129 "HvPdWaitEssHvOffTmout" 128 "HvPdWaitCurrentDecTmout" 127 "HvPuWaitEssHvOnTmout" 126 "HvPuWaitDc48RespTmout" 125 "HvPuWaitPcuRespTmout" 124 "EmgcySwPressed" 123 "RdmChkEssCellTDiffHi" 122 "RdmChkEssCellUDiffHi" 121 "EssHvilFlt" 120 "EssVoltAcquistCircuitOpen" 119 "EssThermalDiffusionFlt" 118 "EssTempAcquistCircuitOpen" 117 "EssSysSelfProtect" 116 "EssSocValStep" 115 "EssShuntsFlt" 114 "EssSOCOverlowFltLevel3" 113 "EssSOCOverlowFltLevel2" 112 "EssSOCOverlowFltLevel1" 111 "EssSOCOverHighFlt" 110 "EssPreRlyCantClose" 109 "EssPreChrgContAdhesionFlt" 108 "EssPosRealyCantClose" 107 "EssPosBattAdhesionFlt" 106 "EssOverTemptFltLevel3" 105 "EssOverTemptFltLevel2" 104 "EssOverTemptFltLevel1" 103 "EssNegRealyCantClose" 102 "EssNegBattContAdhesionFlt" 101 "EssLowTemptFlt" 100 "EssLowTempChrg" 99 "EssIsolationSuperFltLevel3" 98 "EssIsolationSuperFltLevel2" 97 "EssIsolationSuperFltLevel1" 96 "EssFeedbackOverCurrentFltLevel3" 95 "EssFeedbackOverCurrentFltLevel2" 94 "EssFeedbackOverCurrentFltLevel1" 93 "EssFastChrgContAdhesionFlt" 92 "EssFltLvl3" 91 "EssFltLvl2" 90 "EssFltLvl1" 89 "EssDischrgOverCurrentFltLevel3" 88 "EssDischrgOverCurrentFltLevel2" 87 "EssDischrgOverCurrentFltLevel1" 86 "EssContPreTmlit" 85 "EssChrgPCantClose" 84 "EssChrgOverCurrentFlt" 83 "EssChrgNtcTempOverLevel3" 82 "EssChrgNtcTempOverLevel2" 81 "EssChrgNtcTempOverLevel1" 80 "EssChrgNtcFault" 79 "EssChrgDisCurHigh" 78 "EssCellVoltDiffOver" 77 "EssCellUnderVoltFltLevel3" 76 "EssCellUnderVoltFltLevel2" 75 "EssCellUnderVoltFltLevel1" 74 "EssCellTempDiffOver" 73 "EssCellOverVoltFltLevel3" 72 "EssCellOverVoltFltLevel2" 71 "EssCellOverVoltFltLevel1" 70 "EssCellOverDischrg" 69 "EssCC2Err" 68 "EssBattUnderVoltFltLevel3" 67 "EssBattUnderVoltFltLevel2" 66 "EssBattUnderVoltFltLevel1" 65 "EssBattOverVoltFltLevel3" 64 "EssBattOverVoltFltLevel2" 63 "EssBattOverVoltFltLevel1" 62 "EssBattInnerVoltAcquistFlt" 61 "EssAccCellErr" 60 "Ess12vBattAbnorm" 59 "PcuIAbnormal" 58 "PcuBmsConnectFlt" 57 "PcuNoBmsUFlt" 56 "PcuIHiFlt" 55 "PcuBmsUNotMatchFlt" 54 "PcuInsulationFlt" 53 "PcuEletricLockFlt" 52 "PcuMainNegRlyFlt" 51 "PcuChargeModuleFlt" 50 "PcuBMSCommFlt" 49 "PcuMainPosRlyFlt" 48 "PcuEletricMeterFlt" 47 "PcuEmgcyStopFlt" 46 "EacTHi" 45 "EacIHi" 44 "EacULo" 43 "EacUHi" 42 "EacRlyOpen" 41 "EacInnerFlt" 40 "DcDC48Flt" 39 "DcDc12Flt" 38 "Batt48VFlt" 37 "PcuFlt" 36 "GoHomeTmout" 35 "V2VPtEnblTmout" 34 "V2VPtDisableTmout" 33 "V2VPostureCoordinateTmout" 32 "V2VApproachServiceSpotTmout" 31 "AdmFlt" 30 "RRDrvMotrFlt" 29 "RLDrvMotrFlt" 28 "FRDrvMotrFlt" 27 "FLDrvMotrFlt" 26 "ChsFlt" 25 "LosCommToDc48" 24 "EssLossCommWithRDM" 23 "EssLossCommWithCMU" 22 "RecvBMSMsg7OvTm" 21 "RecvBMSMsg6OvTm" 20 "RecvBMSMsg5OvTm" 19 "RecvBMSMsg4OvTm" 18 "RecvBMSMsg3OvTm" 17 "RecvBMSMsg2OvTm" 16 "RecvBMSMsg1OvTm" 15 "RecvChrgrIdntfyMsg7OvTm" 14 "RecvChrgrIdntfyMsg6OvTm" 13 "RecvChrgrIdntfyMsg5OvTm" 12 "RecvChrgrIdntfyMsg4OvTm" 11 "RecvChrgrIdntfyMsg3OvTm" 10 "RecvChrgrIdntfyMsg2OvTm" 9 "RecvChrgrIdntfyMsg1OvTm" 8 "LosCommToTBox" 7 "LosCommToEas" 6 "LosCommToImm" 5 "LosCommToAdm" 4 "LosCommToDc12" 3 "LosCommToPcu" 2 "LosCommToEss" 1 "LosCommToChs" 0 "None" ;
+VAL_ 672 RDM_Debug_MPS_DTC4 160 "InvalidConfigInfo" 159 "InvalidSN" 158 "V2VChargePullTmout" 157 "V2VHandShakeTmout" 156 "V2VChargePushTmout" 155 "ImmGatherFlt" 154 "ImmSpreadFlt" 153 "ImmPlcFlt" 152 "ImmVisionFlt" 151 "ImmArmFlt" 150 "ImmRtnFlt" 149 "V2VEndByCustVehAbnormalEndUNotOK" 148 "V2VEndByCustVehAbnormalEndIHi" 147 "V2VEndByCustVehFltEndOtherFlt" 146 "V2VEndByCustVehFltEndCC2ChkFlt" 145 "V2VEndByCustVehFltEndHvRlyFlt" 144 "V2VEndByCustVehFltEndPackTHi" 143 "V2VEndByCustVehFltEndChrgrFlt" 142 "V2VEndByCustVehFltEndCptTHi" 141 "V2VEndByCustVehFltEndChrgrTHi" 140 "V2VEndByCustVehFltEndInsuFlt" 139 "V2VEndByCustVehNormalEndPcuTxCST" 138 "V2VEndByCustVehNormalEndCellUHi" 137 "V2VEndByCustVehNormalEndPackUHi" 136 "V2VEndByCustVehNormalEndSocHi" 135 "V2VEndByCustVehAbNormalEnd" 134 "V2VEndByCustVehNormalEnd" 133 "V2VEndByPcuSeeCustVehFlt" 132 "V2VEndByPcuFlt" 131 "V2VEndByRdmCmd" 130 "G2VHandShakeTmout" 129 "HvPdWaitEssHvOffTmout" 128 "HvPdWaitCurrentDecTmout" 127 "HvPuWaitEssHvOnTmout" 126 "HvPuWaitDc48RespTmout" 125 "HvPuWaitPcuRespTmout" 124 "EmgcySwPressed" 123 "RdmChkEssCellTDiffHi" 122 "RdmChkEssCellUDiffHi" 121 "EssHvilFlt" 120 "EssVoltAcquistCircuitOpen" 119 "EssThermalDiffusionFlt" 118 "EssTempAcquistCircuitOpen" 117 "EssSysSelfProtect" 116 "EssSocValStep" 115 "EssShuntsFlt" 114 "EssSOCOverlowFltLevel3" 113 "EssSOCOverlowFltLevel2" 112 "EssSOCOverlowFltLevel1" 111 "EssSOCOverHighFlt" 110 "EssPreRlyCantClose" 109 "EssPreChrgContAdhesionFlt" 108 "EssPosRealyCantClose" 107 "EssPosBattAdhesionFlt" 106 "EssOverTemptFltLevel3" 105 "EssOverTemptFltLevel2" 104 "EssOverTemptFltLevel1" 103 "EssNegRealyCantClose" 102 "EssNegBattContAdhesionFlt" 101 "EssLowTemptFlt" 100 "EssLowTempChrg" 99 "EssIsolationSuperFltLevel3" 98 "EssIsolationSuperFltLevel2" 97 "EssIsolationSuperFltLevel1" 96 "EssFeedbackOverCurrentFltLevel3" 95 "EssFeedbackOverCurrentFltLevel2" 94 "EssFeedbackOverCurrentFltLevel1" 93 "EssFastChrgContAdhesionFlt" 92 "EssFltLvl3" 91 "EssFltLvl2" 90 "EssFltLvl1" 89 "EssDischrgOverCurrentFltLevel3" 88 "EssDischrgOverCurrentFltLevel2" 87 "EssDischrgOverCurrentFltLevel1" 86 "EssContPreTmlit" 85 "EssChrgPCantClose" 84 "EssChrgOverCurrentFlt" 83 "EssChrgNtcTempOverLevel3" 82 "EssChrgNtcTempOverLevel2" 81 "EssChrgNtcTempOverLevel1" 80 "EssChrgNtcFault" 79 "EssChrgDisCurHigh" 78 "EssCellVoltDiffOver" 77 "EssCellUnderVoltFltLevel3" 76 "EssCellUnderVoltFltLevel2" 75 "EssCellUnderVoltFltLevel1" 74 "EssCellTempDiffOver" 73 "EssCellOverVoltFltLevel3" 72 "EssCellOverVoltFltLevel2" 71 "EssCellOverVoltFltLevel1" 70 "EssCellOverDischrg" 69 "EssCC2Err" 68 "EssBattUnderVoltFltLevel3" 67 "EssBattUnderVoltFltLevel2" 66 "EssBattUnderVoltFltLevel1" 65 "EssBattOverVoltFltLevel3" 64 "EssBattOverVoltFltLevel2" 63 "EssBattOverVoltFltLevel1" 62 "EssBattInnerVoltAcquistFlt" 61 "EssAccCellErr" 60 "Ess12vBattAbnorm" 59 "PcuIAbnormal" 58 "PcuBmsConnectFlt" 57 "PcuNoBmsUFlt" 56 "PcuIHiFlt" 55 "PcuBmsUNotMatchFlt" 54 "PcuInsulationFlt" 53 "PcuEletricLockFlt" 52 "PcuMainNegRlyFlt" 51 "PcuChargeModuleFlt" 50 "PcuBMSCommFlt" 49 "PcuMainPosRlyFlt" 48 "PcuEletricMeterFlt" 47 "PcuEmgcyStopFlt" 46 "EacTHi" 45 "EacIHi" 44 "EacULo" 43 "EacUHi" 42 "EacRlyOpen" 41 "EacInnerFlt" 40 "DcDC48Flt" 39 "DcDc12Flt" 38 "Batt48VFlt" 37 "PcuFlt" 36 "GoHomeTmout" 35 "V2VPtEnblTmout" 34 "V2VPtDisableTmout" 33 "V2VPostureCoordinateTmout" 32 "V2VApproachServiceSpotTmout" 31 "AdmFlt" 30 "RRDrvMotrFlt" 29 "RLDrvMotrFlt" 28 "FRDrvMotrFlt" 27 "FLDrvMotrFlt" 26 "ChsFlt" 25 "LosCommToDc48" 24 "EssLossCommWithRDM" 23 "EssLossCommWithCMU" 22 "RecvBMSMsg7OvTm" 21 "RecvBMSMsg6OvTm" 20 "RecvBMSMsg5OvTm" 19 "RecvBMSMsg4OvTm" 18 "RecvBMSMsg3OvTm" 17 "RecvBMSMsg2OvTm" 16 "RecvBMSMsg1OvTm" 15 "RecvChrgrIdntfyMsg7OvTm" 14 "RecvChrgrIdntfyMsg6OvTm" 13 "RecvChrgrIdntfyMsg5OvTm" 12 "RecvChrgrIdntfyMsg4OvTm" 11 "RecvChrgrIdntfyMsg3OvTm" 10 "RecvChrgrIdntfyMsg2OvTm" 9 "RecvChrgrIdntfyMsg1OvTm" 8 "LosCommToTBox" 7 "LosCommToEas" 6 "LosCommToImm" 5 "LosCommToAdm" 4 "LosCommToDc12" 3 "LosCommToPcu" 2 "LosCommToEss" 1 "LosCommToChs" 0 "None" ;
+VAL_ 672 RDM_Debug_MPS_DTC5 160 "InvalidConfigInfo" 159 "InvalidSN" 158 "V2VChargePullTmout" 157 "V2VHandShakeTmout" 156 "V2VChargePushTmout" 155 "ImmGatherFlt" 154 "ImmSpreadFlt" 153 "ImmPlcFlt" 152 "ImmVisionFlt" 151 "ImmArmFlt" 150 "ImmRtnFlt" 149 "V2VEndByCustVehAbnormalEndUNotOK" 148 "V2VEndByCustVehAbnormalEndIHi" 147 "V2VEndByCustVehFltEndOtherFlt" 146 "V2VEndByCustVehFltEndCC2ChkFlt" 145 "V2VEndByCustVehFltEndHvRlyFlt" 144 "V2VEndByCustVehFltEndPackTHi" 143 "V2VEndByCustVehFltEndChrgrFlt" 142 "V2VEndByCustVehFltEndCptTHi" 141 "V2VEndByCustVehFltEndChrgrTHi" 140 "V2VEndByCustVehFltEndInsuFlt" 139 "V2VEndByCustVehNormalEndPcuTxCST" 138 "V2VEndByCustVehNormalEndCellUHi" 137 "V2VEndByCustVehNormalEndPackUHi" 136 "V2VEndByCustVehNormalEndSocHi" 135 "V2VEndByCustVehAbNormalEnd" 134 "V2VEndByCustVehNormalEnd" 133 "V2VEndByPcuSeeCustVehFlt" 132 "V2VEndByPcuFlt" 131 "V2VEndByRdmCmd" 130 "G2VHandShakeTmout" 129 "HvPdWaitEssHvOffTmout" 128 "HvPdWaitCurrentDecTmout" 127 "HvPuWaitEssHvOnTmout" 126 "HvPuWaitDc48RespTmout" 125 "HvPuWaitPcuRespTmout" 124 "EmgcySwPressed" 123 "RdmChkEssCellTDiffHi" 122 "RdmChkEssCellUDiffHi" 121 "EssHvilFlt" 120 "EssVoltAcquistCircuitOpen" 119 "EssThermalDiffusionFlt" 118 "EssTempAcquistCircuitOpen" 117 "EssSysSelfProtect" 116 "EssSocValStep" 115 "EssShuntsFlt" 114 "EssSOCOverlowFltLevel3" 113 "EssSOCOverlowFltLevel2" 112 "EssSOCOverlowFltLevel1" 111 "EssSOCOverHighFlt" 110 "EssPreRlyCantClose" 109 "EssPreChrgContAdhesionFlt" 108 "EssPosRealyCantClose" 107 "EssPosBattAdhesionFlt" 106 "EssOverTemptFltLevel3" 105 "EssOverTemptFltLevel2" 104 "EssOverTemptFltLevel1" 103 "EssNegRealyCantClose" 102 "EssNegBattContAdhesionFlt" 101 "EssLowTemptFlt" 100 "EssLowTempChrg" 99 "EssIsolationSuperFltLevel3" 98 "EssIsolationSuperFltLevel2" 97 "EssIsolationSuperFltLevel1" 96 "EssFeedbackOverCurrentFltLevel3" 95 "EssFeedbackOverCurrentFltLevel2" 94 "EssFeedbackOverCurrentFltLevel1" 93 "EssFastChrgContAdhesionFlt" 92 "EssFltLvl3" 91 "EssFltLvl2" 90 "EssFltLvl1" 89 "EssDischrgOverCurrentFltLevel3" 88 "EssDischrgOverCurrentFltLevel2" 87 "EssDischrgOverCurrentFltLevel1" 86 "EssContPreTmlit" 85 "EssChrgPCantClose" 84 "EssChrgOverCurrentFlt" 83 "EssChrgNtcTempOverLevel3" 82 "EssChrgNtcTempOverLevel2" 81 "EssChrgNtcTempOverLevel1" 80 "EssChrgNtcFault" 79 "EssChrgDisCurHigh" 78 "EssCellVoltDiffOver" 77 "EssCellUnderVoltFltLevel3" 76 "EssCellUnderVoltFltLevel2" 75 "EssCellUnderVoltFltLevel1" 74 "EssCellTempDiffOver" 73 "EssCellOverVoltFltLevel3" 72 "EssCellOverVoltFltLevel2" 71 "EssCellOverVoltFltLevel1" 70 "EssCellOverDischrg" 69 "EssCC2Err" 68 "EssBattUnderVoltFltLevel3" 67 "EssBattUnderVoltFltLevel2" 66 "EssBattUnderVoltFltLevel1" 65 "EssBattOverVoltFltLevel3" 64 "EssBattOverVoltFltLevel2" 63 "EssBattOverVoltFltLevel1" 62 "EssBattInnerVoltAcquistFlt" 61 "EssAccCellErr" 60 "Ess12vBattAbnorm" 59 "PcuIAbnormal" 58 "PcuBmsConnectFlt" 57 "PcuNoBmsUFlt" 56 "PcuIHiFlt" 55 "PcuBmsUNotMatchFlt" 54 "PcuInsulationFlt" 53 "PcuEletricLockFlt" 52 "PcuMainNegRlyFlt" 51 "PcuChargeModuleFlt" 50 "PcuBMSCommFlt" 49 "PcuMainPosRlyFlt" 48 "PcuEletricMeterFlt" 47 "PcuEmgcyStopFlt" 46 "EacTHi" 45 "EacIHi" 44 "EacULo" 43 "EacUHi" 42 "EacRlyOpen" 41 "EacInnerFlt" 40 "DcDC48Flt" 39 "DcDc12Flt" 38 "Batt48VFlt" 37 "PcuFlt" 36 "GoHomeTmout" 35 "V2VPtEnblTmout" 34 "V2VPtDisableTmout" 33 "V2VPostureCoordinateTmout" 32 "V2VApproachServiceSpotTmout" 31 "AdmFlt" 30 "RRDrvMotrFlt" 29 "RLDrvMotrFlt" 28 "FRDrvMotrFlt" 27 "FLDrvMotrFlt" 26 "ChsFlt" 25 "LosCommToDc48" 24 "EssLossCommWithRDM" 23 "EssLossCommWithCMU" 22 "RecvBMSMsg7OvTm" 21 "RecvBMSMsg6OvTm" 20 "RecvBMSMsg5OvTm" 19 "RecvBMSMsg4OvTm" 18 "RecvBMSMsg3OvTm" 17 "RecvBMSMsg2OvTm" 16 "RecvBMSMsg1OvTm" 15 "RecvChrgrIdntfyMsg7OvTm" 14 "RecvChrgrIdntfyMsg6OvTm" 13 "RecvChrgrIdntfyMsg5OvTm" 12 "RecvChrgrIdntfyMsg4OvTm" 11 "RecvChrgrIdntfyMsg3OvTm" 10 "RecvChrgrIdntfyMsg2OvTm" 9 "RecvChrgrIdntfyMsg1OvTm" 8 "LosCommToTBox" 7 "LosCommToEas" 6 "LosCommToImm" 5 "LosCommToAdm" 4 "LosCommToDc12" 3 "LosCommToPcu" 2 "LosCommToEss" 1 "LosCommToChs" 0 "None" ;
+VAL_ 672 RDM_Debug_MPS_DTC6 160 "InvalidConfigInfo" 159 "InvalidSN" 158 "V2VChargePullTmout" 157 "V2VHandShakeTmout" 156 "V2VChargePushTmout" 155 "ImmGatherFlt" 154 "ImmSpreadFlt" 153 "ImmPlcFlt" 152 "ImmVisionFlt" 151 "ImmArmFlt" 150 "ImmRtnFlt" 149 "V2VEndByCustVehAbnormalEndUNotOK" 148 "V2VEndByCustVehAbnormalEndIHi" 147 "V2VEndByCustVehFltEndOtherFlt" 146 "V2VEndByCustVehFltEndCC2ChkFlt" 145 "V2VEndByCustVehFltEndHvRlyFlt" 144 "V2VEndByCustVehFltEndPackTHi" 143 "V2VEndByCustVehFltEndChrgrFlt" 142 "V2VEndByCustVehFltEndCptTHi" 141 "V2VEndByCustVehFltEndChrgrTHi" 140 "V2VEndByCustVehFltEndInsuFlt" 139 "V2VEndByCustVehNormalEndPcuTxCST" 138 "V2VEndByCustVehNormalEndCellUHi" 137 "V2VEndByCustVehNormalEndPackUHi" 136 "V2VEndByCustVehNormalEndSocHi" 135 "V2VEndByCustVehAbNormalEnd" 134 "V2VEndByCustVehNormalEnd" 133 "V2VEndByPcuSeeCustVehFlt" 132 "V2VEndByPcuFlt" 131 "V2VEndByRdmCmd" 130 "G2VHandShakeTmout" 129 "HvPdWaitEssHvOffTmout" 128 "HvPdWaitCurrentDecTmout" 127 "HvPuWaitEssHvOnTmout" 126 "HvPuWaitDc48RespTmout" 125 "HvPuWaitPcuRespTmout" 124 "EmgcySwPressed" 123 "RdmChkEssCellTDiffHi" 122 "RdmChkEssCellUDiffHi" 121 "EssHvilFlt" 120 "EssVoltAcquistCircuitOpen" 119 "EssThermalDiffusionFlt" 118 "EssTempAcquistCircuitOpen" 117 "EssSysSelfProtect" 116 "EssSocValStep" 115 "EssShuntsFlt" 114 "EssSOCOverlowFltLevel3" 113 "EssSOCOverlowFltLevel2" 112 "EssSOCOverlowFltLevel1" 111 "EssSOCOverHighFlt" 110 "EssPreRlyCantClose" 109 "EssPreChrgContAdhesionFlt" 108 "EssPosRealyCantClose" 107 "EssPosBattAdhesionFlt" 106 "EssOverTemptFltLevel3" 105 "EssOverTemptFltLevel2" 104 "EssOverTemptFltLevel1" 103 "EssNegRealyCantClose" 102 "EssNegBattContAdhesionFlt" 101 "EssLowTemptFlt" 100 "EssLowTempChrg" 99 "EssIsolationSuperFltLevel3" 98 "EssIsolationSuperFltLevel2" 97 "EssIsolationSuperFltLevel1" 96 "EssFeedbackOverCurrentFltLevel3" 95 "EssFeedbackOverCurrentFltLevel2" 94 "EssFeedbackOverCurrentFltLevel1" 93 "EssFastChrgContAdhesionFlt" 92 "EssFltLvl3" 91 "EssFltLvl2" 90 "EssFltLvl1" 89 "EssDischrgOverCurrentFltLevel3" 88 "EssDischrgOverCurrentFltLevel2" 87 "EssDischrgOverCurrentFltLevel1" 86 "EssContPreTmlit" 85 "EssChrgPCantClose" 84 "EssChrgOverCurrentFlt" 83 "EssChrgNtcTempOverLevel3" 82 "EssChrgNtcTempOverLevel2" 81 "EssChrgNtcTempOverLevel1" 80 "EssChrgNtcFault" 79 "EssChrgDisCurHigh" 78 "EssCellVoltDiffOver" 77 "EssCellUnderVoltFltLevel3" 76 "EssCellUnderVoltFltLevel2" 75 "EssCellUnderVoltFltLevel1" 74 "EssCellTempDiffOver" 73 "EssCellOverVoltFltLevel3" 72 "EssCellOverVoltFltLevel2" 71 "EssCellOverVoltFltLevel1" 70 "EssCellOverDischrg" 69 "EssCC2Err" 68 "EssBattUnderVoltFltLevel3" 67 "EssBattUnderVoltFltLevel2" 66 "EssBattUnderVoltFltLevel1" 65 "EssBattOverVoltFltLevel3" 64 "EssBattOverVoltFltLevel2" 63 "EssBattOverVoltFltLevel1" 62 "EssBattInnerVoltAcquistFlt" 61 "EssAccCellErr" 60 "Ess12vBattAbnorm" 59 "PcuIAbnormal" 58 "PcuBmsConnectFlt" 57 "PcuNoBmsUFlt" 56 "PcuIHiFlt" 55 "PcuBmsUNotMatchFlt" 54 "PcuInsulationFlt" 53 "PcuEletricLockFlt" 52 "PcuMainNegRlyFlt" 51 "PcuChargeModuleFlt" 50 "PcuBMSCommFlt" 49 "PcuMainPosRlyFlt" 48 "PcuEletricMeterFlt" 47 "PcuEmgcyStopFlt" 46 "EacTHi" 45 "EacIHi" 44 "EacULo" 43 "EacUHi" 42 "EacRlyOpen" 41 "EacInnerFlt" 40 "DcDC48Flt" 39 "DcDc12Flt" 38 "Batt48VFlt" 37 "PcuFlt" 36 "GoHomeTmout" 35 "V2VPtEnblTmout" 34 "V2VPtDisableTmout" 33 "V2VPostureCoordinateTmout" 32 "V2VApproachServiceSpotTmout" 31 "AdmFlt" 30 "RRDrvMotrFlt" 29 "RLDrvMotrFlt" 28 "FRDrvMotrFlt" 27 "FLDrvMotrFlt" 26 "ChsFlt" 25 "LosCommToDc48" 24 "EssLossCommWithRDM" 23 "EssLossCommWithCMU" 22 "RecvBMSMsg7OvTm" 21 "RecvBMSMsg6OvTm" 20 "RecvBMSMsg5OvTm" 19 "RecvBMSMsg4OvTm" 18 "RecvBMSMsg3OvTm" 17 "RecvBMSMsg2OvTm" 16 "RecvBMSMsg1OvTm" 15 "RecvChrgrIdntfyMsg7OvTm" 14 "RecvChrgrIdntfyMsg6OvTm" 13 "RecvChrgrIdntfyMsg5OvTm" 12 "RecvChrgrIdntfyMsg4OvTm" 11 "RecvChrgrIdntfyMsg3OvTm" 10 "RecvChrgrIdntfyMsg2OvTm" 9 "RecvChrgrIdntfyMsg1OvTm" 8 "LosCommToTBox" 7 "LosCommToEas" 6 "LosCommToImm" 5 "LosCommToAdm" 4 "LosCommToDc12" 3 "LosCommToPcu" 2 "LosCommToEss" 1 "LosCommToChs" 0 "None" ;
+VAL_ 672 RDM_Debug_MPS_DTC7 160 "InvalidConfigInfo" 159 "InvalidSN" 158 "V2VChargePullTmout" 157 "V2VHandShakeTmout" 156 "V2VChargePushTmout" 155 "ImmGatherFlt" 154 "ImmSpreadFlt" 153 "ImmPlcFlt" 152 "ImmVisionFlt" 151 "ImmArmFlt" 150 "ImmRtnFlt" 149 "V2VEndByCustVehAbnormalEndUNotOK" 148 "V2VEndByCustVehAbnormalEndIHi" 147 "V2VEndByCustVehFltEndOtherFlt" 146 "V2VEndByCustVehFltEndCC2ChkFlt" 145 "V2VEndByCustVehFltEndHvRlyFlt" 144 "V2VEndByCustVehFltEndPackTHi" 143 "V2VEndByCustVehFltEndChrgrFlt" 142 "V2VEndByCustVehFltEndCptTHi" 141 "V2VEndByCustVehFltEndChrgrTHi" 140 "V2VEndByCustVehFltEndInsuFlt" 139 "V2VEndByCustVehNormalEndPcuTxCST" 138 "V2VEndByCustVehNormalEndCellUHi" 137 "V2VEndByCustVehNormalEndPackUHi" 136 "V2VEndByCustVehNormalEndSocHi" 135 "V2VEndByCustVehAbNormalEnd" 134 "V2VEndByCustVehNormalEnd" 133 "V2VEndByPcuSeeCustVehFlt" 132 "V2VEndByPcuFlt" 131 "V2VEndByRdmCmd" 130 "G2VHandShakeTmout" 129 "HvPdWaitEssHvOffTmout" 128 "HvPdWaitCurrentDecTmout" 127 "HvPuWaitEssHvOnTmout" 126 "HvPuWaitDc48RespTmout" 125 "HvPuWaitPcuRespTmout" 124 "EmgcySwPressed" 123 "RdmChkEssCellTDiffHi" 122 "RdmChkEssCellUDiffHi" 121 "EssHvilFlt" 120 "EssVoltAcquistCircuitOpen" 119 "EssThermalDiffusionFlt" 118 "EssTempAcquistCircuitOpen" 117 "EssSysSelfProtect" 116 "EssSocValStep" 115 "EssShuntsFlt" 114 "EssSOCOverlowFltLevel3" 113 "EssSOCOverlowFltLevel2" 112 "EssSOCOverlowFltLevel1" 111 "EssSOCOverHighFlt" 110 "EssPreRlyCantClose" 109 "EssPreChrgContAdhesionFlt" 108 "EssPosRealyCantClose" 107 "EssPosBattAdhesionFlt" 106 "EssOverTemptFltLevel3" 105 "EssOverTemptFltLevel2" 104 "EssOverTemptFltLevel1" 103 "EssNegRealyCantClose" 102 "EssNegBattContAdhesionFlt" 101 "EssLowTemptFlt" 100 "EssLowTempChrg" 99 "EssIsolationSuperFltLevel3" 98 "EssIsolationSuperFltLevel2" 97 "EssIsolationSuperFltLevel1" 96 "EssFeedbackOverCurrentFltLevel3" 95 "EssFeedbackOverCurrentFltLevel2" 94 "EssFeedbackOverCurrentFltLevel1" 93 "EssFastChrgContAdhesionFlt" 92 "EssFltLvl3" 91 "EssFltLvl2" 90 "EssFltLvl1" 89 "EssDischrgOverCurrentFltLevel3" 88 "EssDischrgOverCurrentFltLevel2" 87 "EssDischrgOverCurrentFltLevel1" 86 "EssContPreTmlit" 85 "EssChrgPCantClose" 84 "EssChrgOverCurrentFlt" 83 "EssChrgNtcTempOverLevel3" 82 "EssChrgNtcTempOverLevel2" 81 "EssChrgNtcTempOverLevel1" 80 "EssChrgNtcFault" 79 "EssChrgDisCurHigh" 78 "EssCellVoltDiffOver" 77 "EssCellUnderVoltFltLevel3" 76 "EssCellUnderVoltFltLevel2" 75 "EssCellUnderVoltFltLevel1" 74 "EssCellTempDiffOver" 73 "EssCellOverVoltFltLevel3" 72 "EssCellOverVoltFltLevel2" 71 "EssCellOverVoltFltLevel1" 70 "EssCellOverDischrg" 69 "EssCC2Err" 68 "EssBattUnderVoltFltLevel3" 67 "EssBattUnderVoltFltLevel2" 66 "EssBattUnderVoltFltLevel1" 65 "EssBattOverVoltFltLevel3" 64 "EssBattOverVoltFltLevel2" 63 "EssBattOverVoltFltLevel1" 62 "EssBattInnerVoltAcquistFlt" 61 "EssAccCellErr" 60 "Ess12vBattAbnorm" 59 "PcuIAbnormal" 58 "PcuBmsConnectFlt" 57 "PcuNoBmsUFlt" 56 "PcuIHiFlt" 55 "PcuBmsUNotMatchFlt" 54 "PcuInsulationFlt" 53 "PcuEletricLockFlt" 52 "PcuMainNegRlyFlt" 51 "PcuChargeModuleFlt" 50 "PcuBMSCommFlt" 49 "PcuMainPosRlyFlt" 48 "PcuEletricMeterFlt" 47 "PcuEmgcyStopFlt" 46 "EacTHi" 45 "EacIHi" 44 "EacULo" 43 "EacUHi" 42 "EacRlyOpen" 41 "EacInnerFlt" 40 "DcDC48Flt" 39 "DcDc12Flt" 38 "Batt48VFlt" 37 "PcuFlt" 36 "GoHomeTmout" 35 "V2VPtEnblTmout" 34 "V2VPtDisableTmout" 33 "V2VPostureCoordinateTmout" 32 "V2VApproachServiceSpotTmout" 31 "AdmFlt" 30 "RRDrvMotrFlt" 29 "RLDrvMotrFlt" 28 "FRDrvMotrFlt" 27 "FLDrvMotrFlt" 26 "ChsFlt" 25 "LosCommToDc48" 24 "EssLossCommWithRDM" 23 "EssLossCommWithCMU" 22 "RecvBMSMsg7OvTm" 21 "RecvBMSMsg6OvTm" 20 "RecvBMSMsg5OvTm" 19 "RecvBMSMsg4OvTm" 18 "RecvBMSMsg3OvTm" 17 "RecvBMSMsg2OvTm" 16 "RecvBMSMsg1OvTm" 15 "RecvChrgrIdntfyMsg7OvTm" 14 "RecvChrgrIdntfyMsg6OvTm" 13 "RecvChrgrIdntfyMsg5OvTm" 12 "RecvChrgrIdntfyMsg4OvTm" 11 "RecvChrgrIdntfyMsg3OvTm" 10 "RecvChrgrIdntfyMsg2OvTm" 9 "RecvChrgrIdntfyMsg1OvTm" 8 "LosCommToTBox" 7 "LosCommToEas" 6 "LosCommToImm" 5 "LosCommToAdm" 4 "LosCommToDc12" 3 "LosCommToPcu" 2 "LosCommToEss" 1 "LosCommToChs" 0 "None" ;
+VAL_ 672 RDM_Debug_MPS_DTC8 160 "InvalidConfigInfo" 159 "InvalidSN" 158 "V2VChargePullTmout" 157 "V2VHandShakeTmout" 156 "V2VChargePushTmout" 155 "ImmGatherFlt" 154 "ImmSpreadFlt" 153 "ImmPlcFlt" 152 "ImmVisionFlt" 151 "ImmArmFlt" 150 "ImmRtnFlt" 149 "V2VEndByCustVehAbnormalEndUNotOK" 148 "V2VEndByCustVehAbnormalEndIHi" 147 "V2VEndByCustVehFltEndOtherFlt" 146 "V2VEndByCustVehFltEndCC2ChkFlt" 145 "V2VEndByCustVehFltEndHvRlyFlt" 144 "V2VEndByCustVehFltEndPackTHi" 143 "V2VEndByCustVehFltEndChrgrFlt" 142 "V2VEndByCustVehFltEndCptTHi" 141 "V2VEndByCustVehFltEndChrgrTHi" 140 "V2VEndByCustVehFltEndInsuFlt" 139 "V2VEndByCustVehNormalEndPcuTxCST" 138 "V2VEndByCustVehNormalEndCellUHi" 137 "V2VEndByCustVehNormalEndPackUHi" 136 "V2VEndByCustVehNormalEndSocHi" 135 "V2VEndByCustVehAbNormalEnd" 134 "V2VEndByCustVehNormalEnd" 133 "V2VEndByPcuSeeCustVehFlt" 132 "V2VEndByPcuFlt" 131 "V2VEndByRdmCmd" 130 "G2VHandShakeTmout" 129 "HvPdWaitEssHvOffTmout" 128 "HvPdWaitCurrentDecTmout" 127 "HvPuWaitEssHvOnTmout" 126 "HvPuWaitDc48RespTmout" 125 "HvPuWaitPcuRespTmout" 124 "EmgcySwPressed" 123 "RdmChkEssCellTDiffHi" 122 "RdmChkEssCellUDiffHi" 121 "EssHvilFlt" 120 "EssVoltAcquistCircuitOpen" 119 "EssThermalDiffusionFlt" 118 "EssTempAcquistCircuitOpen" 117 "EssSysSelfProtect" 116 "EssSocValStep" 115 "EssShuntsFlt" 114 "EssSOCOverlowFltLevel3" 113 "EssSOCOverlowFltLevel2" 112 "EssSOCOverlowFltLevel1" 111 "EssSOCOverHighFlt" 110 "EssPreRlyCantClose" 109 "EssPreChrgContAdhesionFlt" 108 "EssPosRealyCantClose" 107 "EssPosBattAdhesionFlt" 106 "EssOverTemptFltLevel3" 105 "EssOverTemptFltLevel2" 104 "EssOverTemptFltLevel1" 103 "EssNegRealyCantClose" 102 "EssNegBattContAdhesionFlt" 101 "EssLowTemptFlt" 100 "EssLowTempChrg" 99 "EssIsolationSuperFltLevel3" 98 "EssIsolationSuperFltLevel2" 97 "EssIsolationSuperFltLevel1" 96 "EssFeedbackOverCurrentFltLevel3" 95 "EssFeedbackOverCurrentFltLevel2" 94 "EssFeedbackOverCurrentFltLevel1" 93 "EssFastChrgContAdhesionFlt" 92 "EssFltLvl3" 91 "EssFltLvl2" 90 "EssFltLvl1" 89 "EssDischrgOverCurrentFltLevel3" 88 "EssDischrgOverCurrentFltLevel2" 87 "EssDischrgOverCurrentFltLevel1" 86 "EssContPreTmlit" 85 "EssChrgPCantClose" 84 "EssChrgOverCurrentFlt" 83 "EssChrgNtcTempOverLevel3" 82 "EssChrgNtcTempOverLevel2" 81 "EssChrgNtcTempOverLevel1" 80 "EssChrgNtcFault" 79 "EssChrgDisCurHigh" 78 "EssCellVoltDiffOver" 77 "EssCellUnderVoltFltLevel3" 76 "EssCellUnderVoltFltLevel2" 75 "EssCellUnderVoltFltLevel1" 74 "EssCellTempDiffOver" 73 "EssCellOverVoltFltLevel3" 72 "EssCellOverVoltFltLevel2" 71 "EssCellOverVoltFltLevel1" 70 "EssCellOverDischrg" 69 "EssCC2Err" 68 "EssBattUnderVoltFltLevel3" 67 "EssBattUnderVoltFltLevel2" 66 "EssBattUnderVoltFltLevel1" 65 "EssBattOverVoltFltLevel3" 64 "EssBattOverVoltFltLevel2" 63 "EssBattOverVoltFltLevel1" 62 "EssBattInnerVoltAcquistFlt" 61 "EssAccCellErr" 60 "Ess12vBattAbnorm" 59 "PcuIAbnormal" 58 "PcuBmsConnectFlt" 57 "PcuNoBmsUFlt" 56 "PcuIHiFlt" 55 "PcuBmsUNotMatchFlt" 54 "PcuInsulationFlt" 53 "PcuEletricLockFlt" 52 "PcuMainNegRlyFlt" 51 "PcuChargeModuleFlt" 50 "PcuBMSCommFlt" 49 "PcuMainPosRlyFlt" 48 "PcuEletricMeterFlt" 47 "PcuEmgcyStopFlt" 46 "EacTHi" 45 "EacIHi" 44 "EacULo" 43 "EacUHi" 42 "EacRlyOpen" 41 "EacInnerFlt" 40 "DcDC48Flt" 39 "DcDc12Flt" 38 "Batt48VFlt" 37 "PcuFlt" 36 "GoHomeTmout" 35 "V2VPtEnblTmout" 34 "V2VPtDisableTmout" 33 "V2VPostureCoordinateTmout" 32 "V2VApproachServiceSpotTmout" 31 "AdmFlt" 30 "RRDrvMotrFlt" 29 "RLDrvMotrFlt" 28 "FRDrvMotrFlt" 27 "FLDrvMotrFlt" 26 "ChsFlt" 25 "LosCommToDc48" 24 "EssLossCommWithRDM" 23 "EssLossCommWithCMU" 22 "RecvBMSMsg7OvTm" 21 "RecvBMSMsg6OvTm" 20 "RecvBMSMsg5OvTm" 19 "RecvBMSMsg4OvTm" 18 "RecvBMSMsg3OvTm" 17 "RecvBMSMsg2OvTm" 16 "RecvBMSMsg1OvTm" 15 "RecvChrgrIdntfyMsg7OvTm" 14 "RecvChrgrIdntfyMsg6OvTm" 13 "RecvChrgrIdntfyMsg5OvTm" 12 "RecvChrgrIdntfyMsg4OvTm" 11 "RecvChrgrIdntfyMsg3OvTm" 10 "RecvChrgrIdntfyMsg2OvTm" 9 "RecvChrgrIdntfyMsg1OvTm" 8 "LosCommToTBox" 7 "LosCommToEas" 6 "LosCommToImm" 5 "LosCommToAdm" 4 "LosCommToDc12" 3 "LosCommToPcu" 2 "LosCommToEss" 1 "LosCommToChs" 0 "None" ;
+VAL_ 673 RDM_Fr30_CloudPlatfmVersion 2 "RxCloudProduct" 1 "RxCloudTest" 0 "PowerShare" ;
+VAL_ 673 RDM_Fr30_MpsType 5 "ThermalFreeFlow" 4 "FlagShipPro" 3 "Performance" 2 "Popular" 1 "FlagShip" 0 "Undefine" ;
+VAL_ 673 RDM_Fr30_RdmSwState 1 "Test" 0 "Released" ;
+VAL_ 673 RDM_Fr30_CoolntFanType 2 "WSLNF320" 1 "CYPWM" 0 "Undefine" ;
+VAL_ 673 RDM_Fr30_EnblV2VByChrgrInStat 1 "Enbl" 0 "Disbl" ;
+VAL_ 22 ADM_Fr01_TskTypFeb 1 "SinglePointNavigation" 0 "None" ;
+VAL_ 22 ADM_Fr01_WorkState 4 "Fault" 3 "Finished" 2 "Running" 1 "Standby" 0 "Initial" ;
+VAL_ 22 ADM_Fr01_CtrlModeReq 3 "Rotation" 2 "Straight" 1 "Curve" 0 "Undefine" ;
+VAL_ 767 IMM_Fr01_ArmPoseStat 4 "Gathered" 3 "Gathering" 2 "Spreaded" 1 "Spreading" 0 "Undefine" ;
+VAL_ 767 IMM_Fr01_ArmWorkStat 5 "Waving" 4 "Fault" 3 "Running" 2 "Standby" 1 "Off" 0 "Initial" ;
+VAL_ 767 IMM_Fr01_ArmSysFltStat 6 "GatherFlt" 5 "SpreadFlt" 4 "PlcFlt" 3 "VisionFlt" 2 "ArmFlt" 1 "RtnFlt" 0 "None" ;
+VAL_ 24 CHS_Fr01_PLockStat 3 "Error" 2 "Parked" 1 "Released" 0 "None" ;
+VAL_ 24 CHS_Fr01_CurrtDrvMode 3 "EmgencyOff" 2 "RemoteControl" 1 "Override" 0 "Autonomous" ;
+VAL_ 24 CHS_Fr01_CurrtCtrlMode 3 "Rotation" 2 "Straight" 1 "Curve" 0 "Undefine" ;
+VAL_ 24 CHS_Fr01_DCChrgrActnSimltionReq 2 "Pull" 1 "Push" 0 "none" ;
+VAL_ 24 CHS_Fr01_ChgrConnectSimltionStat 1 "Connected" 0 "DisConnected" ;
+VAL_ 29 CHS_Fr05_48VBattFltLvl 3 "FltLvl3" 2 "FltLvl2" 1 "FltLvl1" 0 "NoFault" ;
+VAL_ 29 CHS_Fr05_12VDCDCDsablReq 1 "request" 0 "NoRequest" ;
+VAL_ 33 PCU_Fr01_ChrgCnnctState 2 "Connect" 1 "Halfconnect" 0 "Disconnect" ;
+VAL_ 33 PCU_Fr01_PcuStat 6 "Fault" 5 "V2V" 4 "V2G" 3 "G2V" 2 "Standby" 1 "Off" 0 "Initial" ;
+VAL_ 33 PCU_Fr01_FastChrgStat 6 "ChargEnding" 5 "Charging" 4 "ParamConfig" 3 "HandShake" 2 "LvPwrUp" 1 "ChrgrCnnctng" 0 "None" ;
+VAL_ 33 PCU_Fr01_ElcLockStat 2 "Fault" 1 "Locked" 0 "UnLocked" ;
+VAL_ 33 PCU_Fr01_EssHvStateReq 2 "Connect" 1 "Disconnect" 0 "None" ;
+VAL_ 37 PCU_Fr05_V2VChrgrStpFeb 5 "BMSFltStop" 4 "BMSNrmalStop" 3 "PCUDetectBMSAbnrmal" 2 "PCUFltStop" 1 "RDMStop" 0 "None" ;
+VAL_ 37 PCU_Fr05_RecvChrgrIdntfyMsg1OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvChrgrIdntfyMsg2OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvChrgrIdntfyMsg3OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvChrgrIdntfyMsg4OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvChrgrIdntfyMsg5OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvChrgrIdntfyMsg6OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvChrgrIdntfyMsg7OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvBMSMsg1OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvBMSMsg2OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvBMSMsg3OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvBMSMsg4OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvBMSMsg5OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvBMSMsg6OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 37 PCU_Fr05_RecvBMSMsg7OvTm 2 "Unbelievable" 1 "OverTime" 0 "Normal" ;
+VAL_ 38 PCU_Fr06_PcuFltLvl 4 "Lvl4" 3 "Lvl3" 2 "Lvl2" 1 "Lvl1" 0 "NoFault" ;
+VAL_ 38 PCU_Fr06_ChrgrFltCode1 128 "主负继电器故障" 64 "充电模块故障" 32 "BMS通讯故障" 16 "主正继电器故障" 8 "电表故障" 4 "预留" 2 "预留" 1 "急停故障" 0 "None" ;
+VAL_ 38 PCU_Fr06_ChrgrFltCode2 128 "电池反接故障" 64 "无电池电压" 32 "电池电流过高" 16 "电池电压不匹配" 8 "预留" 4 "预留" 2 "绝缘故障" 1 "电子锁故障" 0 "None" ;
+VAL_ 38 PCU_Fr06_ChrgrFltCode3 128 "模块PFC侧关机" 64 "输入过压" 32 "输入欠压" 16 "三相输入不平衡" 8 "三相输入缺相" 4 "模块严重不均流" 2 "模块ID重复" 1 "模块限功率" 0 "None" ;
+VAL_ 38 PCU_Fr06_ChrgrFltCode4 128 "模块通信中段" 32 "输出过压" 16 "过温" 8 "风扇故障" 4 "模块保护告警" 2 "模块故障告警" 1 "模块DC侧关机" 0 "None" ;
+VAL_ 256 DCDC48_Fr01_WrkStat 32 "SuplyVoltUndvolt" 16 "InputVoltDerat" 8 "TempDerat" 4 "DischrgComplt" 3 "error" 2 "Dischrg" 1 "StandBy" 0 "OFF" ;
+VAL_ 256 DCDC48_Fr01_FltCode 64 "CommutnFlt" 32 "TemtOv" 16 "InputVoltUn" 8 "InputVoltOv" 4 "FanFlt" 2 "OutpCurrtOv" 1 "OutpVoltOv" 0 "None" ;
+VAL_ 2566853367 DCDC12_Fr01_FltCode 64 "CommutnFlt" 32 "TemtOv" 16 "InputVoltUn" 8 "InputVoltOv" 4 "FanFlt" 2 "OutpCurrtOv" 1 "OutpVoltOv" 0 "None" ;
+VAL_ 2566853367 DCDC12_Fr01_WrkStat 32 "SuplyVoltUndvolt" 16 "InputVoltDerat" 8 "TempDerat" 4 "DischrgComplt" 3 "error" 2 "Dischrg" 1 "StandBy" 0 "OFF" ;
+VAL_ 257 DCPro48_Fr01_WrkStat 32 "SuplyVoltUndvolt" 16 "InputVoltDerat" 8 "TempDerat" 4 "DischrgComplt" 3 "Error" 2 "Dischrg" 1 "StandBy" 0 "OFF" ;
+VAL_ 257 DCPro48_Fr01_OTErr 1 "Fault" 0 "None" ;
+VAL_ 257 DCPro48_Fr01_HWErr 1 "Fault" 0 "None" ;
+VAL_ 257 DCPro48_Fr01_OVInputErr 1 "Fault" 0 "None" ;
+VAL_ 257 DCPro48_Fr01_UVInputErr 1 "Fault" 0 "None" ;
+VAL_ 257 DCPro48_Fr01_OVOutputErr 1 "Fault" 0 "None" ;
+VAL_ 257 DCPro48_Fr01_UVOutputErr 1 "Fault" 0 "None" ;
+VAL_ 257 DCPro48_Fr01_OCOutputErr 1 "Fault" 0 "None" ;
+VAL_ 257 DCPro48_Fr01_OCInputErr 1 "Fault" 0 "None" ;
+VAL_ 257 DCPro48_Fr01_E2PROMErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_WrkStat 32 "SuplyVoltUndvolt" 16 "InputVoltDerat" 8 "TempDerat" 4 "DischrgComplt" 3 "Error" 2 "Dischrg" 1 "StandBy" 0 "OFF" ;
+VAL_ 259 DCPro12_Fr01_OTErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_HWErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_OVInputErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_UVInputErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_OVOutputErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_UVOutputErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_OCOutputErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_OCInputErr 1 "Fault" 0 "None" ;
+VAL_ 259 DCPro12_Fr01_E2PROMErr 1 "Fault" 0 "None" ;
+VAL_ 97 LSC_Fr01_TurnLightStat 2 "TurnLeftActive" 1 "TurnRightActive" 0 "Inactive" ;
+VAL_ 97 LSC_Fr01_BrakeLightStat 1 "Active" 0 "Inactive" ;
+VAL_ 97 LSC_Fr01_BackUpLightStat 1 "Active" 0 "Inactive" ;
+VAL_ 97 LSC_Fr01_ChrgrLightStat 1 "Active" 0 "Inactive" ;
+VAL_ 97 LSC_Fr01_DrvLightStat 1 "Active" 0 "Inactive" ;
+VAL_ 97 LSC_Fr01_FaultLightStat 1 "Active" 0 "Inactive" ;
+VAL_ 97 LSC_Fr01_ChrgrSocDisplyLightStat 1 "Active" 0 "Inactive" ;
+VAL_ 97 LSC_Fr01_IMMWrkLightStat 1 "Active" 0 "Inactive" ;
+VAL_ 530 LAS_Fr03_TskTypFeb 1 "SinglePointNavigation" 0 "None" ;
+VAL_ 530 LAS_Fr03_WorkState 5 "Pause" 4 "Failure" 3 "Finished" 2 "Running" 1 "Standby" 0 "Initial" ;
+VAL_ 530 LAS_Fr03_VehStopReq 1 "Request" 0 "NoRequest" ;
+VAL_ 530 LAS_Fr03_VehDrvState 5 "TurnRight" 4 "TurnLeft" 3 "VehBrake" 2 "BackupDrive" 1 "StraightDrive" 0 "StandStill" ;
+VAL_ 530 LAS_Fr03_FaultCode 128 "LocationLost" 64 "PlanFail" 32 "RdmTmOut" 16 "LCameraFlt" 8 "LCameraFlt" 4 "F3dLidarFlt" 2 "B2dLidarFlt" 1 "F2dLidarFlt" 0 "None" ;
+VAL_ 1168 EAS_Fr01_WrkStat 2 "Fault" 1 "On" 0 "Off" ;
+VAL_ 1168 EAS_Fr01_FltStat 32 "CommunicationFlt" 16 "ECUFlt" 8 "OverTemptFlt" 4 "OverCurretFlt" 2 "OverVoltFlt" 1 "UnderVoltFlt" 0 "NoFlt" ;
+VAL_ 656 PCAN_Fr01_OvrdCmd 2 "Override" 1 "Reset" 0 "None" ;
+VAL_ 656 PCAN_Fr01_PLockStatReq 2 "Park" 1 "Release" 0 "None" ;
+VAL_ 656 PCAN_Fr01_VehStopReq 1 "RequestStop" 0 "NoRequest" ;
+VAL_ 656 PCAN_Fr01_WhlAngleSet 3 "Rotation" 2 "Straight" 1 "Curve" 0 "Undefine" ;
+VAL_ 656 PCAN_Fr01_DrvModeCtrlReq 2 "RemoteControl" 1 "Override" 0 "Autonomous" ;
+VAL_ 656 PCAN_Fr01_FreqState 5 "Freq2p0" 4 "Freq1p5" 3 "Freq1p0" 2 "Freq0p5" 1 "Freq0p2" 0 "Undefine" ;

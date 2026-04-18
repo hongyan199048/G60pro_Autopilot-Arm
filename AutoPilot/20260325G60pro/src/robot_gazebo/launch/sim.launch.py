@@ -23,8 +23,9 @@ def generate_launch_description():
     desc_share = get_package_share_directory('robot_description')
     extra_model_path = os.path.dirname(desc_share)
     gazebo_system_models = '/usr/share/gazebo-11/models'
+    user_models = os.path.expanduser('~/.gazebo/models')
     existing = os.environ.get('GAZEBO_MODEL_PATH', '')
-    paths = [p for p in [extra_model_path, gazebo_system_models, existing] if p]
+    paths = [p for p in [extra_model_path, gazebo_system_models, user_models, existing] if p]
     os.environ['GAZEBO_MODEL_PATH'] = ':'.join(paths)
 
     use_sim_time = DeclareLaunchArgument(
@@ -34,9 +35,12 @@ def generate_launch_description():
     )
 
     # 1. 启动 Gazebo
+    parking_lot_world = os.path.join(
+        get_package_share_directory('robot_gazebo'), 'worlds', 'parking_lot.world'
+    )
     gazebo = IncludeLaunchDescription(
         os.path.join(get_package_share_directory('gazebo_ros'), 'launch', 'gzserver.launch.py'),
-        launch_arguments={'world': '/opt/ros/humble/share/gazebo_ros/worlds/empty.world'}.items()
+        launch_arguments={'world': parking_lot_world}.items()
     )
 
     # 2. 启动 Gazebo 客户端 (GUI 模式)

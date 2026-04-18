@@ -130,8 +130,9 @@ class RobotBaseNode(Node):
 
         self.motor_cmd_pub.publish(motor_cmd)
 
-        # 更新里程计
-        self._update_odometry(vx, vy, omega)
+        # 仿真模式下 Gazebo 已发布 odom 和 odom→base_footprint TF，跳过以避免冲突
+        if not self.use_sim:
+            self._update_odometry(vx, vy, omega)
 
     def _update_odometry(self, vx, vy, omega):
         """更新里程计"""

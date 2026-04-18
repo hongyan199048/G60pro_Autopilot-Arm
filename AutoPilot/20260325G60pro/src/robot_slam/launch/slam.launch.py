@@ -29,7 +29,7 @@ def generate_launch_description():
         }],
         arguments=[
             '-configuration_directory', slam_config_dir + '/config',
-            '-configuration_basename', 'cartographer.lua'
+            '-configuration_basename', 'cartographer_sim.lua'
         ],
         remappings=[
             ('points2', 'lidar/multi/points'),  # 多线点云 -> Cartographer
