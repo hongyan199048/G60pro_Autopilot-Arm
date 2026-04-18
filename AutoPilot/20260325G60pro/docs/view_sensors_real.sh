@@ -48,7 +48,7 @@ sleep 3
 
 # 启动 RViz
 echo "启动 RViz..."
-rviz2 -d "$WS_DIR/src/robot_rviz/rviz/sensors_view.rviz" &
+rviz2 -d "$WS_DIR/src/robot_rviz/rviz/sensors_view_real.rviz" &
 RVIZ_PID=$!
 
 echo ""

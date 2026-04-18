@@ -51,7 +51,7 @@ sleep 3
 
 # 第6步：启动RViz
 echo "[6/6] 启动RViz..."
-rviz2 -d "$WS_DIR/src/robot_rviz/rviz/slam.rviz" &
+rviz2 -d "$WS_DIR/src/robot_rviz/rviz/slam_sim.rviz" &
 RVIZ_PID=$!
 
 echo ""

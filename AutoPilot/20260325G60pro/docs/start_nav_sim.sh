@@ -107,7 +107,7 @@ sleep 5
 header
 echo "Phase 5: 启动 RViz（SLAM 建图视图）"
 echo "  显示: /map, /lidar/multi/points, TF, RobotModel"
-ros2 run rviz2 rviz2 -d "${WORKSPACE_DIR}/src/robot_rviz/rviz/slam.rviz" &
+ros2 run rviz2 rviz2 -d "${WORKSPACE_DIR}/src/robot_rviz/rviz/slam_sim.rviz" &
 RVIZPID=$!
 echo "  RViz PID: $RVIZPID"
 
@@ -193,7 +193,7 @@ sleep 5
 header
 echo "Phase 10: 启动 RViz（导航视图）"
 echo "显示: /map, /scan, /plan (全局路径), /local_plan (局部路径)"
-ros2 run rviz2 rviz2 -d "${WORKSPACE_DIR}/src/robot_rviz/rviz/navigation.rviz" &
+ros2 run rviz2 rviz2 -d "${WORKSPACE_DIR}/src/robot_rviz/rviz/navigation_sim.rviz" &
 NAV_RVIZ_PID=$!
 echo "  RViz PID: $NAV_RVIZ_PID"
 
