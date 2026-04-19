@@ -12,6 +12,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', ['launch/sim.launch.py']),
         ('share/' + package_name + '/worlds', glob('worlds/*.world')),
+        ('share/' + package_name + '/models/warehouse', glob('models/warehouse/*')),
     ],
     install_requires=['setuptools'],
     zip_safe=True,

@@ -22,7 +22,7 @@ options = {
   provide_odom_frame = false,          -- false：只发布 map→odom，避免与 Gazebo 发布 odom→base_footprint 冲突
   publish_frame_projected_to_2d = true,
   use_pose_extrapolator = true,
-  use_odometry = false,                -- 不使用里程计话题，纯扫描匹配，避免 odom 抖动影响
+  use_odometry = true,                 -- 使用 Gazebo planar_move 发布的真值 odom，提供姿态外推先验，避免扫描匹配失败
   use_nav_sat = false,
   use_landmarks = false,
   num_laser_scans = 0,
@@ -58,13 +58,25 @@ TRAJECTORY_BUILDER_2D.max_range = 30.0
 TRAJECTORY_BUILDER_2D.min_z = 0.1
 TRAJECTORY_BUILDER_2D.max_z = 2.5
 
--- 运动滤波
-TRAJECTORY_BUILDER_2D.motion_filter.max_time_seconds = 0.5
-TRAJECTORY_BUILDER_2D.motion_filter.max_distance_meters = 0.1
-TRAJECTORY_BUILDER_2D.motion_filter.max_angle_radians = 0.004
+-- 运动滤波：有 odom 先验后可用距离/角度触发，降低多余帧插入
+TRAJECTORY_BUILDER_2D.motion_filter.max_time_seconds = 5.0
+TRAJECTORY_BUILDER_2D.motion_filter.max_distance_meters = 0.2
+TRAJECTORY_BUILDER_2D.motion_filter.max_angle_radians = 0.017  -- ~1°
+
+-- 在线相关扫描匹配（旋转鲁棒性关键）：
+-- Ceres 是局部优化器，初始位姿偏差时（旋转场景下 odom 有延迟）容易陷入错误极小值。
+-- RTCSM 先在搜索窗口内暴力全局搜索最优初始位姿，再交 Ceres 精化，显著改善旋转时的错位问题。
+TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = true
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.linear_search_window = 0.1
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.angular_search_window = math.rad(20.)
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.translation_delta_cost_weight = 1e-1
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = 1e-1
 
 -- 扫描匹配权重
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.translation_weight = 10
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.rotation_weight = 40
+-- occupied_space_weight：当前帧与已有地图的对齐权重，提高可减少沿墙滑动导致的双线
+-- translation/rotation_weight：位姿先验约束，与 occupied_space_weight 同比例提高
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.occupied_space_weight = 10
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.translation_weight = 100
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.rotation_weight = 400
 
 return options
