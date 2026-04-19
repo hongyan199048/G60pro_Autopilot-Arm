@@ -16,8 +16,15 @@ if [ "$1" = "auto" ]; then
 fi
 
 WORKSPACE_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-MAP_NAME="g60pro_sim_map"
+MAP_BASE="g60pro_sim_map"
 MAP_DIR="${WORKSPACE_DIR}/maps"
+
+# 自动查找下一个可用版本号 v0, v1, v2 ...
+_ver=0
+while [ -f "${MAP_DIR}/${MAP_BASE}_v${_ver}.yaml" ]; do
+    _ver=$(( _ver + 1 ))
+done
+MAP_NAME="${MAP_BASE}_v${_ver}"
 MAP_YAML="${MAP_DIR}/${MAP_NAME}.yaml"
 
 function pause() {
@@ -141,17 +148,15 @@ header
 echo "Phase 7: 保存 Cartographer 地图"
 echo "保存为: ${MAP_DIR}/${MAP_NAME}.yaml"
 echo ""
-echo "注意：当前 Gazebo 世界为空（无障碍物），"
-echo "      保存的地图会是全空地图（正常现象）。"
-echo "      本脚本主要用于验证 Nav2 导航框架功能正常。"
+echo "版本号自动递增，已有版本不会被覆盖。"
 echo ""
 
 # 使用 nav2_map_server 保存 Cartographer 发布的 /map
 # 前提：Cartographer occupancy_grid_node 必须正在运行并发布 /map
-ros2 run nav2_map_server map_saver_cli -f "${MAP_DIR}/${MAP_NAME}" __ns:=/ &
+ros2 run nav2_map_server map_saver_cli -f "${MAP_DIR}/${MAP_NAME}" &
 SAVERPID=$!
 echo "  地图保存进程 PID: $SAVERPID"
-sleep 3
+sleep 5
 kill $SAVERPID 2>/dev/null
 
 if [ -f "${MAP_DIR}/${MAP_NAME}.yaml" ]; then
@@ -215,9 +220,9 @@ echo "保存的地图："
 echo "  ${MAP_YAML}"
 echo ""
 echo "RViz 操作说明："
-echo "  1. 点击 '2D Nav Goal' 按钮，在地图上点击目标点"
-echo "  2. 拖拽设置方向，机器人将自主导航到目标"
-echo "  3. 点击 'Set Initial Pose' 设置机器人初始位置（重要！）"
+echo "  1. 先点击 '2D Pose Estimate' 按钮，在地图上点击机器人当前位置并拖拽设置朝向（初始化定位）"
+echo "  2. 再点击 '2D Goal Pose' 按钮，在地图上点击目标点并拖拽设置朝向"
+echo "  3. 机器人将自主规划路径并导航到目标点"
 echo ""
 echo "按 Ctrl+C 停止所有节点"
 echo "================================================="

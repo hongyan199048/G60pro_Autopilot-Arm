@@ -30,8 +30,32 @@ def generate_launch_description():
         description='地图文件路径'
     )
 
+    # 将 3D 点云转换为 2D 激光扫描，供 AMCL 和代价地图使用
+    pointcloud_to_laserscan = Node(
+        package='pointcloud_to_laserscan',
+        executable='pointcloud_to_laserscan_node',
+        name='pointcloud_to_laserscan',
+        parameters=[{
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+            'target_frame': 'base_link',
+            'transform_tolerance': 0.01,
+            'min_height': -0.2,
+            'max_height': 1.0,
+            'angle_min': -3.14159,
+            'angle_max': 3.14159,
+            'angle_increment': 0.00436,
+            'scan_time': 0.1,
+            'range_min': 0.1,
+            'range_max': 30.0,
+            'use_inf': True,
+        }],
+        remappings=[
+            ('cloud_in', '/lidar/multi/points'),
+            ('scan', '/scan'),
+        ],
+    )
+
     # Nav2 bringup（包含 localization: map_server+amcl + navigation: controller+planner）
-    # 使用 bringup_launch.py 而非单独的 navigation_launch.py
     nav2_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             '/opt/ros/humble/share/nav2_bringup/launch/bringup_launch.py'
@@ -40,7 +64,7 @@ def generate_launch_description():
             'use_sim_time': LaunchConfiguration('use_sim_time'),
             'params_file': params_file,
             'map': LaunchConfiguration('map'),
-            'slam': 'False',        # 不使用 SLAM（使用 AMCL 定位）
+            'slam': 'False',
             'autostart': 'True'
         }.items()
     )
@@ -48,5 +72,6 @@ def generate_launch_description():
     return LaunchDescription([
         use_sim_time,
         map_file,
-        nav2_launch
+        pointcloud_to_laserscan,
+        nav2_launch,
     ])
