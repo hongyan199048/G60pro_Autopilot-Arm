@@ -44,21 +44,12 @@ LIDAR_PID=$!
 sleep 3
 
 # 第6步：启动 Cartographer SLAM
-# 话题映射：Cartographer 的 points2 <- /lidar/rs16/points（rslidar_sdk 发布）
+# 使用 slam_real.launch.py：cartographer_real.lua + /lidar/rs16/points + occupancy_grid_node
 echo "[6/6] 启动 Cartographer SLAM..."
-SLAM_CONFIG_DIR="$WS_DIR/src/robot_slam/config"
-ros2 run cartographer_ros cartographer_node \
-  -configuration_directory "$SLAM_CONFIG_DIR" \
-  -configuration_basename cartographer_real.lua \
-  --ros-args \
-  --remap points2:=/lidar/rs16/points &
+ros2 launch robot_slam slam_real.launch.py &
 CARTO_PID=$!
-sleep 3
-
-ros2 run cartographer_ros cartographer_occupancy_grid_node \
-  --ros-args -p resolution:=0.05 -p publish_period_sec:=1.0 &
-GRID_PID=$!
-sleep 1
+GRID_PID=$CARTO_PID   # launch 内统一管理，PID 相同
+sleep 4
 
 # 启动 RViz
 echo "启动 RViz..."

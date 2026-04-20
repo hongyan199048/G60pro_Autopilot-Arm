@@ -105,7 +105,7 @@ echo "Phase 4: 启动 Cartographer SLAM"
 echo "  - 订阅 /lidar/multi/points (Helios16 点云)"
 echo "  - 发布 /map (占据栅格地图)"
 echo "  - 发布 /scan (2D 扫描，用于 Nav2 避障)"
-ros2 launch robot_slam slam.launch.py use_sim_time:=true &
+ros2 launch robot_slam slam_sim.launch.py &
 SLAMPID=$!
 echo "  Cartographer PID: $SLAMPID"
 sleep 5
@@ -189,7 +189,7 @@ echo "  - Nav2 Controller（DWA 局部规划）"
 echo "  - 全局/局部代价地图（避障）"
 echo "  - EKF 定位融合"
 echo ""
-ros2 launch robot_navigation navigation.launch.py use_sim_time:=true map:="${MAP_YAML}" &
+ros2 launch robot_navigation navigation_sim.launch.py map:="${MAP_YAML}" &
 NAVPID=$!
 echo "  Nav2 导航 PID: $NAVPID"
 sleep 5

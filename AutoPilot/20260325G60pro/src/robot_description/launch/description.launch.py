@@ -40,7 +40,7 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'robot_description': robot_description_content,
-            'use_sim_time': True
+            'use_sim_time': False
         }]
     )
 

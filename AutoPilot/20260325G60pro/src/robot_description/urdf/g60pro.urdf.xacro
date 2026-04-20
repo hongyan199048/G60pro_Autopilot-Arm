@@ -680,11 +680,27 @@
   <!-- robot_state_publisher 会自动发布 fixed joint 的静态 TF -->
 
   <!-- Gazebo：材质与颜色，便于仿真中区分 -->
-  <!-- planar_move 机器人：禁用 base_link 重力，避免车体因物理引擎缓慢下沉 -->
+  <!-- planar_move 机器人：禁用重力防下沉；零摩擦防碰墙翻转 -->
   <gazebo reference="base_link">
     <material>Gazebo/Grey</material>
     <gravity>0</gravity>
-    <max_contacts>2</max_contacts>
+    <max_contacts>10</max_contacts>
+    <surface>
+      <contact>
+        <ode>
+          <kp>1e4</kp>
+          <kd>10.0</kd>
+          <max_vel>0.1</max_vel>
+          <min_depth>0.005</min_depth>
+        </ode>
+      </contact>
+      <friction>
+        <ode>
+          <mu>0</mu>
+          <mu2>0</mu2>
+        </ode>
+      </friction>
+    </surface>
   </gazebo>
   <!-- 多线雷达材质在宏内部设置 -->
   <gazebo reference="single_lidar_1_link"><material>Gazebo/Red</material></gazebo>

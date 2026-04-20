@@ -45,7 +45,7 @@ sleep 3
 
 # 第5步：启动Cartographer
 echo "[5/6] 启动Cartographer SLAM..."
-ros2 launch robot_slam slam.launch.py use_sim_time:=true &
+ros2 launch robot_slam slam_sim.launch.py &
 CARTO_PID=$!
 sleep 3
 

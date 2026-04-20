@@ -1,25 +1,25 @@
 amcl:
   ros__parameters:
     use_sim_time: true
-    alpha1: 0.2
-    alpha2: 0.2
-    alpha3: 0.2
-    alpha4: 0.2
-    alpha5: 0.2
-    base_frame_id: base_link
+    alpha1: 0.02   # planar_move odom 近乎无噪声，降低粒子扩散
+    alpha2: 0.02
+    alpha3: 0.02
+    alpha4: 0.02
+    alpha5: 0.02
+    base_frame_id: base_footprint
     beam_skip_distance: 0.5
     beam_skip_error_threshold: 0.9
-    beam_skip_percentage: 0.9
+    beam_skip_percentage: 0.3
     do_beamskip: false
     global_frame_id: map
     lambda_short: 0.1
     laser_likelihood_max_dist: 2.0
-    laser_max_range: 100.0
-    laser_min_range: -1.0
+    laser_max_range: 30.0
+    laser_min_range: 0.5
     laser_model_type: likelihood_field
-    max_beams: 60
+    max_beams: 360  # 16线转2D约1440条，取360条（每1°一条），大幅提升匹配精度
     max_particles: 5000
-    min_particles: 500
+    min_particles: 2000
     odom_frame_id: odom
     pf_err: 0.05
     pf_z: 0.99
@@ -30,12 +30,7 @@ amcl:
     sigma_hit: 0.2
     tf_broadcast: true
     transform_tolerance: 1.0
-    set_initial_pose: true
-    initial_pose:
-      x: 0.0
-      y: 0.0
-      z: 0.0
-      yaw: 0.0
+    set_initial_pose: false  # 必须用 RViz 的 2D Pose Estimate 手动设置初始位置
     update_min_a: 0.2
     update_min_d: 0.25
     z_hit: 0.5
@@ -218,6 +213,7 @@ map_server:
   ros__parameters:
     use_sim_time: true
     yaml_filename: ""
+    publish_period: 0.0  # 禁用周期发布，防止 AMCL 每秒收到地图后重置粒子滤波器
 
 map_saver:
   ros__parameters:

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-G60Pro Cartographer SLAM 启动文件
+G60Pro Cartographer SLAM 启动文件 — 仿真（Gazebo）
+订阅 /lidar/multi/points，加载 cartographer_sim.lua
 """
 
 from launch import LaunchDescription
@@ -13,12 +14,12 @@ from ament_index_python.packages import get_package_share_directory
 def generate_launch_description():
     use_sim_time = DeclareLaunchArgument(
         'use_sim_time',
-        default_value='false',
+        default_value='true',
         description='使用模拟时间'
     )
 
-    # Cartographer 节点 - 用多线激光雷达
     slam_config_dir = get_package_share_directory('robot_slam')
+
     cartographer = Node(
         package='cartographer_ros',
         executable='cartographer_node',
@@ -32,13 +33,12 @@ def generate_launch_description():
             '-configuration_basename', 'cartographer_sim.lua'
         ],
         remappings=[
-            ('points2', 'lidar/multi/points'),  # 多线点云 -> Cartographer
-            ('imu', 'imu'),  # IMU话题
-            ('odom', 'odom')  # 里程计话题
+            ('points2', 'lidar/multi/points'),
+            ('imu', 'imu'),
+            ('odom', 'odom')
         ]
     )
 
-    # Cartographer 占据网格
     cartographer_occupancy_grid = Node(
         package='cartographer_ros',
         executable='cartographer_occupancy_grid_node',
