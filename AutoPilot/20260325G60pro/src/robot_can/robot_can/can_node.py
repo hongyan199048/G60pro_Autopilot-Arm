@@ -1,206 +1,421 @@
 #!/usr/bin/env python3
 """
 G60Pro CAN 通信节点
-负责与 RDM 控制器通信，通过 CAN1 发送指令，CAN4 接收电机状态
+基于 DBC (G60_CAN1_RDM_V1.0.dbc) 精确编解码
+
+工控机 → RDM (Tx):
+  0x210 LAS_Fr01: 四轮驱动转速指令 (RPM)
+  0x211 LAS_Fr02: 四轮转向角度指令 (deg)
+  0x212 LAS_Fr03: 任务状态帧
+
+RDM → 工控机 (Rx):
+  0x1F  RDM_Fr03: 整车状态（高压就绪、急停、驻车锁等）
+  0x19  RDM_Fr35: 四轮转速反馈 (RPM)
+  0x1B  RDM_Fr36: 四轮转向角反馈 (deg)
+  0x2A  RDM_Fr37: FL/FR 电机位置 (32bit signed)
+  0x2B  RDM_Fr38: RL/RR 电机位置 (32bit signed)
 """
 
+import os
+import math
+import threading
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import QoSProfile, ReliabilityPolicy, HistoryPolicy
+from rclpy.qos import QoSProfile
 
-from std_msgs.msg import Header
+from builtin_interfaces.msg import Time
 from robot_msgs.msg import MotorCmd, MotorState, CanFrame
 
-import os
 import can
-import struct
-import time
+import cantools
+
+
+# CAN ID 常量
+ID_WHL_SPD_CMD  = 0x210   # 四轮转速指令
+ID_WHL_YAW_CMD  = 0x211   # 四轮转向角指令
+ID_STATUS_CMD   = 0x212   # 任务状态帧
+ID_WHL_SPD_FBK  = 0x19    # 四轮转速反馈
+ID_WHL_YAW_FBK  = 0x1B    # 四轮转向角反馈
+ID_VEH_STAT_FBK = 0x1F    # 整车状态反馈
+ID_FL_MOTOR_POS = 0x2A    # FL/FR 电机位置
+ID_RL_MOTOR_POS = 0x2B    # RL/RR 电机位置
+
+# 单位换算
+RAD2DEG   = 180.0 / math.pi
+RPM2RADS  = 2.0 * math.pi / 60.0
+RADS2RPM  = 60.0 / (2.0 * math.pi)
+
+# DBC 路径（V1.0）
+DBC_PATH = '/home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/src/robot_can/config/can1/G60_CAN1_RDM_V1.0.dbc'
 
 
 class CanNode(Node):
-    """CAN 通信节点"""
+    """CAN 通信节点 — 基于 DBC V1.0 协议"""
 
     def __init__(self):
         super().__init__('robot_can_node')
 
-        # 声明参数
-        self.declare_parameter('can1_channel', 'can0')
-        self.declare_parameter('can4_channel', 'can1')
-        self.declare_parameter('can1_baudrate', 500000)
-        self.declare_parameter('can4_baudrate', 1000000)
+        # 参数
+        self.declare_parameter('can_channel', 'can0')
         self.declare_parameter('use_sim', False)
 
-        self.can1_channel = self.get_parameter('can1_channel').value
-        self.can4_channel = self.get_parameter('can4_channel').value
+        self.can_channel = self.get_parameter('can_channel').value
         self.use_sim = self.get_parameter('use_sim').value
 
-        # CAN 总线
-        self.bus_can1 = None
-        self.bus_can4 = None
+        # 加载 DBC
+        self._db = None
+        self._load_dbc()
 
-        # 初始化 CAN 总线
-        self._init_can_buses()
+        # CAN 总线
+        self.bus = None
+        self._init_can()
 
         # 订阅 motor_cmd
         self.motor_cmd_sub = self.create_subscription(
-            MotorCmd,
-            'motor_cmd',
-            self._motor_cmd_callback,
-            QoSProfile(depth=10)
-        )
+            MotorCmd, 'motor_cmd', self._on_motor_cmd, QoSProfile(depth=10))
 
         # 发布 motor_state
         self.motor_state_pub = self.create_publisher(
-            MotorState,
-            'motor_state',
-            QoSProfile(depth=10)
-        )
+            MotorState, 'motor_state', QoSProfile(depth=10))
 
-        # 发布 CAN 帧（用于调试）
+        # 发布整车状态
+        self.veh_stat_pub = self.create_publisher(
+            CanFrame, 'veh_status', QoSProfile(depth=10))
+
+        # 发布原始 CAN 帧（调试）
         self.can_frame_pub = self.create_publisher(
-            CanFrame,
-            'can_frames',
-            QoSProfile(depth=100)
-        )
+            CanFrame, 'can_frames', QoSProfile(depth=200))
 
-        # 定时器 - 定期检查 CAN 接收
-        self.timer = self.create_timer(0.01, self._can_receive_callback)
+        # 发送定时器 50ms (20Hz)
+        self.timer = self.create_timer(0.05, self._send_periodic)
 
-        self.get_logger().info('CAN 节点已启动')
+        # 缓存上次指令
+        self._last_cmd = None
+        self._rolling_counter = 0
 
-    def _init_can_buses(self):
-        """初始化 CAN 总线"""
+        self.get_logger().info(
+            f'CAN 节点已启动 (channel={self.can_channel}, sim={self.use_sim})')
+
+    # ──────────────────────────────────────────────────────────
+    # DBC 加载
+    # ──────────────────────────────────────────────────────────
+
+    def _load_dbc(self):
+        if not os.path.exists(DBC_PATH):
+            self.get_logger().warn(f'DBC 不存在: {DBC_PATH}，将使用手动编解码')
+            return
+        try:
+            self._db = cantools.db.load_file(DBC_PATH)
+            names = [m.name for m in self._db.messages]
+            self.get_logger().info(f'DBC 加载成功: {DBC_PATH}')
+            self.get_logger().info(f'消息列表: {names}')
+        except Exception as e:
+            self.get_logger().error(f'DBC 加载失败: {e}')
+            self._db = None
+
+    # ──────────────────────────────────────────────────────────
+    # CAN 初始化
+    # ──────────────────────────────────────────────────────────
+
+    def _init_can(self):
         if self.use_sim:
-            self.get_logger().info('模拟模式启用，跳过 CAN 初始化')
+            self.get_logger().info('模拟模式，跳过 CAN 初始化')
+            return
+        try:
+            self.bus = can.interface.Bus(channel=self.can_channel, bustype='socketcan')
+            self.get_logger().info(f'CAN 已连接: {self.can_channel}')
+        except Exception as e:
+            self.get_logger().error(f'CAN 连接失败: {e}')
+            self.bus = None
+
+    # ──────────────────────────────────────────────────────────
+    # 单位转换
+    # ──────────────────────────────────────────────────────────
+
+    @staticmethod
+    def _rads_to_rpm(rads: float) -> float:
+        return rads * RADS2RPM
+
+    @staticmethod
+    def _rpm_to_rads(rpm: float) -> float:
+        return rpm * RPM2RADS
+
+    @staticmethod
+    def _rad_to_deg(rad: float) -> float:
+        return rad * RAD2DEG
+
+    @staticmethod
+    def _deg_to_rad(deg: float) -> float:
+        return deg / RAD2DEG
+
+    # ──────────────────────────────────────────────────────────
+    # 回调
+    # ──────────────────────────────────────────────────────────
+
+    def _on_motor_cmd(self, msg: MotorCmd):
+        """缓存 MotorCmd 用于周期性发送"""
+        self._last_cmd = msg
+
+    def _send_periodic(self):
+        """每 50ms 发送控制指令"""
+        if self._last_cmd is None:
             return
 
-        try:
-            # CAN1 - 连接 RDM 控制器
-            self.bus_can1 = can.interface.Bus(
-                channel=self.can1_channel,
-                bustype='socketcan'
-            )
-            self.get_logger().info(f'CAN1 已连接: {self.can1_channel}')
-        except Exception as e:
-            self.get_logger().error(f'CAN1 连接失败: {e}')
-            self.bus_can1 = None
+        cmd = self._last_cmd
+        rc = self._rolling_counter & 0xF
+        self._rolling_counter = (self._rolling_counter + 1) & 0xF
 
         try:
-            # CAN4 - 连接电机驱动器
-            self.bus_can4 = can.interface.Bus(
-                channel=self.can4_channel,
-                bustype='socketcan'
-            )
-            self.get_logger().info(f'CAN4 已连接: {self.can4_channel}')
+            self._send_whl_spd(cmd)
+            self._send_whl_yaw(cmd)
+            self._send_status(rc)
         except Exception as e:
-            self.get_logger().error(f'CAN4 连接失败: {e}')
-            self.bus_can4 = None
+            self.get_logger().error(f'CAN 发送异常: {e}')
 
-    def _motor_cmd_callback(self, msg: MotorCmd):
-        """处理电机指令，发送到 CAN1"""
-        # 4轮8驱：4个转向角度 + 4个驱动速度
-        steer_angles = msg.steer_angle  # 4个转向角度
-        drive_velocities = msg.drive_velocity  # 4个驱动速度
+    # ──────────────────────────────────────────────────────────
+    # 发送
+    # ──────────────────────────────────────────────────────────
 
-        # 构建 CAN 帧并发送到 CAN1
-        # 注意：具体的 DBC 消息格式需要根据实际协议实现
-        self._send_can1_cmd(steer_angles, drive_velocities)
+    def _send_whl_spd(self, cmd: MotorCmd):
+        """0x210 四轮转速指令 (RPM)"""
+        fl = self._rads_to_rpm(cmd.drive_velocity[0])
+        fr = self._rads_to_rpm(cmd.drive_velocity[1])
+        rl = self._rads_to_rpm(cmd.drive_velocity[2])
+        rr = self._rads_to_rpm(cmd.drive_velocity[3])
 
-    def _send_can1_cmd(self, steer_angles, drive_velocities):
-        """发送指令到 CAN1 (RDM 控制器)"""
-        if self.bus_can1 is None:
+        if self._db is not None:
+            msg_def = self._db.get_message_by_name('LAS_Fr01_0x210')
+            data = msg_def.encode({
+                'LAS_Fr01_FLWhlSpdReq': fl,
+                'LAS_Fr01_FRWhlSpdReq': fr,
+                'LAS_Fr01_RLWhlSpdReq': rl,
+                'LAS_Fr01_RRWhlSpdReq': rr,
+            })
+        else:
+            import struct
+            raw = [int(v * 100 + 300 + 0.5) for v in [fl, fr, rl, rr]]
+            data = struct.pack('<hhhh', *raw)
+
+        self._can_send(ID_WHL_SPD_CMD, data)
+
+    def _send_whl_yaw(self, cmd: MotorCmd):
+        """0x211 四轮转向角指令 (deg)"""
+        fl = self._rad_to_deg(cmd.steer_angle[0])
+        fr = self._rad_to_deg(cmd.steer_angle[1])
+        rl = self._rad_to_deg(cmd.steer_angle[2])
+        rr = self._rad_to_deg(cmd.steer_angle[3])
+
+        if self._db is not None:
+            msg_def = self._db.get_message_by_name('LAS_Fr02_0x211')
+            data = msg_def.encode({
+                'LAS_Fr02_FLWhlYawReq': fl,
+                'LAS_Fr02_FRWhlYawReq': fr,
+                'LAS_Fr02_RLWhlYawReq': rl,
+                'LAS_Fr02_RRWhlYawReq': rr,
+            })
+        else:
+            import struct
+            raw = [int(v * 100 + 300 + 0.5) for v in [fl, fr, rl, rr]]
+            data = struct.pack('<hhhh', *raw)
+
+        self._can_send(ID_WHL_YAW_CMD, data)
+
+    def _send_status(self, rc: int):
+        """0x212 任务状态帧"""
+        if self._db is not None:
+            msg_def = self._db.get_message_by_name('LAS_Fr03_0x212')
+            data = msg_def.encode({
+                'LAS_Fr03_TskTypFeb': 0,
+                'LAS_Fr03_WorkState': 0,
+                'LAS_Fr03_VehStopReq': 0,
+                'LAS_Fr03_VehDrvState': 0,
+                'LAS_Fr03_FaultCode': 0,
+                'LAS_Fr03_RollgCntr': rc,
+                'LAS_Fr03_AdmNotRespondTsk': 0,
+                'LAS_Fr03_F2dLidarFail': 0,
+                'LAS_Fr03_B2dLidarFail': 0,
+                'LAS_Fr03_F3dLidarFail': 0,
+                'LAS_Fr03_LCameraFail': 0,
+                'LAS_Fr03_RCameraFail': 0,
+                'LAS_Fr03_FCameraFail': 0,
+                'LAS_Fr03_BCameraFail': 0,
+                'LAS_Fr03_ImuFail': 0,
+                'LAS_Fr03_PerceptionFail': 0,
+                'LAS_Fr03_PncFail': 0,
+                'LAS_Fr03_LocationLost': 0,
+                'LAS_Fr03_TargtPoint': 0,
+                'LAS_Fr03_StopByObstacle': 0,
+                'LAS_Fr03_OutOfStation': 0,
+            })
+        else:
+            import struct
+            data = struct.pack('<BBBBBBBB', 0, 0, 0, 0, 0, rc, 0, 0)
+
+        self._can_send(ID_STATUS_CMD, data)
+
+    def _can_send(self, can_id: int, data: bytes):
+        if self.bus is None:
             return
-
+        msg = can.Message(arbitration_id=can_id, data=data,
+                          is_extended_id=False, is_fd=False, dlc=len(data))
         try:
-            # 打包数据：根据 DBC 协议格式
-            # 示例：0x101 - 转向角度 + 驱动速度命令
-            data = struct.pack('<8f',
-                              steer_angles[0], steer_angles[1], steer_angles[2], steer_angles[3],
-                              drive_velocities[0], drive_velocities[1], drive_velocities[2], drive_velocities[3])
-
-            msg = can.Message(
-                arbitration_id=0x101,
-                data=data,
-                is_extended_id=False
-            )
-            self.bus_can1.send(msg)
-
+            self.bus.send(msg)
         except Exception as e:
-            self.get_logger().error(f'CAN1 发送失败: {e}')
+            self.get_logger().error(f'发送 CAN 帧 0x{can_id:03X} 失败: {e}')
+
+    # ──────────────────────────────────────────────────────────
+    # 接收
+    # ──────────────────────────────────────────────────────────
 
     def _can_receive_callback(self):
-        """定期接收 CAN4 数据"""
-        if self.bus_can4 is None:
+        """在主循环中调用，接收所有 CAN 帧"""
+        if self.bus is None:
             return
-
         try:
-            # 接收 CAN4 消息（电机状态反馈）
             while True:
-                msg = self.bus_can4.recv(timeout=0.001)
+                msg = self.bus.recv(timeout=0.001)
                 if msg is None:
                     break
-
-                # 解析电机状态
-                self._parse_motor_state(msg)
-
-                # 发布 CAN 帧用于调试
-                self._publish_can_frame(msg)
-
+                self._handle_frame(msg)
         except Exception as e:
-            self.get_logger().error(f'CAN4 接收错误: {e}')
+            self.get_logger().error(f'CAN 接收错误: {e}')
 
-    def _parse_motor_state(self, msg: can.Message):
-        """解析电机状态消息"""
-        # 根据 DBC 协议解析
-        # 示例：0x201 - 电机状态反馈
-        if msg.arbitration_id == 0x201:
-            try:
-                state_msg = MotorState()
-                state_msg.header.stamp = self.get_clock().now().to_msg()
-                state_msg.header.frame_id = 'base_link'
+    def _handle_frame(self, msg: can.Message):
+        """根据 CAN ID 分发"""
+        arb = msg.arbitration_id
+        self._publish_raw(msg)
 
-                # 解析数据（示例：根据实际协议调整）
-                if len(msg.data) >= 16:
-                    steer_feedback = struct.unpack('<4f', msg.data[0:16])
-                    state_msg.steer_angle_feedback = list(steer_feedback)
+        if arb == ID_WHL_SPD_FBK:
+            self._decode_whl_spd(msg)
+        elif arb == ID_WHL_YAW_FBK:
+            self._decode_whl_yaw(msg)
+        elif arb == ID_VEH_STAT_FBK:
+            self._decode_veh_stat(msg)
+        elif arb == ID_FL_MOTOR_POS:
+            self._decode_motor_pos_2a(msg)
+        elif arb == ID_RL_MOTOR_POS:
+            self._decode_motor_pos_2b(msg)
+        else:
+            self.get_logger().debug(f'未知 CAN ID: 0x{arb:03X}')
 
-                if len(msg.data) >= 32:
-                    drive_feedback = struct.unpack('<4f', msg.data[16:32])
-                    state_msg.drive_velocity_feedback = list(drive_feedback)
+    def _decode_whl_spd(self, msg: can.Message):
+        """0x19 四轮转速反馈 RPM → MotorState.drive_velocity_feedback (rad/s)"""
+        try:
+            state = MotorState()
+            state.stamp = self.get_clock().now().to_msg()
 
-                # 温度、电流等（示例值）
-                state_msg.temperature = [0.0] * 4
-                state_msg.current = [0.0] * 4
-                state_msg.voltage = 24.0
-                state_msg.error_code = 0
+            if self._db is not None:
+                decoded = self._db.get_message_by_name('RDM_Fr35_0x19').decode(msg.data)
+                state.drive_velocity_feedback = [
+                    self._rpm_to_rads(decoded.get('RDM_Fr35_FLWhlSpd', 0.0)),
+                    self._rpm_to_rads(decoded.get('RDM_Fr35_FRWhlSpd', 0.0)),
+                    self._rpm_to_rads(decoded.get('RDM_Fr35_RLWhlSpd', 0.0)),
+                    self._rpm_to_rads(decoded.get('RDM_Fr35_RRWhlSpd', 0.0)),
+                ]
+            else:
+                import struct
+                vals = struct.unpack('<hhhh', msg.data)
+                state.drive_velocity_feedback = [
+                    self._rpm_to_rads(v / 100.0 - 300.0) for v in vals
+                ]
 
-                self.motor_state_pub.publish(state_msg)
+            state.steer_angle_feedback = [0.0] * 4
+            state.temperature = [0.0] * 4
+            state.current = [0.0] * 4
+            state.voltage = 0.0
+            state.error_code = 0
 
-            except Exception as e:
-                self.get_logger().error(f'解析电机状态失败: {e}')
+            self.motor_state_pub.publish(state)
+        except Exception as e:
+            self.get_logger().error(f'解析 0x19 失败: {e}')
 
-    def _publish_can_frame(self, msg: can.Message):
-        """发布 CAN 帧用于调试"""
-        can_frame = CanFrame()
-        can_frame.can_id = msg.arbitration_id
-        can_frame.dlc = msg.dlc
-        can_frame.data = list(msg.data)
-        can_frame.stamp = self.get_clock().now().to_msg()
+    def _decode_whl_yaw(self, msg: can.Message):
+        """0x1B 四轮转向角反馈 deg → MotorState.steer_angle_feedback (rad)"""
+        try:
+            state = MotorState()
+            state.stamp = self.get_clock().now().to_msg()
 
-        self.can_frame_pub.publish(can_frame)
+            if self._db is not None:
+                decoded = self._db.get_message_by_name('RDM_Fr36_0x1B').decode(msg.data)
+                state.steer_angle_feedback = [
+                    self._deg_to_rad(decoded.get('RDM_Fr36_FLWhlYaw', 0.0)),
+                    self._deg_to_rad(decoded.get('RDM_Fr36_FRWhlYaw', 0.0)),
+                    self._deg_to_rad(decoded.get('RDM_Fr36_RLWhlYaw', 0.0)),
+                    self._deg_to_rad(decoded.get('RDM_Fr36_RRWhlYaw', 0.0)),
+                ]
+            else:
+                import struct
+                vals = struct.unpack('<hhhh', msg.data)
+                state.steer_angle_feedback = [
+                    self._deg_to_rad(v / 10.0 - 200.0) for v in vals
+                ]
+
+            state.drive_velocity_feedback = [0.0] * 4
+            state.temperature = [0.0] * 4
+            state.current = [0.0] * 4
+            state.voltage = 0.0
+            state.error_code = 0
+
+            self.motor_state_pub.publish(state)
+        except Exception as e:
+            self.get_logger().error(f'解析 0x1B 失败: {e}')
+
+    def _decode_veh_stat(self, msg: can.Message):
+        """0x1F 整车状态反馈"""
+        try:
+            if self._db is not None:
+                d = self._db.get_message_by_name('RDM_Fr03_0x1F').decode(msg.data)
+                self.get_logger().debug(
+                    f'0x1F: HV_Ready={d.get("RDM_Fr03_EssHvReady")} '
+                    f'EptRdy={d.get("RDM_Fr03_EptRdy")} '
+                    f'VehStop={d.get("RDM_Fr03_VehStopReq")} '
+                    f'PLock={d.get("RDM_Fr03_PLockStatReq")}')
+        except Exception as e:
+            self.get_logger().error(f'解析 0x1F 失败: {e}')
+
+    def _decode_motor_pos_2a(self, msg: can.Message):
+        """0x2A FL/FR 电机位置"""
+        try:
+            import struct
+            fl, fr = struct.unpack('<ii', msg.data[0:8])
+            self.get_logger().debug(f'0x2A: FL={fl}, FR={fr}')
+        except Exception as e:
+            self.get_logger().error(f'解析 0x2A 失败: {e}')
+
+    def _decode_motor_pos_2b(self, msg: can.Message):
+        """0x2B RL/RR 电机位置"""
+        try:
+            import struct
+            rl, rr = struct.unpack('<ii', msg.data[0:8])
+            self.get_logger().debug(f'0x2B: RL={rl}, RR={rr}')
+        except Exception as e:
+            self.get_logger().error(f'解析 0x2B 失败: {e}')
+
+    def _publish_raw(self, msg: can.Message):
+        """发布原始 CAN 帧"""
+        frame = CanFrame()
+        frame.can_id = msg.arbitration_id
+        frame.dlc = msg.dlc
+        frame.data = list(msg.data)
+        frame.stamp = self.get_clock().now().to_msg()
+        self.can_frame_pub.publish(frame)
 
     def destroy_node(self):
-        """清理资源"""
-        if self.bus_can1:
-            self.bus_can1.shutdown()
-        if self.bus_can4:
-            self.bus_can4.shutdown()
+        if self.bus:
+            self.bus.shutdown()
         super().destroy_node()
 
 
 def main(args=None):
     rclpy.init(args=args)
     node = CanNode()
+
+    def receive_loop():
+        while rclpy.ok():
+            node._can_receive_callback()
+
+    recv_thread = threading.Thread(target=receive_loop, daemon=True)
+    recv_thread.start()
 
     try:
         rclpy.spin(node)

@@ -28,6 +28,7 @@ cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 ./start_slam_real.sh       # Helios16 + Cartographer + RViz
 ./view_sensors_real.sh     # 查看所有传感器（Helios16 + 双 LakiBeam1S）
+./start_nav_real.sh        # Nav2 导航 + RViz + 保存地图
 ./save_map.sh              # 保存当前 /map 为 maps/g60pro_v*.pgm
 ```
 

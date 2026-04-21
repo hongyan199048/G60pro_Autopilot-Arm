@@ -13,7 +13,7 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', ['launch/can.launch.py']),
     ],
-    install_requires=['setuptools'],
+    install_requires=['setuptools', 'cantools', 'python-can'],
     zip_safe=True,
     maintainer='G60Pro Team',
     maintainer_email='admin@example.com',
