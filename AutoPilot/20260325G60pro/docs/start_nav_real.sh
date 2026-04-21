@@ -6,10 +6,14 @@
 #   2. 当前没有 Cartographer 建图在运行（会与 AMCL 冲突）
 #
 # 流程:
-#   Phase 1: 启动 Helios16 驱动（发布点云）
-#   Phase 2: 启动 Nav2 导航栈（AMCL 定位 + 路径规划）
-#   Phase 3: 用户在 RViz 初始化机器人位置
-#   Phase 4: 发送导航目标
+#   Phase 1: 初始化 CAN 总线
+#   Phase 2: 启动 Helios16 驱动（发布点云）
+#   Phase 3: 启动 Cartographer SLAM（定位）
+#   Phase 4: 启动 Nav2 导航栈（路径规划）
+#   Phase 5: 启动底盘 + CAN 节点
+#   Phase 6: 启动 RViz
+#   Phase 7: 用户在 RViz 确认定位
+#   Phase 8: 发送导航目标
 #
 # 使用方式:
 #   ./start_nav_real.sh                    # 使用默认地图 g60pro_v5.yaml
@@ -73,22 +77,22 @@ fi
 
 # ========== Phase 1: 初始化 CAN 总线 ==========
 echo ""
-echo "[Phase 1/4] 初始化 CAN 总线..."
+echo "[Phase 1/9] 初始化 CAN 总线..."
 # can0 = IPC CAN 接口，连接 RDM 的 CAN1（500kbps）
 # CAN4 是 RDM 内部通道，与 IPC 无关
 sudo ip link set can0 up type can bitrate 500000 2>/dev/null || echo "  [警告] can0 初始化失败，跳过"
 
 # ========== Phase 2: source 环境 ==========
-echo "[Phase 2/4] 加载 ROS2 环境..."
+echo "[Phase 2/9] 加载 ROS2 环境..."
 source /opt/ros/humble/setup.bash
 source "$WS_DIR/install/setup.bash"
 
 # ========== Phase 3: 清理残留 ==========
-echo "[Phase 3/4] 清理残留进程..."
+echo "[Phase 3/9] 清理残留进程..."
 cleanup_procs
 
 # ========== Phase 4: 启动机器人描述（TF） ==========
-echo "[Phase 4/4] 启动机器人描述节点..."
+echo "[Phase 4/9] 启动机器人描述节点..."
 ros2 launch robot_description description.launch.py &
 DESCRIPTION_PID=$!
 sleep 3
@@ -104,16 +108,25 @@ LIDAR_PID=$!
 echo "  rslidar_sdk PID: $LIDAR_PID"
 sleep 3
 
-# ========== Phase 6: 启动 Nav2 导航 ==========
+# ========== Phase 5b: 启动 Cartographer SLAM（定位） ==========
+# Cartographer 发布 map→base_footprint，替代 AMCL 定位
+# slam_real.launch.py 使用 cartographer_real.lua（无 IMU，追踪 base_link，发布到 base_footprint）
 echo ""
-echo "[启动] Nav2 导航栈（AMCL 定位 + 路径规划）..."
+echo "[启动] Cartographer 纯定位（无实时 /map 发布，避免与 map_server 冲突）..."
+ros2 launch robot_slam slam_localization_real.launch.py use_sim_time:=false &
+CARTO_PID=$!
+echo "  Cartographer PID: $CARTO_PID"
+sleep 4
+
+# ========== Phase 6: 启动 Nav2 导航（无 AMCL） ==========
+echo ""
+echo "[启动] Nav2 导航栈（Cartographer 定位 + 路径规划）..."
 echo "  地图: $MAP_YAML"
-echo "  AMCL: 使用已保存地图进行激光定位"
+echo "  定位: Cartographer scan matching（map→base_footprint）"
 echo "  pointcloud_to_laserscan: /lidar/rs16/points -> /scan"
 echo ""
 echo "  启动内容："
 echo "    - map_server（加载 $MAP_NAME）"
-echo "    - amcl（激光定位，订阅 /scan）"
 echo "    - planner_server（全局路径规划）"
 echo "    - controller_server（局部路径规划/DWB）"
 echo "    - global_costmap + local_costmap（避障）"
@@ -132,7 +145,8 @@ echo "[启动] robot_base_node（底盘运动学 + /odom + odom→base_footprint
 ros2 run robot_base robot_base_node \
   --ros-args \
   -p use_sim:=false \
-  -p use_sim_time:=false &
+  -p use_sim_time:=false \
+  -p publish_tf:=false &
 BASE_PID=$!
 echo "  robot_base_node PID: $BASE_PID"
 sleep 2
@@ -175,6 +189,7 @@ echo ""
 echo "当前运行的进程："
 echo "  - robot_description: $DESCRIPTION_PID"
 echo "  - rslidar_sdk:       $LIDAR_PID"
+echo "  - Cartographer:      $CARTO_PID"
 echo "  - Nav2 导航:         $NAV_PID"
 echo "  - robot_base_node:   $BASE_PID"
 echo "  - can_node:          $CAN_PID"
@@ -183,12 +198,15 @@ echo ""
 echo "使用地图: $MAP_NAME"
 echo ""
 echo "=========================================="
+echo "定位说明："
+echo ""
+echo "  Cartographer 通过 scan matching 实时定位（map→base_footprint）"
+echo "  无需手动初始化位置，Cartographer 会自动对齐"
+echo ""
 echo "RViz 操作步骤："
 echo ""
-echo "  1. 【重要】点击 '2D Pose Estimate' 按钮"
-echo "     → 在地图上点击机器人实际所在位置"
-echo "     → 拖拽设置机器人朝向（必须准确！）"
-echo "     → 这告诉 AMCL 机器人初始位置在哪里"
+echo "  1. 观察地图与点云是否对齐（Cartographer 自动 scan matching）"
+echo "     若有明显偏移，点击 '2D Pose Estimate' 微调初始位置"
 echo ""
 echo "  2. 点击 '2D Nav Goal' 按钮"
 echo "     → 在地图上点击目标位置"
@@ -197,16 +215,10 @@ echo "     → 机器人将自主导航到目标点"
 echo ""
 echo "=========================================="
 echo "话题说明："
-echo "  /map              <- 静态地图（map_server 发布）"
+echo "  /map              <- 静态地图（map_server 发布，Cartographer 同时发布动态 /map）"
 echo "  /scan             <- 2D 激光（pointcloud_to_laserscan 转换）"
-echo "  /odom              <- 里程计（robot_base_node 开环积分，cmd_vel驱动）"
-echo "  /plan              <- 全局规划路径"
-echo "  /local_plan        <- 局部规划路径"
-echo "  /cmd_vel          -> 速度指令（-> 底盘 CAN）"
-echo ""
-echo "如果 AMCL 定位飘："
-echo "  → 多点击几次 '2D Pose Estimate' 重新初始化"
-echo "  → 检查 /scan 话题是否有数据（pointcloud_to_laserscan）"
+echo "  /tf               <- map→base_footprint（Cartographer 发布）"
+echo "  /odom             <- 里程计（robot_base_node 开环积分）"
 echo ""
 echo "按 Ctrl+C 停止所有节点"
 echo "=========================================="
@@ -215,7 +227,7 @@ echo "=========================================="
 function shutdown() {
     echo ""
     echo "[关闭] 停止所有节点..."
-    kill $DESCRIPTION_PID $LIDAR_PID $NAV_PID $BASE_PID $CAN_PID $RVIZ_PID 2>/dev/null
+    kill $DESCRIPTION_PID $LIDAR_PID $CARTO_PID $NAV_PID $BASE_PID $CAN_PID $RVIZ_PID 2>/dev/null
     cleanup_procs
     echo "[完成]"
     exit 0

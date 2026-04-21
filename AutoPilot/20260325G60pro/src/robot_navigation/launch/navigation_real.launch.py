@@ -2,6 +2,9 @@
 """
 G60Pro Nav2 导航启动文件 — 实车（Helios16）
 pointcloud_to_laserscan 高度参数与 cartographer_real.lua 对齐
+
+定位由 Cartographer 提供（map→base_footprint），不启动 AMCL。
+使用 nav2_no_amcl.launch.py 替代标准 bringup_launch.py。
 """
 
 import os
@@ -21,8 +24,7 @@ def generate_launch_description():
     )
 
     robot_navigation_share = get_package_share_directory('robot_navigation')
-
-    params_file = os.path.join(robot_navigation_share, 'config', 'nav2_params_real.yaml')
+    nav2_launch_file = os.path.join(robot_navigation_share, 'launch', 'nav2_no_amcl.launch.py')
 
     map_file = DeclareLaunchArgument(
         'map',
@@ -30,7 +32,9 @@ def generate_launch_description():
         description='地图文件路径（必须指定，例如 map:=/path/to/map.yaml）'
     )
 
-    # 3D 点云 → 2D 激光扫描，供 AMCL 和代价地图使用
+    params_file = os.path.join(robot_navigation_share, 'config', 'nav2_params_real.yaml')
+
+    # 3D 点云 → 2D 激光扫描，供代价地图使用
     # 高度相对 base_footprint（地面 Z=0），与 cartographer_real.lua 对齐：
     # cartographer_real.lua min_z=-1.44 max_z=0.46（雷达坐标系，Helios16 离地 1.54m）
     # 换算到 base_footprint：min_height=0.1m，max_height=2.0m
@@ -42,13 +46,13 @@ def generate_launch_description():
             'use_sim_time': LaunchConfiguration('use_sim_time'),
             'target_frame': 'base_footprint',
             'transform_tolerance': 0.5,
-            'min_height': 0.1,    # 地面以上 0.1m，过滤地面回波
-            'max_height': 2.0,    # 地面以上 2.0m，保留有效障碍物
+            'min_height': 0.1,
+            'max_height': 2.0,
             'angle_min': -3.14159,
             'angle_max': 3.14159,
             'angle_increment': 0.00436,
             'scan_time': 0.1,
-            'range_min': 1.6,     # 与 cartographer_real.lua min_range=1.6 对齐，过滤车身自遮挡
+            'range_min': 1.6,
             'range_max': 30.0,
             'use_inf': True,
         }],
@@ -58,15 +62,15 @@ def generate_launch_description():
         ],
     )
 
+    # Nav2 导航节点（无 AMCL 版）
+    # map_server 加载静态 .yaml 地图（供全局代价地图）
+    # 所有定位 TF 由 Cartographer 提供（map→base_footprint）
     nav2_launch = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            '/opt/ros/humble/share/nav2_bringup/launch/bringup_launch.py'
-        ]),
+        PythonLaunchDescriptionSource(nav2_launch_file),
         launch_arguments={
             'use_sim_time': LaunchConfiguration('use_sim_time'),
             'params_file': params_file,
             'map': LaunchConfiguration('map'),
-            'slam': 'False',
             'autostart': 'True'
         }.items()
     )

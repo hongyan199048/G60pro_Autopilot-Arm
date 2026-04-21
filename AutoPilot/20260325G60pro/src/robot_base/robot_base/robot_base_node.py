@@ -30,6 +30,7 @@ class RobotBaseNode(Node):
         self.declare_parameter('max_velocity', 1.0)          # 最大线速度 (m/s)
         self.declare_parameter('max_angular', 1.0)          # 最大角速度 (rad/s)
         self.declare_parameter('use_sim', False)            # 模拟模式
+        self.declare_parameter('publish_tf', True)           # 发布 odom→base_footprint TF
         self.declare_parameter('odom_frame', 'odom')
         self.declare_parameter('base_frame', 'base_footprint')
 
@@ -40,6 +41,7 @@ class RobotBaseNode(Node):
         self.max_velocity = self.get_parameter('max_velocity').value
         self.max_angular = self.get_parameter('max_angular').value
         self.use_sim = self.get_parameter('use_sim').value
+        self.publish_tf = self.get_parameter('publish_tf').value
         self.odom_frame = self.get_parameter('odom_frame').value
         self.base_frame = self.get_parameter('base_frame').value
 
@@ -179,18 +181,21 @@ class RobotBaseNode(Node):
         self.odom_pub.publish(odom)
 
         # 广播 TF: odom -> base_footprint
-        tf = TransformStamped()
-        tf.header.stamp = odom.header.stamp
-        tf.header.frame_id = self.odom_frame
-        tf.child_frame_id = self.base_frame
-        tf.transform.translation.x = self.x
-        tf.transform.translation.y = self.y
-        tf.transform.translation.z = 0.0
-        tf.transform.rotation.x = q[0]
-        tf.transform.rotation.y = q[1]
-        tf.transform.rotation.z = q[2]
-        tf.transform.rotation.w = q[3]
-        self.tf_broadcaster.sendTransform(tf)
+        # 注意：实车使用 Cartographer 纯定位时（map→base_footprint），
+        # robot_base_node 不再发布 odom→base_footprint，避免 base_footprint 有两个父节点
+        if self.publish_tf:
+            tf = TransformStamped()
+            tf.header.stamp = odom.header.stamp
+            tf.header.frame_id = self.odom_frame
+            tf.child_frame_id = self.base_frame
+            tf.transform.translation.x = self.x
+            tf.transform.translation.y = self.y
+            tf.transform.translation.z = 0.0
+            tf.transform.rotation.x = q[0]
+            tf.transform.rotation.y = q[1]
+            tf.transform.rotation.z = q[2]
+            tf.transform.rotation.w = q[3]
+            self.tf_broadcaster.sendTransform(tf)
 
     def _clamp(self, value, min_val, max_val):
         """限制数值范围"""

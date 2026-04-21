@@ -1,5 +1,5 @@
 free_thresh: 0.196
-image: g60pro_v5.pgm
+image: /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/maps/g60pro_v5.pgm
 mode: trinary
 negate: 0
 occupied_thresh: 0.65
