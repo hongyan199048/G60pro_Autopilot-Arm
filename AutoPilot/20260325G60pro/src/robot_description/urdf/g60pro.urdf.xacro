@@ -18,8 +18,8 @@
   <!-- 车体中心离地高度 = 离地间隙 + 半高 -->
   <xacro:property name="base_link_z" value="${ground_clearance + chassis_z / 2}"/>
   <!-- 轮子：轮心离地 = wheel_radius（轮底贴地），在车身与地面之间；与 chassis_z 无关，仅用 ground_clearance -->
-  <!-- 注意：必须与后面轮子几何定义处保持一致（均为 0.157m）-->
-  <xacro:property name="wheel_radius" value="0.157"/>
+  <!-- 注意：必须与后面轮子几何定义处保持一致（均为 0.15m）-->
+  <xacro:property name="wheel_radius" value="0.15"/>
   <xacro:property name="wheel_z" value="${wheel_radius - base_link_z}"/>
   <xacro:property name="steer_offset_up" value="0.15"/>
   <xacro:property name="steer_z" value="${wheel_z + steer_offset_up}"/>
@@ -558,8 +558,8 @@
     <material>Gazebo/Green</material>
   </gazebo>
 
-  <!-- 4 轮 8 驱：每轮 转向(steer) + 驱动(drive 绕轮心轴滚动)；轮径 314mm，位于地面与车身之间 -->
-  <xacro:property name="wheel_radius" value="0.157"/>
+  <!-- 4 轮 8 驱：每轮 转向(steer) + 驱动(drive 绕轮心轴滚动)；轮径 300mm，位于地面与车身之间 -->
+  <xacro:property name="wheel_radius" value="0.15"/>
   <xacro:property name="wheel_width" value="0.074"/>
   <!-- 转向关节限位：±90°（1.5708 rad）；左右轮转角约定相反，右侧用 axis 0 0 -1 -->
   <xacro:property name="steer_limit_rad" value="1.5708"/>

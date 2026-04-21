@@ -36,6 +36,10 @@ function cleanup_procs() {
     pkill -9 -f rviz2                2>/dev/null || true
     pkill -9 -f map_server           2>/dev/null || true
     pkill -9 -f amcl                  2>/dev/null || true
+    pkill -9 -f robot_base_node      2>/dev/null || true
+    pkill -9 -f can_node             2>/dev/null || true
+    # 清除残留的 map→base_footprint 静态 TF（会干扰 AMCL）
+    pkill -9 -f "static_transform_publisher.*map.*base_footprint" 2>/dev/null || true
     sleep 1
 }
 
@@ -70,8 +74,9 @@ fi
 # ========== Phase 1: 初始化 CAN 总线 ==========
 echo ""
 echo "[Phase 1/4] 初始化 CAN 总线..."
-sudo ip link set can0 up type can bitrate 500000  2>/dev/null || echo "  [警告] can0 初始化失败，跳过"
-sudo ip link set can1 up type can bitrate 1000000 2>/dev/null || echo "  [警告] can1 初始化失败，跳过"
+# can0 = IPC CAN 接口，连接 RDM 的 CAN1（500kbps）
+# CAN4 是 RDM 内部通道，与 IPC 无关
+sudo ip link set can0 up type can bitrate 500000 2>/dev/null || echo "  [警告] can0 初始化失败，跳过"
 
 # ========== Phase 2: source 环境 ==========
 echo "[Phase 2/4] 加载 ROS2 环境..."
@@ -121,7 +126,26 @@ NAV_PID=$!
 echo "  Nav2 导航 PID: $NAV_PID"
 sleep 5
 
-# ========== Phase 7: 启动 RViz ==========
+# ========== Phase 7: 启动底盘节点（里程计） ==========
+echo ""
+echo "[启动] robot_base_node（底盘运动学 + /odom + odom→base_footprint TF）..."
+ros2 run robot_base robot_base_node \
+  --ros-args \
+  -p use_sim:=false \
+  -p use_sim_time:=false &
+BASE_PID=$!
+echo "  robot_base_node PID: $BASE_PID"
+sleep 2
+
+# ========== Phase 8: 启动 CAN 节点（底盘 CAN 通信） ==========
+echo ""
+echo "[启动] can_node（IPC ↔ RDM CAN 通信）..."
+ros2 run robot_can can_node &
+CAN_PID=$!
+echo "  can_node PID: $CAN_PID"
+sleep 2
+
+# ========== Phase 9: 启动 RViz ==========
 echo "[启动] RViz（导航视图）..."
 # 如果有专门的导航 RViz 配置就用它，否则用 slam_real 配置（显示地图和激光）
 if [ -f "${WS_DIR}/src/robot_rviz/rviz/navigation_real.rviz" ]; then
@@ -152,6 +176,8 @@ echo "当前运行的进程："
 echo "  - robot_description: $DESCRIPTION_PID"
 echo "  - rslidar_sdk:       $LIDAR_PID"
 echo "  - Nav2 导航:         $NAV_PID"
+echo "  - robot_base_node:   $BASE_PID"
+echo "  - can_node:          $CAN_PID"
 echo "  - RViz:              $RVIZ_PID"
 echo ""
 echo "使用地图: $MAP_NAME"
@@ -173,7 +199,7 @@ echo "=========================================="
 echo "话题说明："
 echo "  /map              <- 静态地图（map_server 发布）"
 echo "  /scan             <- 2D 激光（pointcloud_to_laserscan 转换）"
-echo "  /odom              <- 里程计（robot_base/CAN，暂不可用）"
+echo "  /odom              <- 里程计（robot_base_node 开环积分，cmd_vel驱动）"
 echo "  /plan              <- 全局规划路径"
 echo "  /local_plan        <- 局部规划路径"
 echo "  /cmd_vel          -> 速度指令（-> 底盘 CAN）"
@@ -189,7 +215,7 @@ echo "=========================================="
 function shutdown() {
     echo ""
     echo "[关闭] 停止所有节点..."
-    kill $DESCRIPTION_PID $LIDAR_PID $NAV_PID $RVIZ_PID 2>/dev/null
+    kill $DESCRIPTION_PID $LIDAR_PID $NAV_PID $BASE_PID $CAN_PID $RVIZ_PID 2>/dev/null
     cleanup_procs
     echo "[完成]"
     exit 0

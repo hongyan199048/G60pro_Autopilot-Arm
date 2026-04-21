@@ -25,11 +25,10 @@ class RobotBaseNode(Node):
 
         # 声明参数
         self.declare_parameter('wheel_radius', 0.15)        # 轮子半径 (m)
-        self.declare_parameter('wheelbase_x', 0.75)         # 前后轮距之半 (m)
-        self.declare_parameter('wheelbase_y', 0.5)          # 左右轮距之半 (m)
+        self.declare_parameter('wheelbase_x', 0.61)         # 前后轮距之半 (m)
+        self.declare_parameter('wheelbase_y', 0.2705)      # 左右轮距之半 (m)
         self.declare_parameter('max_velocity', 1.0)          # 最大线速度 (m/s)
         self.declare_parameter('max_angular', 1.0)          # 最大角速度 (rad/s)
-        self.declare_parameter('use_sim_time', False)        # 使用仿真时间
         self.declare_parameter('use_sim', False)            # 模拟模式
         self.declare_parameter('odom_frame', 'odom')
         self.declare_parameter('base_frame', 'base_footprint')
@@ -40,7 +39,6 @@ class RobotBaseNode(Node):
         self.Ly = self.get_parameter('wheelbase_y').value   # 左右轮距之半
         self.max_velocity = self.get_parameter('max_velocity').value
         self.max_angular = self.get_parameter('max_angular').value
-        self.use_sim_time = self.get_parameter('use_sim_time').value
         self.use_sim = self.get_parameter('use_sim').value
         self.odom_frame = self.get_parameter('odom_frame').value
         self.base_frame = self.get_parameter('base_frame').value
@@ -87,6 +85,10 @@ class RobotBaseNode(Node):
         # TF 广播器：odom -> base_footprint
         self.tf_broadcaster = TransformBroadcaster(self)
 
+        # 实车模式：10Hz 定时发布 odom，保证 AMCL 始终能找到 odom→base_footprint TF
+        if not self.use_sim:
+            self.create_timer(0.1, self._publish_odometry)
+
         self.get_logger().info('Robot Base 节点已启动')
 
     def _cmd_vel_callback(self, msg: Twist):
@@ -131,6 +133,7 @@ class RobotBaseNode(Node):
         self.motor_cmd_pub.publish(motor_cmd)
 
         # 仿真模式下 Gazebo 已发布 odom 和 odom→base_footprint TF，跳过以避免冲突
+        # 实车模式下更新位姿状态（odom 由定时器发布）
         if not self.use_sim:
             self._update_odometry(vx, vy, omega)
 
