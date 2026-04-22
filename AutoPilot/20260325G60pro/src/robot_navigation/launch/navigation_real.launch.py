@@ -82,10 +82,23 @@ def generate_launch_description():
         }.items()
     )
 
+    # Initial Pose Relay 节点（处理 RViz 2D Pose Estimate）
+    # 将 RViz 的 /initialpose 转发给 Cartographer，实现手动位姿校正
+    initial_pose_relay = Node(
+        package='robot_navigation',
+        executable='initial_pose_relay',
+        name='initial_pose_relay',
+        output='screen',
+        parameters=[{
+            'use_sim_time': LaunchConfiguration('use_sim_time'),
+        }],
+    )
+
     return LaunchDescription([
         use_sim_time,
         map_file,
         pbstream_file,
         pointcloud_to_laserscan,
         nav2_launch,
+        initial_pose_relay,
     ])
