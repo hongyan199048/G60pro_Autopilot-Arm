@@ -2,11 +2,10 @@
 """
 G60Pro Nav2 导航启动文件 — 无 AMCL 版（Cartographer 纯定位）
 
-slam=False 时 Nav2 bringup 强制启动 map_server + amcl，
-本文件替代 bringup_launch.py 的 localization 部分：
-  - 启动 map_server（加载 .yaml 静态地图，供全局代价地图使用）
-  - 启动导航节点（controller/planner/bt_navigator/smoother/behavior/...）
-  - 不启动 AMCL
+三种模式（互斥）：
+  1. 纯定位：有 .pbstream 文件 → Cartographer 从文件加载地图做 scan matching
+  2. 静态地图：有 .yaml 文件 → map_server 发布 /map
+  3. 实时建图：无 .yaml 无 .pbstream → cartographer_occupancy_grid_node 发布 /map
 
 定位完全由 Cartographer 提供（map→base_footprint）。
 """
@@ -25,15 +24,15 @@ from nav2_common.launch import RewrittenYaml
 def generate_launch_description():
     robot_navigation_share = get_package_share_directory('robot_navigation')
     bringup_dir = get_package_share_directory('nav2_bringup')
-    launch_dir = os.path.join(bringup_dir, 'launch')
 
     # ── 启动参数 ──────────────────────────────────────
     use_sim_time = LaunchConfiguration('use_sim_time')
     autostart = LaunchConfiguration('autostart')
     params_file = LaunchConfiguration('params_file')
     map_yaml_file = LaunchConfiguration('map')
+    pbstream_file = LaunchConfiguration('pbstream_file')
 
-    # ── 参数重写（yaml_filename = map yaml 路径）───
+    # ── 参数重写 ──────────────────────────────────
     configured_params = ParameterFile(
         RewrittenYaml(
             source_file=params_file,
@@ -45,6 +44,8 @@ def generate_launch_description():
         allow_substs=True)
 
     # 所有节点（不含 AMCL）
+    # 注意：map_server 必须加入 lifecycle_nodes，否则 lifecycle_manager 不会给它发送 configure/activate，
+    # 导致 map_server 停留在 unconfigured 状态，/map 永远不发布
     lifecycle_nodes = [
         'map_server',
         'controller_server',
@@ -61,7 +62,12 @@ def generate_launch_description():
     # ── 声明启动参数 ──────────────────────────────
     declare_map_yaml = DeclareLaunchArgument(
         'map',
-        description='Full path to map yaml file')
+        default_value='',
+        description='静态地图 .yaml 路径（空=实时 /map）')
+    declare_pbstream = DeclareLaunchArgument(
+        'pbstream_file',
+        default_value='',
+        description='.pbstream 文件路径（纯定位模式）；非空则跳过所有 /map 发布者')
     declare_params = DeclareLaunchArgument(
         'params_file',
         default_value=os.path.join(robot_navigation_share, 'config', 'nav2_params_real.yaml'),
@@ -79,14 +85,27 @@ def generate_launch_description():
     use_respawn = LaunchConfiguration('use_respawn')
     log_level = LaunchConfiguration('log_level')
 
-    # ── 节点列表 ──────────────────────────────────
-    # pointcloud_to_laserscan 在 navigation_real.launch.py 中启动，
-    # 这里只包含 Nav2 核心节点
-    # yaml_filename 直接在 Node 参数中传入（绕过 RewrittenYaml 的嵌套替换不确定性）
-    map_server_params = [{'yaml_filename': map_yaml_file, 'use_sim_time': use_sim_time}]
+    # ── 条件判断 ────────────────────────────────
+    have_map_yaml = PythonExpression(["'", LaunchConfiguration('map'), "' != ''"])
+    have_pbstream = PythonExpression(["'", pbstream_file, "' != ''"])
 
+    # ── 节点列表 ──────────────────────────────────
     nodes = [
-        # map_server（加载静态地图，供全局代价地图）
+        # cartographer_occupancy_grid_node（仅当无 .yaml 且无 .pbstream 时启动）
+        Node(
+            package='cartographer_ros',
+            executable='cartographer_occupancy_grid_node',
+            name='cartographer_occupancy_grid',
+            output='screen',
+            parameters=[{
+                'use_sim_time': use_sim_time,
+                'resolution': 0.05,
+            }],
+            arguments=['--ros-args', '--log-level', 'warn'],
+            condition=IfCondition(PythonExpression(['not ', have_map_yaml, ' and not ', have_pbstream])),
+        ),
+
+        # map_server（仅当有 .yaml 且无 .pbstream 时启动）
         Node(
             package='nav2_map_server',
             executable='map_server',
@@ -94,9 +113,11 @@ def generate_launch_description():
             output='screen',
             respawn=use_respawn,
             respawn_delay=2.0,
-            parameters=map_server_params,
+            parameters=[{'yaml_filename': map_yaml_file, 'use_sim_time': use_sim_time}],
             arguments=['--ros-args', '--log-level', log_level],
-            remappings=remappings),
+            remappings=remappings,
+            condition=IfCondition(PythonExpression([have_map_yaml, ' and not ', have_pbstream])),
+        ),
 
         # controller_server
         Node(
@@ -202,6 +223,7 @@ def generate_launch_description():
     ld = LaunchDescription([
         SetEnvironmentVariable('RCUTILS_LOGGING_BUFFERED_STREAM', '1'),
         declare_map_yaml,
+        declare_pbstream,
         declare_params,
         declare_sim_time,
         declare_autostart,

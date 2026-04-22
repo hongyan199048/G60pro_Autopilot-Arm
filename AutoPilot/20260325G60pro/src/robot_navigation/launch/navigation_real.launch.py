@@ -29,7 +29,13 @@ def generate_launch_description():
     map_file = DeclareLaunchArgument(
         'map',
         default_value='',
-        description='地图文件路径（必须指定，例如 map:=/path/to/map.yaml）'
+        description='地图文件路径（用于 map_server；空=使用 Cartographer 实时 /map）'
+    )
+
+    pbstream_file = DeclareLaunchArgument(
+        'pbstream_file',
+        default_value='',
+        description='.pbstream 文件路径（纯定位模式）；非空则跳过所有 /map 发布者'
     )
 
     params_file = os.path.join(robot_navigation_share, 'config', 'nav2_params_real.yaml')
@@ -71,6 +77,7 @@ def generate_launch_description():
             'use_sim_time': LaunchConfiguration('use_sim_time'),
             'params_file': params_file,
             'map': LaunchConfiguration('map'),
+            'pbstream_file': LaunchConfiguration('pbstream_file'),
             'autostart': 'True'
         }.items()
     )
@@ -78,6 +85,7 @@ def generate_launch_description():
     return LaunchDescription([
         use_sim_time,
         map_file,
+        pbstream_file,
         pointcloud_to_laserscan,
         nav2_launch,
     ])
