@@ -83,7 +83,9 @@ def generate_launch_description():
     )
 
     # Initial Pose Relay 节点（处理 RViz 2D Pose Estimate）
-    # 将 RViz 的 /initialpose 转发给 Cartographer，实现手动位姿校正
+    # 通过 finish_trajectory + start_trajectory 重置 Cartographer 定位
+    cartographer_config_dir = get_package_share_directory('robot_slam')
+
     initial_pose_relay = Node(
         package='robot_navigation',
         executable='initial_pose_relay',
@@ -91,6 +93,8 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time'),
+            'configuration_directory': cartographer_config_dir + '/config',
+            'configuration_basename': 'cartographer_real_localization.lua',
         }],
     )
 
