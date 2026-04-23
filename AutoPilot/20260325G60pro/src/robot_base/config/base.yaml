@@ -1,17 +1,18 @@
 /**:
   ros__parameters:
     # 轮子参数
-    wheel_radius: 0.15
-    wheelbase_x: 0.75
-    wheelbase_y: 0.5
+    wheel_radius: 0.15      # 轮子半径 (m)
+    wheelbase_x: 0.61       # 前后半轮距 (m) — 完整轮距 1.22m
+    wheelbase_y: 0.2705     # 左右半轮距 (m) — 完整轮距 0.541m
 
     # 速度限制
-    max_velocity: 1.0
-    max_angular: 1.0
+    max_velocity: 1.0       # 最大线速度 (m/s)
+    max_angular: 1.0        # 最大角速度 (rad/s)
 
     # 坐标系
     odom_frame: 'odom'
-    base_frame: 'base_link'
+    base_frame: 'base_footprint'
 
     # 模式
     use_sim: false
+    publish_tf: true        # 是否发布 odom→base_footprint TF（实车纯定位模式设为 false）

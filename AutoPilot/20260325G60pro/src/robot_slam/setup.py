@@ -12,7 +12,6 @@ setup(
         ('share/' + package_name + '/launch', [
             'launch/slam_sim.launch.py',
             'launch/slam_real.launch.py',
-            'launch/slam_localization_real.launch.py',
             'launch/slam_real_localization.launch.py',
         ]),
         ('share/' + package_name + '/config', [

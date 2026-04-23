@@ -1,0 +1,1 @@
+savedcmd_/home/admin123/Development/G60Pro/设备说明书/Pcan/peak-linux-driver-8.20.0/driver/Module.symvers :=  scripts/mod/modpost -M -m -a      -o /home/admin123/Development/G60Pro/设备说明书/Pcan/peak-linux-driver-8.20.0/driver/Module.symvers -T /home/admin123/Development/G60Pro/设备说明书/Pcan/peak-linux-driver-8.20.0/driver/modules.order -i Module.symvers -e 

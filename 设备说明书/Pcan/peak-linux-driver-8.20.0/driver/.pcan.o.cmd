@@ -1,0 +1,1 @@
+savedcmd_/home/admin123/Development/G60Pro/设备说明书/Pcan/peak-linux-driver-8.20.0/driver/pcan.o := ld -m elf_x86_64 -z noexecstack   -r -o /home/admin123/Development/G60Pro/设备说明书/Pcan/peak-linux-driver-8.20.0/driver/pcan.o @/home/admin123/Development/G60Pro/设备说明书/Pcan/peak-linux-driver-8.20.0/driver/pcan.mod 

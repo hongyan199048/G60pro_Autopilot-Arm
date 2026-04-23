@@ -4,6 +4,14 @@
 
 工作空间：`/home/admin123/Development/G60Pro/AutoPilot/20260325G60pro`
 
+## 重要约束
+
+**强制不使用轮式里程计**：本项目定位方案完全依赖纯激光雷达 Cartographer SLAM（Helios16 多线雷达），不使用底盘轮速计 `/odom`。配置文件中 `use_odometry = false`。原因：全向轮打滑严重，轮速计误差大。
+
+**IMU 暂不使用**：当前 `use_imu_data = false`，后续可考虑融合 IMU 提升旋转鲁棒性。
+
+**定位精度刚需**：到达目的地时，位置容差 ≤5cm，角度偏差 ±7.5°。这是充电对接的硬性要求，所有导航参数调整必须满足此约束。
+
 ## 编译
 
 ```bash
@@ -28,13 +36,19 @@ cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 ./start_slam_real.sh       # Helios16 + Cartographer + RViz
 ./view_sensors_real.sh     # 查看所有传感器（Helios16 + 双 LakiBeam1S）
-./start_nav_real.sh        # Nav2 导航 + RViz + 保存地图
+./start_nav_real.sh --yaml g60pro_v6        # Nav2 导航 + RViz
 ./save_map.sh              # 保存当前 /map 为 maps/g60pro_v*.pgm
 ```
 
+### 键盘控制
 ```bash
-# 键盘控制
 ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/cmd_vel
+```
+
+### 监控
+```bash
+cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
+./monitor_nav.sh
 ```
 
 ## 系统架构
@@ -83,9 +97,28 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard cmd_vel:=/cmd_vel
 
 ## CAN 通信
 
-- CAN1（can0，500kbps）：发送控制指令到 RDM 控制器
-- CAN4（can1，1Mbps）：接收电机状态反馈
-- DBC 协议文件位于 `robot_can/config/`
+**CAN 总线配置**：
+- CAN1（can0，500kbps）：工控机 ↔ RDM 控制器双向通信
+- DBC 协议文件：`robot_can/config/can1/G60_CAN1_RDM_V1.0.dbc`
+
+**关键 CAN ID（基于 DBC V1.0）**：
+
+| 方向 | CAN ID | 十进制 | 消息名称 | 说明 | 频率 |
+|------|--------|--------|----------|------|------|
+| Tx | 0x210 | 528 | LAS_Fr01 | 四轮驱动转速指令 (RPM) | 20Hz |
+| Tx | 0x211 | 529 | LAS_Fr02 | 四轮转向角指令 (deg) | 20Hz |
+| Tx | 0x212 | 530 | LAS_Fr03 | 任务状态帧 | 20Hz |
+| Rx | 0x1FF | 511 | RDM_Fr04 | 整车状态反馈（驾驶模式、任务状态、充电状态） | - |
+| Rx | 0x19 | 25 | RDM_Fr35 | 四轮转速反馈 (RPM) | - |
+| Rx | 0x1B | 27 | RDM_Fr36 | 四轮转向角反馈 (deg) | - |
+| Rx | 0x2A | 42 | RDM_Fr37 | FL/FR 电机位置 (32bit signed) | - |
+| Rx | 0x2B | 43 | RDM_Fr38 | RL/RR 电机位置 (32bit signed) | - |
+
+**ROS2 话题映射**：
+- `/motor_cmd` (MotorCmd) → CAN 0x210 + 0x211
+- CAN 0x19 + 0x1B → `/motor_state` (MotorState)
+- CAN 0x1FF → `/veh_status` (CanFrame)
+- 原始 CAN 帧 → `/can_frames` (CanFrame, 调试用)
 
 ## Gazebo 仿真
 

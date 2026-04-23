@@ -51,22 +51,21 @@ TRAJECTORY_BUILDER_2D.max_range = 30.0
 TRAJECTORY_BUILDER_2D.min_z = -0.6
 TRAJECTORY_BUILDER_2D.max_z = 1.4
 
--- 运动滤波（纯定位模式：完全禁用，以最大频率发布位姿）
-TRAJECTORY_BUILDER_2D.motion_filter.max_time_seconds = 0.2   -- 0.2秒强制发布
-TRAJECTORY_BUILDER_2D.motion_filter.max_distance_meters = 0.01  -- 1cm发布（几乎任何移动都触发）
-TRAJECTORY_BUILDER_2D.motion_filter.max_angle_radians = 0.001  -- 0.06°发布（几乎任何旋转都触发）
+-- 运动滤波（纯定位模式：提高更新频率，适应快速转弯）
+TRAJECTORY_BUILDER_2D.motion_filter.max_time_seconds = 0.1   -- 0.1秒强制发布（10Hz）
+TRAJECTORY_BUILDER_2D.motion_filter.max_distance_meters = 0.01  -- 1cm发布
+TRAJECTORY_BUILDER_2D.motion_filter.max_angle_radians = math.rad(0.5)  -- 0.5°发布（快速转弯时高频更新）
 
--- 在线相关扫描匹配（纯定位模式：缩小搜索窗口，提高匹配精度）
--- 注意：initial_pose_relay 已处理大偏差校正，这里只需处理小偏差
+-- 在线相关扫描匹配（纯定位模式：适度搜索窗口，平衡精度和稳定性）
 TRAJECTORY_BUILDER_2D.use_online_correlative_scan_matching = true
-TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.linear_search_window = 0.15  -- 15cm（原50cm太大）
-TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.angular_search_window = math.rad(10.)  -- 10°（原30°太大）
-TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.translation_delta_cost_weight = 10.0  -- 增大惩罚（原0.1）
-TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = 10.0     -- 增大惩罚（原0.1）
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.linear_search_window = 0.3  -- 30cm搜索窗口
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.angular_search_window = math.rad(20.)  -- 20°搜索窗口
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.translation_delta_cost_weight = 1.0  -- 默认惩罚权重
+TRAJECTORY_BUILDER_2D.real_time_correlative_scan_matcher.rotation_delta_cost_weight = 1.0     -- 默认惩罚权重
 
--- 扫描匹配权重（纯定位模式：大幅提高权重，强制对齐地图）
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.occupied_space_weight = 50   -- 提高5倍（原10）
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.translation_weight = 500     -- 提高5倍（原100）
-TRAJECTORY_BUILDER_2D.ceres_scan_matcher.rotation_weight = 2000       -- 提高5倍（原400）
+-- 扫描匹配权重（纯定位模式：适度提高权重，避免过度强制对齐）
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.occupied_space_weight = 20   -- 适度提高（原10，之前50太高）
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.translation_weight = 200     -- 适度提高（原100，之前500太高）
+TRAJECTORY_BUILDER_2D.ceres_scan_matcher.rotation_weight = 800        -- 适度提高（原400，之前2000太高）
 
 return options

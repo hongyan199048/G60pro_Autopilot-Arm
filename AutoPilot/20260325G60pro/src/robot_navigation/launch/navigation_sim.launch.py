@@ -22,7 +22,9 @@ def generate_launch_description():
 
     robot_navigation_share = get_package_share_directory('robot_navigation')
 
-    map_file_default = os.path.join(robot_navigation_share, 'maps', 'g60pro_sim_map.yaml')
+    # 使用顶层 maps 目录（工作空间根目录）
+    workspace_root = os.path.abspath(os.path.join(robot_navigation_share, '../../../../'))
+    map_file_default = os.path.join(workspace_root, 'maps', 'g60pro_sim_map_v5.yaml')
     params_file = os.path.join(robot_navigation_share, 'config', 'nav2_params_sim.yaml')
 
     map_file = DeclareLaunchArgument(

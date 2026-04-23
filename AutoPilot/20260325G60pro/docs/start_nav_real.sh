@@ -168,13 +168,13 @@ echo "    - behavior_server（旋转/后退/等待）"
 echo ""
 
 if $USE_YAML; then
-    # YAML 模式：传 .yaml 路径，Nav2 启动 map_server
-    ros2 launch robot_navigation navigation_real.launch.py map:="$MAP_YAML" &
+    # YAML 模式：只传 .yaml 路径，不传 pbstream_file（默认为空）
+    ros2 launch robot_navigation navigation_real.launch.py \
+      map:="$MAP_YAML" &
 else
-    # 纯定位模式：不传 map，Nav2 不启动任何 /map 发布者
-    # Cartographer 纯定位不发布 occupancy grid（/map 不可用），
-    # 全局代价地图使用空白地图（无 static_layer）
-    ros2 launch robot_navigation navigation_real.launch.py &
+    # 纯定位模式：只传 .pbstream 路径，不传 map（默认为空）
+    ros2 launch robot_navigation navigation_real.launch.py \
+      pbstream_file:="$MAP_PBSTREAM" &
 fi
 NAV_PID=$!
 echo "  Nav2 导航 PID: $NAV_PID"
