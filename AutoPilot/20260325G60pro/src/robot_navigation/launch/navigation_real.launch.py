@@ -41,24 +41,26 @@ def generate_launch_description():
     params_file = os.path.join(robot_navigation_share, 'config', 'nav2_params_real.yaml')
 
     # 3D 点云 → 2D 激光扫描，供代价地图使用
-    # 高度相对 base_footprint（地面 Z=0），与 cartographer_real.lua 对齐：
-    # cartographer_real.lua min_z=-1.44 max_z=0.46（雷达坐标系，Helios16 离地 1.54m）
-    # 换算到 base_footprint：min_height=0.1m，max_height=2.0m
+    # 关键修复：target_frame 必须是激光雷达自己的坐标系（rs16_link），不能是 base_footprint
+    # 这样 obstacle_layer 才能正确计算障碍物的 3D 位置和高度
+    # 高度范围（相对 rs16_link，激光雷达离地 1.54m）：
+    #   min_height: -1.4m（过滤地面，地面在 -1.54m）
+    #   max_height: 0.5m（过滤天花板，保留 0.1-2.0m 高度的障碍物）
     pointcloud_to_laserscan = Node(
         package='pointcloud_to_laserscan',
         executable='pointcloud_to_laserscan_node',
         name='pointcloud_to_laserscan',
         parameters=[{
             'use_sim_time': LaunchConfiguration('use_sim_time'),
-            'target_frame': 'base_footprint',
+            'target_frame': 'rs16_link',  # 修复：使用激光雷达坐标系，不是 base_footprint
             'transform_tolerance': 0.5,
-            'min_height': 0.1,
-            'max_height': 2.0,
+            'min_height': -1.5,  # 更接近地面（地面在 -1.54m）
+            'max_height': 1.0,   # 提高上限到 1.0m，检测更高障碍物
             'angle_min': -3.14159,
             'angle_max': 3.14159,
             'angle_increment': 0.00436,
             'scan_time': 0.1,
-            'range_min': 1.6,
+            'range_min': 0.1,  # 降低到 0.1m，检测近距离障碍物
             'range_max': 30.0,
             'use_inf': True,
         }],
