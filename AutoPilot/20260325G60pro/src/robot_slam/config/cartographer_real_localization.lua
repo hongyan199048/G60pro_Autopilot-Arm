@@ -12,7 +12,7 @@ options = {
   tracking_frame = "base_link",
   published_frame = "base_footprint",
   odom_frame = "odom",
-  provide_odom_frame = false,
+  provide_odom_frame = true,  -- 发布 map→odom TF，否则 Nav2 找不到 map frame
   publish_frame_projected_to_2d = true,
   use_pose_extrapolator = true,            -- 与 SLAM 一致
   use_odometry = false,
@@ -39,7 +39,7 @@ TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1
 TRAJECTORY_BUILDER_2D.min_range = 1.6
 TRAJECTORY_BUILDER_2D.max_range = 30.0
 TRAJECTORY_BUILDER_2D.min_z = -0.6
-TRAJECTORY_BUILDER_2D.max_z = 1.4
+TRAJECTORY_BUILDER_2D.max_z = 2.0  -- 雷达离地 1.54m，需要 >1.54 才能接收点云
 
 -- 以下全部与 SLAM 配置完全一致
 TRAJECTORY_BUILDER_2D.motion_filter.max_time_seconds = 5.0

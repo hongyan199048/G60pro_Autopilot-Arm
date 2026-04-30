@@ -6,7 +6,7 @@ G60Pro 4轮8驱底盘运动学解算节点
 
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import QoSProfile
+from rclpy.qos import QoSProfile, ReliabilityPolicy
 
 from geometry_msgs.msg import Twist
 from nav_msgs.msg import Odometry
@@ -77,11 +77,13 @@ class RobotBaseNode(Node):
             QoSProfile(depth=10)
         )
 
-        # 发布 /odom
+        # 发布 /odom（使用 BEST_EFFORT 匹配 Cartographer 订阅）
+        odom_qos = QoSProfile(depth=10)
+        odom_qos.reliability = ReliabilityPolicy.BEST_EFFORT
         self.odom_pub = self.create_publisher(
             Odometry,
             'odom',
-            QoSProfile(depth=10)
+            odom_qos
         )
 
         # TF 广播器：odom -> base_footprint

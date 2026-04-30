@@ -27,7 +27,7 @@
   <!-- 相机相对 base_link 的 z -->
   <xacro:property name="camera_z" value="${camera_height_from_ground - base_link_z}"/>
   <!-- 单线雷达离地高度（相对 base_footprint），相对 base_link 的 z -->
-  <xacro:property name="single_lidar_height_from_ground" value="0.486"/>
+  <xacro:property name="single_lidar_height_from_ground" value="1.5"/>
   <xacro:property name="single_lidar_z" value="${single_lidar_height_from_ground - base_link_z}"/>
   <!-- 单线雷达在车身外：前后超出 single_lidar_outset_x，左右超出 single_lidar_outset_y -->
   <xacro:property name="single_lidar_outset_x" value="0.0"/>
@@ -238,7 +238,7 @@
     <xacro:robosense_16_lidar name="rs16" parent="base_link" xyz="${multi_lidar_offset_x} 0 ${multi_lidar_z}" rpy="0 0 0"/>
   </xacro:unless>
 
-  <!-- 单线 1: 物理右前（橙色），车身外；倒装(roll 180°) + 315° 扇区朝右前(yaw -45°) -->
+  <!-- 单线 1: 物理右前（橙色），车身外；正装(roll 0°) + 250° 扇区朝右前(yaw -45°) -->
   <link name="single_lidar_1_link">
     <visual>
       <geometry><box size="0.03 0.03 0.02"/></geometry>
@@ -249,7 +249,7 @@
   <joint name="single_lidar_1_joint" type="fixed">
     <parent link="base_link"/>
     <child link="single_lidar_1_link"/>
-    <origin xyz="${single_lidar_front_x} ${single_lidar_right_y} ${single_lidar_z}" rpy="3.14159 0 -0.785398"/>
+    <origin xyz="${single_lidar_front_x} ${single_lidar_right_y} ${single_lidar_z}" rpy="0 0 -0.785398"/>
   </joint>
   <!-- 单线 1 仿真：ray 传感器发布 LaserScan，话题 /lidar/single_1/scan，与 hardware_spec 一致 -->
   <gazebo reference="single_lidar_1_link">
@@ -261,8 +261,8 @@
           <horizontal>
             <samples>360</samples>
             <resolution>1</resolution>
-            <min_angle>-2.35619</min_angle>
-            <max_angle>2.35619</max_angle>
+            <min_angle>-2.26893</min_angle>
+            <max_angle>2.26893</max_angle>
           </horizontal>
         </scan>
         <range>
@@ -288,7 +288,7 @@
     </sensor>
   </gazebo>
 
-  <!-- 单线 2: 物理左后（绿色），车身外；倒装(roll 180°) + 225° 扇区朝左后(yaw 135°) -->
+  <!-- 单线 2: 物理左后（绿色），车身外；正装(roll 0°) + 250° 扇区朝左后(yaw 135°) -->
   <link name="single_lidar_2_link">
     <visual>
       <geometry><box size="0.03 0.03 0.02"/></geometry>
@@ -299,7 +299,7 @@
   <joint name="single_lidar_2_joint" type="fixed">
     <parent link="base_link"/>
     <child link="single_lidar_2_link"/>
-    <origin xyz="${single_lidar_rear_x} ${single_lidar_left_y} ${single_lidar_z}" rpy="3.14159 0 2.35619"/>
+    <origin xyz="${single_lidar_rear_x} ${single_lidar_left_y} ${single_lidar_z}" rpy="0 0 2.35619"/>
   </joint>
   <!-- 单线 2 仿真：ray 传感器发布 LaserScan，话题 /lidar/single_2/scan，与 hardware_spec 一致 -->
   <gazebo reference="single_lidar_2_link">
@@ -311,8 +311,8 @@
           <horizontal>
             <samples>360</samples>
             <resolution>1</resolution>
-            <min_angle>-2.35619</min_angle>
-            <max_angle>2.35619</max_angle>
+            <min_angle>-2.26893</min_angle>
+            <max_angle>2.26893</max_angle>
           </horizontal>
         </scan>
         <range>
@@ -658,12 +658,12 @@
       <publish_rate>50</publish_rate>
 
       <!-- 是否发布 /odom 话题 -->
-      <!-- true: 发布 nav_msgs/Odometry 消息 -->
-      <publish_odom>true</publish_odom>
+      <!-- false: 不发布 odom 话题，让 Cartographer 完全接管定位 -->
+      <publish_odom>false</publish_odom>
 
       <!-- 是否发布 TF 变换 -->
-      <!-- true: 发布 odom -> base_footprint 的动态变换 -->
-      <publish_tf>true</publish_tf>
+      <!-- false: 不发布 odom→base_footprint TF，让 Cartographer 发布 map→base_footprint -->
+      <publish_tf>false</publish_tf>
 
       <!-- odom 坐标系名称 -->
       <!-- TF 中 frame_id 将是 "odom" -->

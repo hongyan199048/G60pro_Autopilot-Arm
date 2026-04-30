@@ -54,7 +54,7 @@ function cleanup_procs() {
     pkill -9 -f map_server           2>/dev/null || true
     pkill -9 -f robot_base_node      2>/dev/null || true
     pkill -9 -f can_node             2>/dev/null || true
-    sleep 1
+    sleep 0.5
 }
 
 # ========== Phase 0: 检查 ==========
@@ -97,42 +97,54 @@ fi
 
 # ========== Phase 1: 初始化 CAN 总线 ==========
 echo ""
-echo "[Phase 1/8] 初始化 CAN 总线..."
+echo "[Phase 1/6] 初始化 CAN 总线..."
+
+# 加载 PEAK USB-CAN 驱动（如果未加载）
+sudo modprobe peak_usb 2>/dev/null || true
+# 启动 can0
 sudo ip link set can0 up type can bitrate 500000 2>/dev/null || echo "  [警告] can0 初始化失败，跳过"
 
-# ========== Phase 2: source 环境 ==========
-echo "[Phase 2/8] 加载 ROS2 环境..."
+# ========== Phase 2: source 环境 + 清理 ==========
+echo "[Phase 2/6] 加载 ROS2 环境 + 清理残留..."
 source /opt/ros/humble/setup.bash
 source "$WS_DIR/install/setup.bash"
-
-# ========== Phase 3: 清理残留 ==========
-echo "[Phase 3/8] 清理残留进程..."
 cleanup_procs
 
-# ========== Phase 4: 启动机器人描述（TF） ==========
-echo "[Phase 4/8] 启动机器人描述节点..."
+# ========== Phase 3: 并行启动基础节点 ==========
+echo "[Phase 3/6] 启动基础节点（robot_description + 雷达 + 底盘）..."
+
+# 3.1 robot_description
 ros2 launch robot_description description.launch.py &
 DESCRIPTION_PID=$!
-sleep 3
-echo "  robot_description PID: $DESCRIPTION_PID"
 
-# ========== Phase 5: 启动 Helios16 驱动 ==========
-echo ""
-echo "[Phase 5/8] 启动 Helios16 激光雷达驱动..."
+# 3.2 Helios16 多线雷达（并行）
 ros2 run rslidar_sdk rslidar_sdk_node \
-  --ros-args \
-  -p config_path:="$WS_DIR/src/rslidar_sdk/config/config.yaml" &
+  --ros-args -p config_path:="$WS_DIR/src/rslidar_sdk/config/config.yaml" &
 LIDAR_PID=$!
-echo "  rslidar_sdk PID: $LIDAR_PID"
-sleep 3
 
-# ========== Phase 6: 启动 Cartographer 纯定位 ==========
+# 3.3 双单线雷达（并行）
+ros2 launch lakibeam1 lakibeam1_g60pro.launch.py &
+LAKIBEAM_PID=$!
+
+# 3.4 底盘节点（并行）
+ros2 run robot_base robot_base_node \
+  --ros-args -p use_sim:=false -p use_sim_time:=false -p publish_tf:=false &
+BASE_PID=$!
+
+# 3.5 CAN 节点（并行）
+ros2 run robot_can can_node &
+CAN_PID=$!
+
+echo "  等待基础节点初始化..."
+sleep 2
+
+# ========== Phase 4: 启动 Cartographer 纯定位 ==========
 # slam_real_localization.launch.py 加载 .pbstream 文件，
 # 发布 map→base_footprint（来自 .pbstream 地图坐标系的原始坐标）
 # 不构建新地图，纯做 scan matching 定位
 echo ""
 if $USE_YAML; then
-    echo "[Phase 6/8] 启动 Cartographer 纯定位（加载 .pbstream 地图）..."
+    echo "[Phase 4/6] 启动 Cartographer 纯定位（加载 .pbstream 地图）..."
     echo "  地图: $MAP_PBSTREAM"
     echo "  可视化: $MAP_YAML（map_server 提供 /map）"
     # 纯定位模式：加载 .pbstream 做 scan matching，同时 Nav2 用 .yaml 显示静态地图
@@ -140,31 +152,24 @@ if $USE_YAML; then
       use_sim_time:=false \
       pbstream_file:="$MAP_PBSTREAM" &
     CARTO_PID=$!
-    sleep 4
+    sleep 2
 else
-    echo "[Phase 6/8] 启动 Cartographer 纯定位（加载 .pbstream 地图）..."
+    echo "[Phase 4/6] 启动 Cartographer 纯定位（加载 .pbstream 地图）..."
     echo "  地图: $MAP_PBSTREAM"
     # 纯定位模式：加载 cartographer_real_localization.lua + .pbstream
     ros2 launch robot_slam slam_real_localization.launch.py \
       use_sim_time:=false \
       pbstream_file:="$MAP_PBSTREAM" &
     CARTO_PID=$!
-    sleep 4
+    sleep 2
 fi
 echo "  Cartographer PID: $CARTO_PID"
 
-# ========== Phase 7: 启动 Nav2 导航（无 AMCL） ==========
+# ========== Phase 5: 启动 Nav2 导航（无 AMCL） ==========
 echo ""
-echo "[Phase 7/8] 启动 Nav2 导航栈..."
+echo "[Phase 5/6] 启动 Nav2 导航栈..."
 echo "  定位: Cartographer scan matching（map→base_footprint）"
 echo "  pointcloud_to_laserscan: /lidar/rs16/points -> /scan"
-echo ""
-echo "  启动内容："
-echo "    - planner_server（全局路径规划）"
-echo "    - controller_server（局部路径规划/DWB）"
-echo "    - global_costmap + local_costmap（避障）"
-echo "    - velocity_smoother（速度平滑）"
-echo "    - behavior_server（旋转/后退/等待）"
 echo ""
 
 if $USE_YAML; then
@@ -178,30 +183,25 @@ else
 fi
 NAV_PID=$!
 echo "  Nav2 导航 PID: $NAV_PID"
-sleep 5
+sleep 3
 
-# ========== Phase 8: 启动底盘节点（里程计） ==========
+# ========== 快速 lifecycle 检查（仅关键节点）==========
 echo ""
-echo "[启动] robot_base_node（底盘运动学 + /odom + odom→base_footprint TF）..."
-ros2 run robot_base robot_base_node \
-  --ros-args \
-  -p use_sim:=false \
-  -p use_sim_time:=false \
-  -p publish_tf:=false &
-BASE_PID=$!
-echo "  robot_base_node PID: $BASE_PID"
-sleep 2
+echo "[检查] 激活关键 lifecycle 节点..."
+for node in controller_server planner_server; do
+    if ros2 node list 2>/dev/null | grep -q "/$node"; then
+        state=$(timeout 3 ros2 lifecycle get /$node 2>/dev/null | awk '{print $1}')
+        if [ "$state" = "unconfigured" ]; then
+            timeout 5 ros2 lifecycle set /$node configure 2>/dev/null && \
+            timeout 5 ros2 lifecycle set /$node activate 2>/dev/null
+        elif [ "$state" = "inactive" ]; then
+            timeout 5 ros2 lifecycle set /$node activate 2>/dev/null
+        fi
+    fi
+done
 
-# ========== 启动 CAN 节点（底盘 CAN 通信） ==========
-echo ""
-echo "[启动] can_node（IPC ↔ RDM CAN 通信）..."
-ros2 run robot_can can_node &
-CAN_PID=$!
-echo "  can_node PID: $CAN_PID"
-sleep 2
-
-# ========== 启动 RViz ==========
-echo "[启动] RViz（导航视图）..."
+# ========== Phase 6: 启动 RViz ==========
+echo "[Phase 6/6] 启动 RViz（导航视图）..."
 if [ -f "${WS_DIR}/src/robot_rviz/rviz/navigation_real.rviz" ]; then
     RVIZ_CONFIG="${WS_DIR}/src/robot_rviz/rviz/navigation_real.rviz"
 elif [ -f "${WS_DIR}/src/robot_rviz/rviz/slam_real.rviz" ]; then
@@ -218,21 +218,22 @@ fi
 RVIZ_PID=$!
 echo "  RViz PID: $RVIZ_PID"
 
-sleep 2
+sleep 1
 
 # ========== 完成 ==========
 echo ""
 echo "=========================================="
-echo "  Nav2 导航已启动！"
+echo "  Nav2 导航已启动！（总耗时约 10-15 秒）"
 echo "=========================================="
 echo ""
 echo "当前运行的进程："
 echo "  - robot_description: $DESCRIPTION_PID"
 echo "  - rslidar_sdk:       $LIDAR_PID"
-echo "  - Cartographer:      $CARTO_PID"
-echo "  - Nav2 导航:         $NAV_PID"
+echo "  - lakibeam1:         $LAKIBEAM_PID"
 echo "  - robot_base_node:   $BASE_PID"
 echo "  - can_node:          $CAN_PID"
+echo "  - Cartographer:      $CARTO_PID"
+echo "  - Nav2 导航:         $NAV_PID"
 echo "  - RViz:              $RVIZ_PID"
 echo ""
 
@@ -269,7 +270,7 @@ echo "=========================================="
 function shutdown() {
     echo ""
     echo "[关闭] 停止所有节点..."
-    kill $DESCRIPTION_PID $LIDAR_PID $CARTO_PID $NAV_PID $BASE_PID $CAN_PID $RVIZ_PID 2>/dev/null
+    kill $DESCRIPTION_PID $LIDAR_PID $LAKIBEAM_PID $CARTO_PID $NAV_PID $BASE_PID $CAN_PID $RVIZ_PID 2>/dev/null
     cleanup_procs
     echo "[完成]"
     exit 0

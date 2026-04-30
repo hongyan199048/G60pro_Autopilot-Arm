@@ -1,4 +1,4 @@
-#include <rclcpp/rclcpp.hpp> 
+#include <rclcpp/rclcpp.hpp>
 #include <sensor_msgs/msg/laser_scan.hpp>
 
 #include <stdio.h>
@@ -16,6 +16,7 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <fstream>
 #include <math.h>
 #include "../include/data_type.h"
 #include "../include/remote.h"
@@ -31,7 +32,7 @@ public:
 		get_parameters();
 		scan_pub = create_publisher<sensor_msgs::msg::LaserScan>(output_topic, 1000);
 		info();
-		// scan_config();
+		//scan_config();
 		create_socket();
 		scan_publish();
 	}
@@ -200,6 +201,49 @@ protected:
 				scan.range_max = 100.0;
 				scan.ranges.resize(num_readings);
 				scan.intensities.resize(num_readings);
+
+				// 调试：统计原始距离数据
+				int valid_count = 0;
+				int zero_count = 0;
+				uint16_t min_dist = 65535, max_dist = 0;
+				for(int k = 0; k < num_readings; k++)
+				{
+					if(scan_vec[k].dist > 0)
+					{
+						valid_count++;
+						if(scan_vec[k].dist < min_dist) min_dist = scan_vec[k].dist;
+						if(scan_vec[k].dist > max_dist) max_dist = scan_vec[k].dist;
+					}
+					else
+					{
+						zero_count++;
+					}
+				}
+				RCLCPP_INFO(get_logger(), "Raw data: valid=%d, zero=%d, min=%d mm, max=%d mm",
+					valid_count, zero_count, min_dist, max_dist);
+
+				// 输出点云数据到CSV文件（只输出第一帧）
+				static bool first_frame_saved = false;
+				if(!first_frame_saved)
+				{
+					std::ofstream csv_file("/tmp/lidar_pointcloud.csv");
+					if(csv_file.is_open())
+					{
+						csv_file << "Point_ID,Angle_Degree,Distance_mm,Distance_m,Intensity\n";
+						for(int i = 0; i < num_readings; i++)
+						{
+							float angle_deg = scan_vec[i].angle / 100.0f; // 角度值除以100得到度数
+							csv_file << i << ","
+									<< angle_deg << ","
+									<< scan_vec[i].dist << ","
+									<< (scan_vec[i].dist / 1000.0f) << ","
+									<< (int)scan_vec[i].rssi << "\n";
+						}
+						csv_file.close();
+						RCLCPP_INFO(get_logger(), "Point cloud data saved to /tmp/lidar_pointcloud.csv");
+						first_frame_saved = true;
+					}
+				}
 
 				for(int i = 0;i < num_readings; i++)
 				{

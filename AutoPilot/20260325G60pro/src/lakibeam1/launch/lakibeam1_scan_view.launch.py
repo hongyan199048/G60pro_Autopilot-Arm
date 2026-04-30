@@ -71,11 +71,11 @@ def generate_launch_description():
     )
     declare_inverted_cmd = DeclareLaunchArgument(
     'inverted',
-    default_value='false',
+    default_value='true',
     )
     declare_hostip_cmd = DeclareLaunchArgument(
     'hostip',
-    default_value='0.0.0.0',
+    default_value='192.168.2.102',
     )
     declare_port0_cmd = DeclareLaunchArgument(
     'port0',
@@ -95,7 +95,7 @@ def generate_launch_description():
     )
     declare_scanfreq_cmd = DeclareLaunchArgument(
     'scanfreq',
-    default_value='"30"',
+    default_value='"20"',
     )
     declare_laser_enable_cmd = DeclareLaunchArgument(
     'laser_enable',
@@ -103,15 +103,15 @@ def generate_launch_description():
     )
     declare_scan_range_start_cmd = DeclareLaunchArgument(
     'scan_range_start',
-    default_value='"45"',
+    default_value='"55"',
     )
     declare_scan_range_stop_cmd = DeclareLaunchArgument(
     'scan_range_stop',
-    default_value='"315"',
+    default_value='"305"',
     )
     declare_sensorip_cmd = DeclareLaunchArgument(
     'sensorip',
-    default_value='192.168.198.2',
+    default_value='192.168.2.150',
     )
 
     richbeam_lidar_node0 = Node(

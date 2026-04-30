@@ -1,4 +1,6 @@
 from setuptools import setup
+import os
+from glob import glob
 
 package_name = 'robot_navigation'
 
@@ -15,6 +17,10 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
+    maintainer='admin123',
+    maintainer_email='admin123@todo.todo',
+    description='G60Pro navigation package',
+    license='Apache-2.0',
     entry_points={
         'console_scripts': [
             'initial_pose_relay = robot_navigation.initial_pose_relay:main',

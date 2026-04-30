@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 G60Pro Nav2 导航启动文件 — 仿真（Gazebo）
-pointcloud_to_laserscan 高度参数与 cartographer_sim.lua 对齐
+pointcloud_to_laserscan 高度参数与实车 cartographer_real.lua 对齐
 """
 
 import os
@@ -33,8 +33,8 @@ def generate_launch_description():
         description='地图文件路径'
     )
 
-    # 3D 点云 → 2D 激光扫描，供 AMCL 和代价地图使用
-    # 高度相对 base_footprint（地面 Z=0），与 cartographer_sim.lua min_z/max_z 对齐
+    # 3D 点云 → 2D 激光扫描，供代价地图使用
+    # 高度相对 base_footprint（地面 Z=0），与实车 navigation_real.launch.py 对齐
     pointcloud_to_laserscan = Node(
         package='pointcloud_to_laserscan',
         executable='pointcloud_to_laserscan_node',
@@ -43,13 +43,13 @@ def generate_launch_description():
             'use_sim_time': LaunchConfiguration('use_sim_time'),
             'target_frame': 'base_footprint',
             'transform_tolerance': 0.5,
-            'min_height': 0.1,    # 与 cartographer_sim.lua min_z=0.1 对齐
-            'max_height': 2.5,    # 与 cartographer_sim.lua max_z=2.5 对齐
+            'min_height': 0.1,    # 过滤地面
+            'max_height': 2.0,    # 最大障碍物高度（同实车）
             'angle_min': -3.14159,
             'angle_max': 3.14159,
             'angle_increment': 0.00436,
             'scan_time': 0.1,
-            'range_min': 0.5,     # 与 cartographer_sim.lua min_range=0.5 对齐
+            'range_min': 1.6,     # 过滤车身自遮挡（同实车）
             'range_max': 30.0,
             'use_inf': True,
         }],

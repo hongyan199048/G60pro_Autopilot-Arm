@@ -1,12 +1,14 @@
 #!/bin/bash
-# 保存 Cartographer 地图为 Nav2 格式（PGM + YAML）
+# 保存 Cartographer 地图为 3 种格式（PGM + YAML + PBSTREAM）
+#   PGM + YAML：Nav2 格式，map_server 加载
+#   PBSTREAM：Cartographer 纯定位格式
 #
 # 用法:
 #   ./save_map.sh [地图名]
 #
 # 示例:
-#   ./save_map.sh g60pro     -> 自动保存为 g60pro_v1, g60pro_v2 ...
-#   ./save_map.sh mymap      -> 自动保存为 mymap_v1, mymap_v2 ...
+#   ./save_map.sh g60pro     -> 自动保存为 g60pro_v1.pgm + .yaml + .pbstream
+#   ./save_map.sh mymap      -> 自动保存为 mymap_v1.pgm + .yaml + .pbstream
 #
 # 注意: 需要先 source 工作空间的 setup.bash
 #   source /opt/ros/humble/setup.bash

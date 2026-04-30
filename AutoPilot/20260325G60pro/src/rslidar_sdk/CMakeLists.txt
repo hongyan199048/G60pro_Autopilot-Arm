@@ -13,7 +13,7 @@ set(COMPILE_METHOD COLCON)
 #=======================================
 # Custom Point Type (XYZI, XYZIRT)
 #=======================================
-set(POINT_TYPE XYZI)
+set(POINT_TYPE XYZIRT)
 
 option(ENABLE_PCAP_PARSE "Enable PCAP file parse" ON) 
 if(${ENABLE_PCAP_PARSE})

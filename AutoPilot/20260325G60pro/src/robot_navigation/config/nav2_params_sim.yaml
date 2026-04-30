@@ -1,48 +1,8 @@
-amcl:
-  ros__parameters:
-    use_sim_time: true
-    alpha1: 0.02   # planar_move odom 近乎无噪声，降低粒子扩散
-    alpha2: 0.02
-    alpha3: 0.02
-    alpha4: 0.02
-    alpha5: 0.02
-    base_frame_id: base_footprint
-    beam_skip_distance: 0.5
-    beam_skip_error_threshold: 0.9
-    beam_skip_percentage: 0.3
-    do_beamskip: false
-    global_frame_id: map
-    lambda_short: 0.1
-    laser_likelihood_max_dist: 2.0
-    laser_max_range: 30.0
-    laser_min_range: 0.5
-    laser_model_type: likelihood_field
-    max_beams: 360  # 16线转2D约1440条，取360条（每1°一条），大幅提升匹配精度
-    max_particles: 5000
-    min_particles: 2000
-    odom_frame_id: odom
-    pf_err: 0.05
-    pf_z: 0.99
-    recovery_alpha_fast: 0.0
-    recovery_alpha_slow: 0.0
-    resample_interval: 1
-    robot_model_type: nav2_amcl::DifferentialMotionModel
-    sigma_hit: 0.2
-    tf_broadcast: true
-    transform_tolerance: 1.0
-    set_initial_pose: false  # 必须用 RViz 的 2D Pose Estimate 手动设置初始位置
-    update_min_a: 0.2
-    update_min_d: 0.25
-    z_hit: 0.5
-    z_max: 0.05
-    z_rand: 0.5
-    z_short: 0.05
-
 bt_navigator:
   ros__parameters:
     use_sim_time: true
     global_frame: map
-    robot_base_frame: base_link
+    robot_base_frame: base_footprint
     odom_topic: /odom
     bt_loop_duration: 10
     default_server_timeout: 20
@@ -96,69 +56,74 @@ controller_server:
     general_goal_checker:
       stateful: true
       plugin: "nav2_controller::SimpleGoalChecker"
-      xy_goal_tolerance: 0.25
-      yaw_goal_tolerance: 0.25
+      xy_goal_tolerance: 0.05    # 5cm 位置容差（充电对接精度要求）
+      yaw_goal_tolerance: 0.13   # 7.5° 角度容差（0.13 rad，充电对接精度要求）
     FollowPath:
       plugin: "dwb_core::DWBLocalPlanner"
       debug_trajectory_details: true
-      min_vel_x: 0.0
+      min_vel_x: -0.3   # 允许倒车，匹配 SmacPlannerHybrid 的倒退路径
       min_vel_y: 0.0
-      max_vel_x: 0.5
+      max_vel_x: 0.3    # 实车初期保守速度，稳定后可提高到 0.5
       max_vel_y: 0.0
-      max_vel_theta: 1.0
+      max_vel_theta: 0.8
       min_speed_xy: 0.0
-      max_speed_xy: 0.5
+      max_speed_xy: 0.3
       min_speed_theta: 0.0
-      acc_lim_x: 2.5
+      acc_lim_x: 1.0    # 实车加速度保守值
       acc_lim_y: 0.0
-      acc_lim_theta: 3.2
-      decel_lim_x: -2.5
+      acc_lim_theta: 2.0
+      decel_lim_x: -1.0
       decel_lim_y: 0.0
-      decel_lim_theta: -3.2
+      decel_lim_theta: -2.0
       vx_samples: 20
       vy_samples: 0
-      vtheta_samples: 40
-      sim_time: 1.7
+      vtheta_samples: 40        # 增加角速度采样，提高转向平滑度
+      sim_time: 4.0             # 增大预测时间（原 2.5），提前看到终点
       linear_granularity: 0.05
       angular_granularity: 0.025
-      transform_tolerance: 0.2
+      transform_tolerance: 0.5
       xy_goal_tolerance: 0.25
       trans_stopped_velocity: 0.25
       short_circuit_trajectory_evaluation: true
       stateful: true
-      critics: ["RotateToGoal", "Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
-      BaseObstacle.scale: 0.02
-      PathAlign.scale: 32.0
-      PathAlign.forward_point_distance: 0.1
-      GoalAlign.scale: 24.0
-      GoalAlign.forward_point_distance: 0.1
-      PathDist.scale: 32.0
+      # DWB Critics 评分器（顺序影响行为优先级）
+      # 注释掉 RotateToGoal，允许"边转边走"，避免起点/终点原地转向
+      critics: ["Oscillation", "BaseObstacle", "GoalAlign", "PathAlign", "PathDist", "GoalDist"]
+      BaseObstacle.scale: 0.05  # 提高避障权重，更激进规避障碍物
+      PathAlign.scale: 32.0     # 提高路径对齐权重，鼓励沿路径平滑转向
+      PathAlign.forward_point_distance: 1.0  # 增大前瞻距离（原 0.3），提前调整方向
+      GoalAlign.scale: 2.0      # 大幅降低目标对齐权重，减少终点原地转向
+      GoalAlign.forward_point_distance: 0.5  # 增大目标前瞻距离（原 0.1）
+      PathDist.scale: 48.0      # 提高路径距离权重，优先保持在路径附近
       GoalDist.scale: 24.0
-      RotateToGoal.scale: 32.0
-      RotateToGoal.slowing_factor: 5.0
-      RotateToGoal.lookahead_time: -1.0
+      # RotateToGoal.scale: 32.0              # 已禁用：避免原地转向
+      # RotateToGoal.slowing_factor: 5.0
+      # RotateToGoal.lookahead_time: -1.0
 
 local_costmap:
   local_costmap:
     ros__parameters:
       use_sim_time: true
-      update_frequency: 5.0
-      publish_frequency: 2.0
-      global_frame: odom
-      robot_base_frame: base_link
+      update_frequency: 10.0
+      publish_frequency: 5.0
+      global_frame: map     # Cartographer 发布 map→base_footprint，局部地图使用同一坐标系
+      robot_base_frame: base_footprint
       rolling_window: true
       width: 5
       height: 5
       resolution: 0.05
       robot_radius: 0.5
+      transform_tolerance: 1.0
       plugins: ["obstacle_layer", "inflation_layer"]
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: true
-        observation_sources: scan
+        observation_sources: scan single_1 single_2  # 启用 Helios16 多线雷达 + 双单线雷达
+        # Helios16 多线雷达（主力，远距离）
         scan:
           topic: /scan
           max_obstacle_height: 2.0
+          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
           clearing: true
           marking: true
           data_type: "LaserScan"
@@ -166,6 +131,38 @@ local_costmap:
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
           obstacle_min_range: 0.0
+        # 单线雷达 1（右前，近场补盲）
+        single_1:
+          topic: /lidar/single_1/scan
+          sensor_frame: single_lidar_1_link
+          max_obstacle_height: 3.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
+          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
+          clearing: true  # 启用清除，避免障碍物残留
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.3  # 降低到 0.3m，检测充电桩等近距离障碍物
+          observation_persistence: 0.5  # 保留观测数据 0.5 秒，避免因时间戳偏移被丢弃
+          expected_update_rate: 20.0  # 期望更新频率 20Hz
+          inf_is_valid: false
+        # 单线雷达 2（左后，近场补盲）
+        single_2:
+          topic: /lidar/single_2/scan
+          sensor_frame: single_lidar_2_link
+          max_obstacle_height: 3.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
+          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
+          clearing: true  # 启用清除，避免障碍物残留
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.3  # 降低到 0.3m，检测充电桩等近距离障碍物
+          observation_persistence: 0.5  # 保留观测数据 0.5 秒，避免因时间戳偏移被丢弃
+          expected_update_rate: 20.0  # 期望更新频率 20Hz
+          inf_is_valid: false
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: true
@@ -180,21 +177,26 @@ global_costmap:
       update_frequency: 1.0
       publish_frequency: 1.0
       global_frame: map
-      robot_base_frame: base_link
+      robot_base_frame: base_footprint
       robot_radius: 0.5
       resolution: 0.05
       track_unknown_space: true
+      transform_tolerance: 1.0
+      # 使用 static_layer（map_server 发布静态地图）
       plugins: ["static_layer", "obstacle_layer", "inflation_layer"]
       static_layer:
         plugin: "nav2_costmap_2d::StaticLayer"
         map_subscribe_transient_local: true
+        subscribe_to_updates: true
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: true
-        observation_sources: scan
+        observation_sources: scan single_1 single_2  # 启用 Helios16 多线雷达 + 双单线雷达
+        # Helios16 多线雷达（主力，远距离）
         scan:
           topic: /scan
           max_obstacle_height: 2.0
+          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
           clearing: true
           marking: true
           data_type: "LaserScan"
@@ -202,6 +204,38 @@ global_costmap:
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
           obstacle_min_range: 0.0
+        # 单线雷达 1（右前，近场补盲）
+        single_1:
+          topic: /lidar/single_1/scan
+          sensor_frame: single_lidar_1_link
+          max_obstacle_height: 3.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
+          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
+          clearing: true  # 启用清除，避免障碍物残留
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.3  # 降低到 0.3m，检测充电桩等近距离障碍物
+          observation_persistence: 0.5  # 保留观测数据 0.5 秒，避免因时间戳偏移被丢弃
+          expected_update_rate: 20.0  # 期望更新频率 20Hz
+          inf_is_valid: false
+        # 单线雷达 2（左后，近场补盲）
+        single_2:
+          topic: /lidar/single_2/scan
+          sensor_frame: single_lidar_2_link
+          max_obstacle_height: 3.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
+          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
+          clearing: true  # 启用清除，避免障碍物残留
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.5
+          obstacle_min_range: 0.3  # 降低到 0.3m，检测充电桩等近距离障碍物
+          observation_persistence: 0.5  # 保留观测数据 0.5 秒，避免因时间戳偏移被丢弃
+          expected_update_rate: 20.0  # 期望更新频率 20Hz
+          inf_is_valid: false
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: true
@@ -213,7 +247,6 @@ map_server:
   ros__parameters:
     use_sim_time: true
     yaml_filename: ""
-    publish_period: 0.0  # 禁用周期发布，防止 AMCL 每秒收到地图后重置粒子滤波器
 
 map_saver:
   ros__parameters:
@@ -229,10 +262,26 @@ planner_server:
     expected_planner_frequency: 20.0
     planner_plugins: ["GridBased"]
     GridBased:
-      plugin: "nav2_navfn_planner/NavfnPlanner"
+      plugin: "nav2_smac_planner/SmacPlannerHybrid"
       tolerance: 0.5
-      use_astar: false
       allow_unknown: true
+      # 混合 A* 参数（考虑车辆运动学）
+      downsample_costmap: false
+      downsampling_factor: 1
+      max_planning_time: 5.0
+      motion_model_for_search: "REEDS_SHEPP"  # Reeds-Shepp 曲线（支持倒车）
+      angle_quantization_bins: 72             # 角度离散化（5° 精度）
+      analytic_expansion_ratio: 5.0           # 解析扩展比例，终点更平滑
+      analytic_expansion_max_length: 3.0
+      minimum_turning_radius: 1.0           # 最小转弯半径 1.0m（阿克曼转向，避免终点急转弯）
+      reverse_penalty: 10.0                   # 倒车惩罚（提高到 10.0，只在必须时倒车）
+      change_penalty: 2.0                     # 换向惩罚（避免频繁前进/倒车切换）
+      non_straight_penalty: 1.2               # 非直线惩罚
+      cost_penalty: 2.0                       # 代价惩罚
+      retrospective_penalty: 0.015
+      lookup_table_size: 20.0
+      cache_obstacle_heuristic: false
+      smooth_path: true                       # 平滑路径
 
 smoother_server:
   ros__parameters:
@@ -259,13 +308,13 @@ behavior_server:
       plugin: "nav2_behaviors/DriveOnHeading"
     wait:
       plugin: "nav2_behaviors/Wait"
-    global_frame: odom
-    robot_base_frame: base_link
-    transform_tolerance: 0.1
+    global_frame: map     # Cartographer 坐标系
+    robot_base_frame: base_footprint
+    transform_tolerance: 0.5
     simulate_ahead_time: 2.0
-    max_rotational_vel: 1.0
-    min_rotational_vel: 0.4
-    rotational_acc_lim: 3.2
+    max_rotational_vel: 0.8
+    min_rotational_vel: 0.3
+    rotational_acc_lim: 2.0
 
 waypoint_follower:
   ros__parameters:
@@ -284,10 +333,10 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: false
     feedback: "OPEN_LOOP"
-    max_velocity: [0.5, 0.0, 1.0]
-    min_velocity: [-0.5, 0.0, -1.0]
-    max_accel: [2.5, 0.0, 3.2]
-    max_decel: [-2.5, 0.0, -3.2]
+    max_velocity: [0.3, 0.0, 0.8]
+    min_velocity: [-0.3, 0.0, -0.8]  # 允许倒车
+    max_accel: [1.0, 0.0, 2.0]
+    max_decel: [-1.0, 0.0, -2.0]
     odom_topic: "odom"
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]

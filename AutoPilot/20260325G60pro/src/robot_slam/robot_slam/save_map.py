@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """
-从 /map 话题保存 Cartographer 占据网格为 PGM + YAML (Nav2 格式)
+保存 Cartographer 地图为 3 种格式：PGM + YAML + PBSTREAM
+
+- PGM + YAML：Nav2 格式，用于 map_server 加载静态地图
+- PBSTREAM：Cartographer 格式，用于纯定位模式加载
 
 用法:
   ros2 run robot_slam save_map <保存路径(不含后缀)>
 
 示例:
   ros2 run robot_slam save_map /path/to/maps/g60pro
-    -> 自动检测已有版本，保存为 g60pro_v1、g60pro_v2 ...
+    -> 自动检测已有版本，保存为 g60pro_v1.pgm + .yaml + .pbstream
 
   ros2 run robot_slam save_map /path/to/maps/g60pro_v3
     -> 保存为 g60pro_v3（覆盖模式，文件名已有 _vN 则用该版本号）
@@ -27,11 +30,12 @@ import yaml
 import rclpy
 from rclpy.node import Node
 from nav_msgs.msg import OccupancyGrid
+from cartographer_ros_msgs.srv import WriteState
 
 
 def find_next_version(base_path):
     """
-    在 base_path 目录下查找 base_path_v{1,2,...} 形式的已有文件，
+    在 base_path 目录下查找 base_path_v{1,2,...} 形式的已有文件（pgm/yaml/pbstream），
     返回下一个版本号对应的路径。
     例如 base_path = '/maps/g60pro'：
       已有 g60pro_v1.pgm -> 返回 '/maps/g60pro_v2'
@@ -40,7 +44,7 @@ def find_next_version(base_path):
     """
     directory = os.path.dirname(base_path)
     basename = os.path.basename(base_path)
-    pattern = re.compile(rf'^{re.escape(basename)}_v(\d+)\.pgm$')
+    pattern = re.compile(rf'^{re.escape(basename)}_v(\d+)\.(pgm|yaml|pbstream)$')
 
     max_version = 0
     if os.path.exists(directory):
@@ -123,7 +127,29 @@ class MapSaver(Node):
         with open(yaml_path, 'w') as f:
             yaml.dump(yaml_data, f, default_flow_style=False)
         self.get_logger().info(f'YAML 已保存: {yaml_path}')
+
+        # 保存 PBSTREAM（Cartographer 纯定位格式）
+        pbstream_path = self.save_path + '.pbstream'
+        self.save_pbstream(pbstream_path)
+
         self.get_logger().info(f'地图保存完成: {self.save_path}')
+
+    def save_pbstream(self, pbstream_path):
+        """调用 Cartographer /write_state 服务保存 .pbstream"""
+        client = self.create_client(WriteState, '/write_state')
+        if not client.wait_for_service(timeout_sec=5.0):
+            self.get_logger().warn('/write_state 服务不可用，跳过 pbstream 保存')
+            return
+
+        req = WriteState.Request()
+        req.filename = pbstream_path
+        future = client.call_async(req)
+        rclpy.spin_until_future_complete(self, future, timeout_sec=10.0)
+
+        if future.done() and future.result() is not None:
+            self.get_logger().info(f'PBSTREAM 已保存: {pbstream_path}')
+        else:
+            self.get_logger().warn(f'PBSTREAM 保存失败')
 
 
 def main():

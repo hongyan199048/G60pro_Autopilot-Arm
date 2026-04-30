@@ -1,4 +1,5 @@
 # 重要：每次回复必须以"Tim_20260325G60pro，"开头，无一例外。
+# 每次回答问题的时候，总是先把我的问题剪短理解总结，再回答。
 
 # CLAUDE.md
 
@@ -34,9 +35,9 @@ cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 ### 实车
 ```bash
 cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
+./start_nav_real.sh --yaml g60pro_v8        # Nav2 导航 + RViz
 ./start_slam_real.sh       # Helios16 + Cartographer + RViz
 ./view_sensors_real.sh     # 查看所有传感器（Helios16 + 双 LakiBeam1S）
-./start_nav_real.sh --yaml g60pro_v7        # Nav2 导航 + RViz
 ./save_map.sh              # 保存当前 /map 为 maps/g60pro_v*.pgm
 ```
 

@@ -124,8 +124,8 @@ local_costmap:
           topic: /scan
           max_obstacle_height: 2.0
           min_obstacle_height: -0.5  # 降低下限，避免边界过滤
-          clearing: true
-          marking: true
+          clearing: true  
+          marking: true   
           data_type: "LaserScan"
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
@@ -136,32 +136,32 @@ local_costmap:
           topic: /lidar/single_1/scan
           sensor_frame: single_lidar_1_link
           max_obstacle_height: 3.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
-          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
-          clearing: true  # 启用清除，避免障碍物残留
-          marking: true
+          min_obstacle_height: -2.0  # 大幅降低下限到 -2.0m，确保低矮障碍物不被过滤
+          clearing: true   # 启用清除
+          marking: true    # 启用标记
           data_type: "LaserScan"
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.3  # 降低到 0.3m，检测充电桩等近距离障碍物
-          observation_persistence: 0.5  # 保留观测数据 0.5 秒，避免因时间戳偏移被丢弃
-          expected_update_rate: 20.0  # 期望更新频率 20Hz
+          obstacle_min_range: 0.0  # 改为 0.0，检测所有距离的障碍物（包括紧贴车身的）
+          observation_persistence: 1.0  # 增加到 1.0 秒，避免因时间戳偏移被丢弃
+          expected_update_rate: 10.0  # 降低到 10Hz，避免因更新率不足被标记为过期
           inf_is_valid: false
         # 单线雷达 2（左后，近场补盲）
         single_2:
           topic: /lidar/single_2/scan
           sensor_frame: single_lidar_2_link
           max_obstacle_height: 3.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
-          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
-          clearing: true  # 启用清除，避免障碍物残留
-          marking: true
+          min_obstacle_height: -2.0  # 大幅降低下限到 -2.0m，确保低矮障碍物不被过滤
+          clearing: true   # 启用清除
+          marking: true    # 启用标记
           data_type: "LaserScan"
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.3  # 降低到 0.3m，检测充电桩等近距离障碍物
-          observation_persistence: 0.5  # 保留观测数据 0.5 秒，避免因时间戳偏移被丢弃
-          expected_update_rate: 20.0  # 期望更新频率 20Hz
+          obstacle_min_range: 0.0  # 改为 0.0，检测所有距离的障碍物（包括紧贴车身的）
+          observation_persistence: 1.0  # 增加到 1.0 秒，避免因时间戳偏移被丢弃
+          expected_update_rate: 10.0  # 降低到 10Hz，避免因更新率不足被标记为过期
           inf_is_valid: false
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
@@ -197,8 +197,8 @@ global_costmap:
           topic: /scan
           max_obstacle_height: 2.0
           min_obstacle_height: -0.5  # 降低下限，避免边界过滤
-          clearing: true
-          marking: true
+          clearing: true  # 禁用清除，用于测试单线雷达
+          marking: true   # 禁用标记，用于测试单线雷达
           data_type: "LaserScan"
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
@@ -208,33 +208,31 @@ global_costmap:
         single_1:
           topic: /lidar/single_1/scan
           sensor_frame: single_lidar_1_link
-          max_obstacle_height: 3.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
-          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
-          clearing: true  # 启用清除，避免障碍物残留
-          marking: true
+          max_obstacle_height: 10.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
+          min_obstacle_height: -10.0  # 大幅降低下限到 -2.0m，确保低矮障碍物不被过滤
+          clearing: true   # 启用清除
+          marking: true    # 启用标记
           data_type: "LaserScan"
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.3  # 降低到 0.3m，检测充电桩等近距离障碍物
-          observation_persistence: 0.5  # 保留观测数据 0.5 秒，避免因时间戳偏移被丢弃
-          expected_update_rate: 20.0  # 期望更新频率 20Hz
-          inf_is_valid: false
+          obstacle_min_range: 0.0  # 改为 0.0，检测所有距离的障碍物（包括紧贴车身的）
+          
         # 单线雷达 2（左后，近场补盲）
         single_2:
           topic: /lidar/single_2/scan
           sensor_frame: single_lidar_2_link
           max_obstacle_height: 3.0  # 提高上限，避免边界过滤（单线雷达 Z=0.486m）
-          min_obstacle_height: -0.5  # 降低下限，避免边界过滤
-          clearing: true  # 启用清除，避免障碍物残留
-          marking: true
+          min_obstacle_height: -2.0  # 大幅降低下限到 -2.0m，确保低矮障碍物不被过滤
+          clearing: true   # 启用清除
+          marking: true    # 启用标记
           data_type: "LaserScan"
           raytrace_max_range: 3.0
           raytrace_min_range: 0.0
           obstacle_max_range: 2.5
-          obstacle_min_range: 0.3  # 降低到 0.3m，检测充电桩等近距离障碍物
-          observation_persistence: 0.5  # 保留观测数据 0.5 秒，避免因时间戳偏移被丢弃
-          expected_update_rate: 20.0  # 期望更新频率 20Hz
+          obstacle_min_range: 0.0  # 改为 0.0，检测所有距离的障碍物（包括紧贴车身的）
+          observation_persistence: 1.0  # 增加到 1.0 秒，避免因时间戳偏移被丢弃
+          expected_update_rate: 10.0  # 降低到 10Hz，避免因更新率不足被标记为过期
           inf_is_valid: false
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
