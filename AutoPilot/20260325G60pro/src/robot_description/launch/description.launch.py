@@ -46,15 +46,17 @@ def generate_launch_description():
     # 完整路径：.../install/robot_description/share/robot_description/urdf/g60pro.urdf.xacro
 
     # ========== 第 3 步：声明启动参数 ==========
-    # 参数：雷达类型（可在命令行覆盖）
-    # 用途：g60pro.urdf.xacro 中根据此参数加载不同的雷达模型
-    # 命令行覆盖：ros2 launch robot_description description.launch.py lidar_type:=livox_mid360
+    use_sim_time_arg = DeclareLaunchArgument(
+        'use_sim_time',
+        default_value='false',
+        description='使用仿真时间（Gazebo 运行时设为 true）'
+    )
+
     lidar_type_arg = DeclareLaunchArgument(
         'lidar_type',
-        default_value='robosense_16',  # 默认：RoboSense Helios16
+        default_value='robosense_16',
         description='激光雷达类型: robosense_16 或 livox_mid360'
     )
-    # 注意：当前代码中此参数未实际使用（见下方 TODO）
 
     # ========== 第 4 步：处理 XACRO 文件 ==========
     # process_file：将 XACRO 宏展开为标准 URDF XML
@@ -84,7 +86,7 @@ def generate_launch_description():
             # 参数 2：时间系统
             # True：使用仿真时间（Gazebo 提供的 /clock）
             # False：使用系统时间（实车）
-            'use_sim_time': False
+            'use_sim_time': LaunchConfiguration('use_sim_time')
         }]
     )
     # 节点启动后会发布的 TF：
@@ -93,8 +95,9 @@ def generate_launch_description():
 
     # ========== 第 6 步：返回 LaunchDescription ==========
     return LaunchDescription([
-        lidar_type_arg,              # 参数声明（虽然未使用）
-        robot_state_publisher_node   # robot_state_publisher 节点
+        use_sim_time_arg,
+        lidar_type_arg,
+        robot_state_publisher_node
     ])
 
 # ============================================================

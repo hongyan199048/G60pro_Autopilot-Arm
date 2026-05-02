@@ -97,12 +97,13 @@ class MapSaver(Node):
         h = self.map_info.height
         data = np.array(self.map_data, dtype=np.int8).reshape((h, w))
 
-        # occupancy: 0=free(254), -1=unknown(205), 100=occupied(0)
+        # OccupancyGrid 值域：-1=unknown, 0=free, 1~99=中间概率, 100=occupied
+        # 阈值与 YAML 保持一致：free_thresh=0.196(≈20), occupied_thresh=0.65(65)
+        # 必须一步布尔索引，img[mask1][mask2]=x 是无效的（boolean indexing 返回副本）
         img = np.full((h, w), 205, dtype=np.uint8)
-        img[data == 0] = 254    # free
-        img[data == 100] = 0    # occupied
-        img[data == -1] = 205   # unknown
-        img = np.flipud(img)    # 图像 y 轴朝上
+        img[(data != -1) & (data <= 19)] = 254   # free → white
+        img[(data != -1) & (data >= 65)] = 0     # occupied → black
+        img = np.flipud(img)                     # 图像 y 轴朝上
 
         # 保存 PGM
         pgm_path = self.save_path + '.pgm'

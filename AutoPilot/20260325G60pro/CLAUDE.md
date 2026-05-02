@@ -1,5 +1,6 @@
 # 重要：每次回复必须以"Tim_20260325G60pro，"开头，无一例外。
 # 每次回答问题的时候，总是先把我的问题剪短理解总结，再回答。
+# 注意工程中不需要加入odom话题，因为本项目定位方案完全依赖纯激光雷达 Cartographer SLAM（Helios16 多线雷达），不使用底盘轮速计 /odom。
 
 # CLAUDE.md
 
@@ -72,10 +73,17 @@ cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
 
 **关键话题：** `/cmd_vel`、`/odom`、`/motor_cmd`、`/motor_state`、`/lidar/multi/points`、`/lidar/single_1/2/scan`、`/imu`
 
-**TF 树：** `odom → base_footprint → base_link → (rs16_link, camera_*_link, imu_link, wheel_*, ...)`
+**TF 树：**
+- **仿真和实车统一**：Cartographer 直接发布 `map → base_footprint`（`provide_odom_frame=false`，`published_frame="base_footprint"`）。**odom frame 不出现在 TF 树中**
+- `/odom` 话题（nav_msgs/Odometry）仅在 Cartographer 内部用于 pose_extrapolator 速度先验（`use_odometry=true`），不需要 odom TF
+- Gazebo planar_move 插件：`publish_odom_tf=false`（注意参数名是 `publish_odom_tf` 不是 `publish_tf`），只发 `/odom` 话题不发 TF
+- `robot_base_node`：仿真模式下（`use_sim=true`）不发布 odom 和 TF
+- 静态 TF：`base_footprint → base_link → (rs16_link, camera_*_link, imu_link, wheel_*, ...)` 由 `robot_state_publisher` 发布
 
-- 仿真：`odom → base_footprint` 由 `gazebo_ros_planar_move` 发布
-- 实车：由 `robot_base_node` 发布
+**⚠️ 重要：TF 设计原则**
+1. **TF 树中 base_footprint 只能有一个 parent**，必须是 `map`（由 Cartographer 独家发布）。任何其他节点（Gazebo、robot_base）都不得发布 `→ base_footprint` 的 TF，否则会造成 TF 争夺冲突
+2. **odom frame 不出现在 TF 树中**。`/odom` 话题只作为速度数据源，不给 TF 树增加节点
+3. **Gazebo planar_move 的 TF 参数名是 `publish_odom_tf`**，不是 `publish_tf`。写错参数名，插件会无视该设置并使用默认值 `true`
 
 **启动入口：**
 
@@ -143,6 +151,8 @@ URDF：所有 link `mass=0.001`，车体和机械臂 `gravity=0`
 | 3 | 加载空白世界 | world 改为 `warehouse_test.world` + 修复 `parking_lot.world` SDF | `empty.world` 无特征，SLAM 无法匹配 |
 | 4 | 墙壁双线/模糊 | `occupied_space_weight: 10`，`translation_weight: 100`，`rotation_weight: 400` | 增强当前帧与地图的对齐约束，压制滑动 |
 | 5 | 旋转时地图错位 | `use_online_correlative_scan_matching: true`，`angular_search_window: 20°` | Ceres 局部优化，旋转时陷入错误极小值；RTCSM 先全局搜索再精化 |
+| 6 | 无 odom + TF 抖动（2026-05-02） | ① URDF: `publish_odom=true` ② cartographer_sim: `provide_odom_frame=false` | Cartographer `provide_odom_frame=true` 时也会发布 `odom→base_footprint` TF（外推值），与 Gazebo 地面真值冲突 → 抖动 |
+| 7 | odom TF 跳变（2026-05-02 最终方案） | ① URDF: `publish_odom_tf=false` ② cartographer_sim: `provide_odom_frame=false`, `published_frame="base_footprint"` ③ 取消 odom frame | **⚠️ 重要**：odom 不出现在 TF 树中。Cartographer 独家发 `map→base_footprint`。Gazebo 参数名是 **`publish_odom_tf`**（不是 `publish_tf`） |
 
 注意：仿真用 `cartographer_sim.lua`，实车用 `cartographer_real.lua`，两者不通用。启用 RTCSM 后若 CPU 压力大，可缩小 `angular_search_window` 至 `math.rad(10.)`。
 

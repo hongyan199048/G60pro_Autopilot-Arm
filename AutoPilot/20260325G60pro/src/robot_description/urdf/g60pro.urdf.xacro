@@ -658,12 +658,12 @@
       <publish_rate>50</publish_rate>
 
       <!-- 是否发布 /odom 话题 -->
-      <!-- false: 不发布 odom 话题，让 Cartographer 完全接管定位 -->
-      <publish_odom>false</publish_odom>
+      <!-- true: 发布 odom 话题，供 Cartographer pose_extrapolator 使用 -->
+      <publish_odom>true</publish_odom>
 
-      <!-- 是否发布 TF 变换 -->
-      <!-- false: 不发布 odom→base_footprint TF，让 Cartographer 发布 map→base_footprint -->
-      <publish_tf>false</publish_tf>
+      <!-- 是否发布 odom→base_footprint TF 变换 -->
+      <!-- false: 不发布 TF，odom 不出现在 TF 树中（Cartographer 独家发布 map→base_footprint） -->
+      <publish_odom_tf>false</publish_odom_tf>
 
       <!-- odom 坐标系名称 -->
       <!-- TF 中 frame_id 将是 "odom" -->

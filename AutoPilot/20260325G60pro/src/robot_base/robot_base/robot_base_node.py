@@ -136,8 +136,8 @@ class RobotBaseNode(Node):
 
         self.motor_cmd_pub.publish(motor_cmd)
 
-        # 仿真模式下 Gazebo 已发布 odom 和 odom→base_footprint TF，跳过以避免冲突
-        # 实车模式下更新位姿状态（odom 由定时器发布）
+        # 仿真模式：Gazebo planar_move 插件已发布 /odom 和 odom→base_footprint TF，跳过
+        # 实车模式：更新位姿状态（odom 由定时器发布）
         if not self.use_sim:
             self._update_odometry(vx, vy, omega)
 

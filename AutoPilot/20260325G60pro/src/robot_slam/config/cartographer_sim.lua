@@ -4,17 +4,16 @@
 include "map_builder.lua"
 include "trajectory_builder.lua"
 
--- tracking_frame=base_footprint：Cartographer 追踪 base_footprint 位姿
--- published_frame=base_footprint：Cartographer 直接发布 map→base_footprint（跳过 odom）
--- provide_odom_frame=false：不发布 odom 中间层，避免与 Gazebo 的 odom→base_footprint 冲突
+-- Cartographer 直接发布 map→base_footprint，取消 odom 中间层
+-- odom frame 不出现在 TF 树中；/odom 话题仅用于 pose_extrapolator 速度先验
 options = {
   map_builder = MAP_BUILDER,
   trajectory_builder = TRAJECTORY_BUILDER,
   map_frame = "map",
-  tracking_frame = "base_footprint",    -- 追踪 base_footprint（与 Gazebo 一致）
+  tracking_frame = "base_footprint",    -- 追踪 base_footprint
   published_frame = "base_footprint",   -- 直接发布 map→base_footprint
   odom_frame = "odom",
-  provide_odom_frame = false,           -- 不发布 odom，避免 TF 冲突
+  provide_odom_frame = false,           -- 不发布 map→odom，odom 不出现在 TF 树中
   publish_frame_projected_to_2d = true,
   use_pose_extrapolator = true,
   use_odometry = true,                  -- 启用 odom 数据（Gazebo 提供准确 odom）
