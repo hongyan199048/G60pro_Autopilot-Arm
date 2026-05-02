@@ -27,7 +27,7 @@
   <!-- 相机相对 base_link 的 z -->
   <xacro:property name="camera_z" value="${camera_height_from_ground - base_link_z}"/>
   <!-- 单线雷达离地高度（相对 base_footprint），相对 base_link 的 z -->
-  <xacro:property name="single_lidar_height_from_ground" value="1.5"/>
+  <xacro:property name="single_lidar_height_from_ground" value="0.486"/>
   <xacro:property name="single_lidar_z" value="${single_lidar_height_from_ground - base_link_z}"/>
   <!-- 单线雷达在车身外：前后超出 single_lidar_outset_x，左右超出 single_lidar_outset_y -->
   <xacro:property name="single_lidar_outset_x" value="0.0"/>

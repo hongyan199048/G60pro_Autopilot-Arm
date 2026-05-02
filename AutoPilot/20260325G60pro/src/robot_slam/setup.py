@@ -11,11 +11,13 @@ setup(
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', [
             'launch/slam_sim.launch.py',
+            'launch/slam_sim_localization.launch.py',
             'launch/slam_real.launch.py',
             'launch/slam_real_localization.launch.py',
         ]),
         ('share/' + package_name + '/config', [
             'config/cartographer_sim.lua',
+            'config/cartographer_sim_localization.lua',
             'config/cartographer_real.lua',
             'config/cartographer_real_localization.lua',
         ]),

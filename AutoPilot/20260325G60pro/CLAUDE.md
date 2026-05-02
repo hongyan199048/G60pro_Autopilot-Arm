@@ -28,6 +28,7 @@ source /opt/ros/humble/setup.bash && source install/setup.bash && colcon build
 ### 仿真
 ```bash
 cd /home/admin123/Development/G60Pro/AutoPilot/20260325G60pro/docs
+./start_nav_sim_map.sh g60pro_v10    # 导入地图 → Nav2 导航
 ./start_slam_sim.sh        # Gazebo + Cartographer SLAM + RViz
 ./start_nav_sim.sh         # 建图 → 保存地图 → Nav2 导航
 ./view_sensors_sim.sh      # 查看所有传感器

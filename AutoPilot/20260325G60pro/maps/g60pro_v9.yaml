@@ -1,0 +1,10 @@
+free_thresh: 0.196
+image: g60pro_v9.pgm
+mode: trinary
+negate: 0
+occupied_thresh: 0.65
+origin:
+- -14.984994506835939
+- -7.9
+- 0.0
+resolution: 0.05000000074505806
