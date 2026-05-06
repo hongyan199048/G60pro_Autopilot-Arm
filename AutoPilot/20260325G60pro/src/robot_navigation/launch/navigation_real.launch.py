@@ -70,6 +70,41 @@ def generate_launch_description():
         ],
     )
 
+    # 4 路 RGBD 深度点云 → 2D 激光扫描（近场盲区补盲）
+    # target_frame 用 camera_link（Z 向上），min/max_height 在 camera_link 的 Z 轴过滤
+    # camera_link 离地约 1.15m，地面在 Z≈-1.15，障碍物在 Z≈-1.0 ~ 0.85
+    camera_pcl_scanners = []
+    camera_configs = [
+        ('camera_front', '/camera_front/depth_registered/points', '/camera_front/depth/scan', 'camera_front_link'),
+        ('camera_rear',  '/camera_rear/depth_registered/points',  '/camera_rear/depth/scan',  'camera_rear_link'),
+        ('camera_left',  '/camera_left/depth_registered/points',  '/camera_left/depth/scan',  'camera_left_link'),
+        ('camera_right', '/camera_right/depth_registered/points', '/camera_right/depth/scan', 'camera_right_link'),
+    ]
+    for cam_name, cloud_topic, scan_topic, target_frame in camera_configs:
+        camera_pcl_scanners.append(Node(
+            package='pointcloud_to_laserscan',
+            executable='pointcloud_to_laserscan_node',
+            name=f'pointcloud_to_laserscan_{cam_name}',
+            parameters=[{
+                'use_sim_time': LaunchConfiguration('use_sim_time'),
+                'target_frame': target_frame,
+                'transform_tolerance': 0.5,
+                'min_height': -1.2,   # 地面在 camera_link 约 -1.15m
+                'max_height': 1.0,    # 检测约 2.15m 以下障碍物
+                'angle_min': -3.14159,
+                'angle_max': 3.14159,
+                'angle_increment': 0.00873,  # ~1° 分辨率，减少计算量
+                'scan_time': 0.1,
+                'range_min': 0.2,
+                'range_max': 5.0,     # RGBD 相机可靠范围 ~5m
+                'use_inf': True,
+            }],
+            remappings=[
+                ('cloud_in', cloud_topic),
+                ('scan', scan_topic),
+            ],
+        ))
+
     # Nav2 导航节点（无 AMCL 版）
     # map_server 加载静态 .yaml 地图（供全局代价地图）
     # 所有定位 TF 由 Cartographer 提供（map→base_footprint）
@@ -105,6 +140,7 @@ def generate_launch_description():
         map_file,
         pbstream_file,
         pointcloud_to_laserscan,
+        *camera_pcl_scanners,
         nav2_launch,
         initial_pose_relay,
     ])

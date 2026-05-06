@@ -118,7 +118,7 @@ local_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: true
-        observation_sources: scan single_1 single_2  # 启用 Helios16 多线雷达 + 双单线雷达
+        observation_sources: scan single_1 single_2 camera_front camera_rear camera_left camera_right  # Helios16 + 双单线 + 4 RGBD
         # Helios16 多线雷达（主力，远距离）
         scan:
           topic: /scan
@@ -163,6 +163,70 @@ local_costmap:
           observation_persistence: 1.0  # 增加到 1.0 秒，避免因时间戳偏移被丢弃
           expected_update_rate: 10.0  # 降低到 10Hz，避免因更新率不足被标记为过期
           inf_is_valid: false
+        # RGBD 相机 1（车头，近场盲区补盲）
+        camera_front:
+          topic: /camera_front/depth/scan
+          sensor_frame: camera_front_link
+          max_obstacle_height: 2.0
+          min_obstacle_height: -1.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.0
+          obstacle_min_range: 0.3
+          observation_persistence: 0.5
+          expected_update_rate: 10.0
+          inf_is_valid: false
+        # RGBD 相机 2（车尾，近场盲区补盲）
+        camera_rear:
+          topic: /camera_rear/depth/scan
+          sensor_frame: camera_rear_link
+          max_obstacle_height: 2.0
+          min_obstacle_height: -1.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.0
+          obstacle_min_range: 0.3
+          observation_persistence: 0.5
+          expected_update_rate: 10.0
+          inf_is_valid: false
+        # RGBD 相机 3（左侧，近场盲区补盲）
+        camera_left:
+          topic: /camera_left/depth/scan
+          sensor_frame: camera_left_link
+          max_obstacle_height: 2.0
+          min_obstacle_height: -1.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.0
+          obstacle_min_range: 0.3
+          observation_persistence: 0.5
+          expected_update_rate: 10.0
+          inf_is_valid: false
+        # RGBD 相机 4（右侧，近场盲区补盲）
+        camera_right:
+          topic: /camera_right/depth/scan
+          sensor_frame: camera_right_link
+          max_obstacle_height: 2.0
+          min_obstacle_height: -1.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.0
+          obstacle_min_range: 0.3
+          observation_persistence: 0.5
+          expected_update_rate: 10.0
+          inf_is_valid: false
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
         enabled: true
@@ -191,7 +255,7 @@ global_costmap:
       obstacle_layer:
         plugin: "nav2_costmap_2d::ObstacleLayer"
         enabled: true
-        observation_sources: scan single_1 single_2  # 启用 Helios16 多线雷达 + 双单线雷达
+        observation_sources: scan single_1 single_2 camera_front camera_rear camera_left camera_right  # Helios16 + 双单线 + 4 RGBD
         # Helios16 多线雷达（主力，远距离）
         scan:
           topic: /scan
@@ -233,6 +297,70 @@ global_costmap:
           obstacle_min_range: 0.0  # 改为 0.0，检测所有距离的障碍物（包括紧贴车身的）
           observation_persistence: 1.0  # 增加到 1.0 秒，避免因时间戳偏移被丢弃
           expected_update_rate: 10.0  # 降低到 10Hz，避免因更新率不足被标记为过期
+          inf_is_valid: false
+        # RGBD 相机 1（车头，近场盲区补盲）
+        camera_front:
+          topic: /camera_front/depth/scan
+          sensor_frame: camera_front_link
+          max_obstacle_height: 2.0
+          min_obstacle_height: -1.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.0
+          obstacle_min_range: 0.3
+          observation_persistence: 0.5
+          expected_update_rate: 10.0
+          inf_is_valid: false
+        # RGBD 相机 2（车尾，近场盲区补盲）
+        camera_rear:
+          topic: /camera_rear/depth/scan
+          sensor_frame: camera_rear_link
+          max_obstacle_height: 2.0
+          min_obstacle_height: -1.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.0
+          obstacle_min_range: 0.3
+          observation_persistence: 0.5
+          expected_update_rate: 10.0
+          inf_is_valid: false
+        # RGBD 相机 3（左侧，近场盲区补盲）
+        camera_left:
+          topic: /camera_left/depth/scan
+          sensor_frame: camera_left_link
+          max_obstacle_height: 2.0
+          min_obstacle_height: -1.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.0
+          obstacle_min_range: 0.3
+          observation_persistence: 0.5
+          expected_update_rate: 10.0
+          inf_is_valid: false
+        # RGBD 相机 4（右侧，近场盲区补盲）
+        camera_right:
+          topic: /camera_right/depth/scan
+          sensor_frame: camera_right_link
+          max_obstacle_height: 2.0
+          min_obstacle_height: -1.0
+          clearing: true
+          marking: true
+          data_type: "LaserScan"
+          raytrace_max_range: 3.0
+          raytrace_min_range: 0.0
+          obstacle_max_range: 2.0
+          obstacle_min_range: 0.3
+          observation_persistence: 0.5
+          expected_update_rate: 10.0
           inf_is_valid: false
       inflation_layer:
         plugin: "nav2_costmap_2d::InflationLayer"
