@@ -54,6 +54,8 @@ function cleanup_procs() {
     pkill -9 -f map_server           2>/dev/null || true
     pkill -9 -f robot_base_node      2>/dev/null || true
     pkill -9 -f can_node             2>/dev/null || true
+    pkill -9 -f orbbec_camera        2>/dev/null || true
+    pkill -9 -f component_container  2>/dev/null || true
     sleep 0.5
 }
 
@@ -134,6 +136,50 @@ BASE_PID=$!
 # 3.5 CAN 节点（并行）
 ros2 run robot_can can_node &
 CAN_PID=$!
+
+# 3.6 车头 RGBD 相机（并行）
+ros2 launch orbbec_camera dabai_dcw2.launch.py \
+  camera_name:=camera_front \
+  publish_tf:=false \
+  depth_registration:=true \
+  enable_colored_point_cloud:=true \
+  enable_ir:=false \
+  cloud_frame_id:=camera_front_optical_frame \
+  serial_number:=AUIL93D000A &
+CAMERA_FRONT_PID=$!
+
+# 3.7 车尾 RGBD 相机（并行）
+ros2 launch orbbec_camera dabai_dcw2.launch.py \
+  camera_name:=camera_rear \
+  publish_tf:=false \
+  depth_registration:=true \
+  enable_colored_point_cloud:=true \
+  enable_ir:=false \
+  cloud_frame_id:=camera_rear_optical_frame \
+  serial_number:=AUIL93D0069 &
+CAMERA_REAR_PID=$!
+
+# 3.8 左侧 RGBD 相机（并行）
+ros2 launch orbbec_camera dabai_dcw2.launch.py \
+  camera_name:=camera_left \
+  publish_tf:=false \
+  depth_registration:=true \
+  enable_colored_point_cloud:=true \
+  enable_ir:=false \
+  cloud_frame_id:=camera_left_optical_frame \
+  serial_number:=AUIL93D0032 &
+CAMERA_LEFT_PID=$!
+
+# 3.9 右侧 RGBD 相机（并行）
+ros2 launch orbbec_camera dabai_dcw2.launch.py \
+  camera_name:=camera_right \
+  publish_tf:=false \
+  depth_registration:=true \
+  enable_colored_point_cloud:=true \
+  enable_ir:=false \
+  cloud_frame_id:=camera_right_optical_frame \
+  serial_number:=AUIL93D001Z &
+CAMERA_RIGHT_PID=$!
 
 echo "  等待基础节点初始化..."
 sleep 2
@@ -232,6 +278,10 @@ echo "  - rslidar_sdk:       $LIDAR_PID"
 echo "  - lakibeam1:         $LAKIBEAM_PID"
 echo "  - robot_base_node:   $BASE_PID"
 echo "  - can_node:          $CAN_PID"
+echo "  - Front RGBD Camera: $CAMERA_FRONT_PID"
+echo "  - Rear RGBD Camera:  $CAMERA_REAR_PID"
+echo "  - Left RGBD Camera:  $CAMERA_LEFT_PID"
+echo "  - Right RGBD Camera: $CAMERA_RIGHT_PID"
 echo "  - Cartographer:      $CARTO_PID"
 echo "  - Nav2 导航:         $NAV_PID"
 echo "  - RViz:              $RVIZ_PID"
@@ -262,6 +312,14 @@ echo "  /map              <- 地图（YAML 模式：map_server；纯定位模式
 echo "  /scan             <- 2D 激光（pointcloud_to_laserscan 转换）"
 echo "  /tf               <- map→base_footprint（Cartographer 发布）"
 echo "  /odom             <- 里程计（robot_base_node 开环积分）"
+echo "  /camera_front/color/image_raw  <- RGB 图像（车头）"
+echo "  /camera_front/depth/points     <- 彩色点云（车头）"
+echo "  /camera_rear/color/image_raw   <- RGB 图像（车尾）"
+echo "  /camera_rear/depth/points      <- 彩色点云（车尾）"
+echo "  /camera_left/color/image_raw   <- RGB 图像（左侧）"
+echo "  /camera_left/depth/points      <- 彩色点云（左侧）"
+echo "  /camera_right/color/image_raw  <- RGB 图像（右侧）"
+echo "  /camera_right/depth/points     <- 彩色点云（右侧）"
 echo ""
 echo "按 Ctrl+C 停止所有节点"
 echo "=========================================="
@@ -270,7 +328,7 @@ echo "=========================================="
 function shutdown() {
     echo ""
     echo "[关闭] 停止所有节点..."
-    kill $DESCRIPTION_PID $LIDAR_PID $LAKIBEAM_PID $CARTO_PID $NAV_PID $BASE_PID $CAN_PID $RVIZ_PID 2>/dev/null
+    kill $DESCRIPTION_PID $LIDAR_PID $LAKIBEAM_PID $CAMERA_FRONT_PID $CAMERA_REAR_PID $CAMERA_LEFT_PID $CAMERA_RIGHT_PID $CARTO_PID $NAV_PID $BASE_PID $CAN_PID $RVIZ_PID 2>/dev/null
     cleanup_procs
     echo "[完成]"
     exit 0
