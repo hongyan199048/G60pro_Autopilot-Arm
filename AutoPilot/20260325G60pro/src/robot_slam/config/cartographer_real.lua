@@ -4,14 +4,14 @@
 include "map_builder.lua"
 include "trajectory_builder.lua"
 
--- tracking_frame=base_link：Cartographer 追踪 base_link 位姿
+-- tracking_frame=base_footprint：Cartographer 追踪地面投影点，map Z=0 对齐地面
 -- published_frame=base_footprint：Cartographer 直接发布 map→base_footprint
 -- provide_odom_frame=false：实车无里程计，不插入 odom 帧，避免与 robot_state_publisher 冲突
 options = {
   map_builder = MAP_BUILDER,
   trajectory_builder = TRAJECTORY_BUILDER,
   map_frame = "map",
-  tracking_frame = "base_link",         -- 追踪车体中心
+  tracking_frame = "base_footprint",    -- 追踪地面投影点，与 sim 一致
   published_frame = "base_footprint",   -- 直接发布 map→base_footprint
   odom_frame = "odom",
   provide_odom_frame = false,           -- 无真实里程计，不插入 odom 帧
@@ -48,13 +48,11 @@ TRAJECTORY_BUILDER_2D.num_accumulated_range_data = 1
 TRAJECTORY_BUILDER_2D.min_range = 1.6
 TRAJECTORY_BUILDER_2D.max_range = 30.0
 
--- Z 方向高度过滤（相对 tracking_frame = base_link，NOT LiDAR 帧）
--- base_link 离地 0.655m（ground_clearance=0.155 + chassis_z/2=0.5）
--- 有效障碍物高度范围（相对地面）：0.05m ~ 2.0m
--- 换算到 base_link 坐标系：min_z = 0.05 - 0.655 = -0.6m，max_z = 2.0 - 0.655 = 1.35m
--- 注：rs16_link 水平光束 z=0.885（base_link系），必须 max_z > 0.885 才能保留水平光束
-TRAJECTORY_BUILDER_2D.min_z = -0.6
-TRAJECTORY_BUILDER_2D.max_z = 1.4
+-- Z 方向高度过滤（相对 tracking_frame = base_footprint，地面 Z=0）
+-- 有效障碍物高度范围：0.1m ~ 2.0m（与仿真一致）
+-- rs16_link 水平光束在 base_footprint 系中 z≈1.54m，max_z=2.0 可保留
+TRAJECTORY_BUILDER_2D.min_z = 0.1
+TRAJECTORY_BUILDER_2D.max_z = 2.0
 
 -- 运动滤波：有 odom 先验后按距离/角度触发，降低多余帧插入
 TRAJECTORY_BUILDER_2D.motion_filter.max_time_seconds = 5.0

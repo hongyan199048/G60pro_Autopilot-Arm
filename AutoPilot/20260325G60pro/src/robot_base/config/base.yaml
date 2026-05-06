@@ -10,9 +10,9 @@
     max_angular: 1.0        # 最大角速度 (rad/s)
 
     # 坐标系
-    odom_frame: 'odom'
     base_frame: 'base_footprint'
 
     # 模式
     use_sim: false
-    publish_tf: true        # 是否发布 odom→base_footprint TF（实车纯定位模式设为 false）
+    publish_tf: false       # 不发布 odom→base_footprint TF
+                           # Cartographer 直接发布 map→base_footprint，odom frame 不出现在 TF 树中
